@@ -28,4 +28,5 @@ private:
     float velocity = 1.0f;
 
     sf::Vector2f m_direction;
+    sf::Vector2f movement;
 };
