@@ -65,7 +65,7 @@ void ScriptManager::OnFixedUpdate()
     {
         for (IScript* script : idScripts.second)
         {
-            if (script->owner->IsDestroyed()) continue;
+            if (script->m_pOwner->IsDestroyed()) continue;
             script->OnFixedUpdate();
         }
     }

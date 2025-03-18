@@ -24,7 +24,7 @@ struct IScript
     virtual void OnDisable();
 
 protected:
-    Entity* owner;
+    Entity* m_pOwner;
 
 private:
     void SetOwner(Entity* entity);

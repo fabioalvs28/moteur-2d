@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "Script.h"
 
-IScript::IScript(): owner(nullptr)
+IScript::IScript(): m_pOwner(nullptr)
 {
 }
 
@@ -51,5 +51,5 @@ void IScript::OnDisable()
 
 void IScript::SetOwner(Entity* entity)
 {
-    owner = entity;
+    m_pOwner = entity;
 }
