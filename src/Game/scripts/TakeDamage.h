@@ -6,13 +6,15 @@ class Health;
 class TakeDamage : public IScript
 {
 public:
-	TakeDamage() = default;
+	TakeDamage(Health* health) : componentHP(health) {}
 
 	void OnStart() override;
 	void OnFixedUpdate() override;
+	void ApplyDamage(int damage);
 	void OnCollisionEnter(Entity* other) override;
 	void OnUpdate() override;
 
 private:
-	float damage;
+	int damage;
+	Health* componentHP;
 };
