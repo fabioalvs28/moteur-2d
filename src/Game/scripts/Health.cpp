@@ -24,6 +24,11 @@ float Health::GetMaxHP()
 	return maxHP;
 }
 
+Entity* Health::GetOwner()
+{
+	return owner;
+}
+
 void Health::OnUpdate()
 {
 }
