@@ -28,7 +28,7 @@ private:
     float m_speed;
     GameManager* m_pGameManager;
     float velocity = 1.0f;
-
+    RenderWindow* m_rw;
     sf::Vector2f m_direction;
     sf::Vector2f m_movement;
 };

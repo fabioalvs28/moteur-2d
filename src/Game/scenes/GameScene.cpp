@@ -35,7 +35,5 @@ void GameScene::OnEnter()
 
 void GameScene::OnUpdate()
 {
-    float windowWidth = m_pRenderWindow->GetWindowWidth();
-    float windowheight = m_pRenderWindow->GetWindowHeight();
-    m_pCamera->GetTransform()->position = m_pPlayer->GetTransform()->position - sf::Vector2f(windowWidth / 2, windowheight / 2);
+
 }

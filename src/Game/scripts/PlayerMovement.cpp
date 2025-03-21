@@ -19,11 +19,13 @@ void PlayerMovement::OnStart()
     m_attackDistance = 100.0f;
     m_pGameManager = Engine::GetGameManager();
     m_speed = 500.0f;
+    m_rw = Engine::GetRenderWindow();
 }
 
 void PlayerMovement::OnFixedUpdate()
 {
-    m_pOwner->GetTransform()->position += m_movement * m_speed;
+    TRANSFORM* ownerTransform = m_pOwner->GetTransform();
+    ownerTransform->SetPosition(ownerTransform->position.x + m_movement.x * m_speed + m_rw->GetWindowHeight(), ownerTransform->position.x + m_movement.x * m_speed + m_rw->GetWindowHeight());
     m_movement = sf::Vector2f(0, 0);
 }
 
