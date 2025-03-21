@@ -8,6 +8,10 @@
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/RigidBody2D.h"
 
+PlayerMovement::PlayerMovement()
+{
+}
+
 void PlayerMovement::OnStart()
 {
     m_isAttacking = false;
@@ -27,6 +31,11 @@ void PlayerMovement::OnFixedUpdate()
     TRANSFORM* ownerTransform = m_pOwner->GetTransform();
     ownerTransform->SetPosition(ownerTransform->position.x + m_movement.x * m_speed + m_rw->GetWindowHeight(), ownerTransform->position.x + m_movement.x * m_speed + m_rw->GetWindowHeight());
     m_movement = sf::Vector2f(0, 0);
+}
+
+void PlayerMovement::OnCollisionEnter(Entity* other)
+{
+    std::cout << "Collision Enter" << std::endl;
 }
 
 void PlayerMovement::OnUpdate()
@@ -58,7 +67,9 @@ void PlayerMovement::OnUpdate()
         m_movement -= m_pOwner->GetTransform()->up * Engine::GetDeltaTime();
         m_direction = sf::Vector2f(0.0, -1.0);
     }
+
 }
+
 
 void PlayerMovement::OnDisable()
 {

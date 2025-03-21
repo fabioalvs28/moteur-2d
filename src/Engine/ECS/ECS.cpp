@@ -7,6 +7,7 @@
 
 #include "scripts/ScriptManager.h"
 #include "Systems/CameraSystem.h"
+#include "Systems/CollisionSystem.h"
 #include "Systems/ParticleSystem.h"
 #include "Systems/PhysicsSystem.h"
 #include "Systems/RenderSystem.h"
@@ -46,7 +47,7 @@ void ECS::FixedUpdate()
     Engine::GetScriptManager()->OnFixedUpdate();
 
     Engine::GetPhysicsSystem()->OnFixedUpdate(this);
-    //Engine::GetCollisionSystem()->OnFixedUpdate(this);
+    Engine::GetCollisionSystem()->OnFixedUpdate(this);
     
 }
 
@@ -60,6 +61,14 @@ void ECS::Update()
         mEntities[mEntityCount] = toAddEC ;
         toAddEC->Entity->Create(mEntityCount);
         mEntityCount++;
+
+        int layer = toAddEC->Entity->GetLayer();
+
+        if(!mEntitiesByLayer.contains(layer))
+        {
+            mEntitiesByLayer[layer] = new std::list<Entity*>;
+        }
+        mEntitiesByLayer[layer]->push_back(toAddEC->Entity);
     }
     mEntityToAddCount = 0;
 
@@ -67,6 +76,7 @@ void ECS::Update()
     {
         int indexRemoved = *mToRemoveEntityIndex[i];
 
+        mEntitiesByLayer[mEntities[indexRemoved]->Entity->GetLayer()]->remove(mEntities[indexRemoved]->Entity);
         if (indexRemoved == mEntityCount-1)
         {
             delete mEntities[indexRemoved];
@@ -87,6 +97,7 @@ void ECS::Update()
         mEntities[indexRemoved] = mEntities[mEntityCount-1];
         mEntities[indexRemoved]->Entity->SetIndex(indexRemoved);
         mEntityCount--;
+        
     }
     mEntityToRemoveCount = 0;
 
@@ -105,6 +116,7 @@ void ECS::Update()
     
     Engine::GetCameraSystem()->Update(this);
     Engine::GetScriptManager()->OnUpdate();
+
     
 }
 

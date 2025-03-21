@@ -7,10 +7,10 @@
 #include "ObjectFactory.h"
 #include "ECS/Components/Camera.h"
 #include "ECS/Components/SpriteRenderer.h"
-#include "ECS/Components/RigidBody2D.h"
 #include "ECS/Components/ui/Image.h"
 
 #include "scripts/PlayerMovement.h"
+
 
 void GameScene::OnEnter()
 {
@@ -25,11 +25,12 @@ void GameScene::OnEnter()
     
     ObjectFactory::AttachScript<PlayerMovement>(m_pPlayer);
     
-    m_pCamera = ObjectFactory::CreateEntity<Entity>(m_pPlayer);
-    ObjectFactory::CreateComponent<Camera>(m_pCamera);
+    Entity* camera = ObjectFactory::CreateEntity<Entity>();
+    ObjectFactory::CreateComponent<Camera>(camera);
 
-    //Entity* expBar = ObjectFactory::CreateEntity<Entity>();
-    //ObjectFactory::CreateComponent<Image>(expBar, Resources::instance().DEFAULT_SPRITE);
+    Entity* expBar = ObjectFactory::CreateEntity<Entity>();
+    ObjectFactory::CreateComponent<Image>(expBar, Resources::instance().DEFAULT_SPRITE);
+
     
 }
 

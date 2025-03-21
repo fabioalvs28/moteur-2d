@@ -7,6 +7,7 @@
 
 #include "scenes/Editor.h"
 #include "scenes/GameScene.h"
+#include "scenes/TestScene.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
