@@ -5,7 +5,6 @@
 #include "Resources.h"
 #include "Managers/GameManager.h"
 
-#include "scenes/Editor.h"
 #include "scenes/GameScene.h"
 #include "scenes/TestScene.h"
 

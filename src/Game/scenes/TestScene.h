@@ -6,6 +6,7 @@ class TestScene: public Scene
 {
 
     Entity* player;
+    Entity* camera;
 private:
     void OnEnter() override;
     void OnExit() override {}

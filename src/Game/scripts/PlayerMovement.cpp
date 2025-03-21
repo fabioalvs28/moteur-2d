@@ -14,6 +14,7 @@ PlayerMovement::PlayerMovement()
 void PlayerMovement::OnStart()
 {
     mTransform = owner->GetTransform();
+    HP = 10;
 }
 
 void PlayerMovement::OnFixedUpdate()
@@ -47,6 +48,7 @@ void PlayerMovement::OnUpdate()
         movement -= mTransform->up * Engine::GetDeltaTime();
     }
 
+    std::cout << GetHP() << std::endl;
 }
 
 
