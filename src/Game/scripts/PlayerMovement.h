@@ -25,8 +25,10 @@ private:
     float m_attackDelay;
     float m_attackDuration;
     float m_attackDistance;
+    float m_speed;
+    GameManager* m_pGameManager;
     float velocity = 1.0f;
 
     sf::Vector2f m_direction;
-    sf::Vector2f movement;
+    sf::Vector2f m_movement;
 };

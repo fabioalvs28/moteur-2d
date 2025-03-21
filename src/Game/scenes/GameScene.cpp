@@ -14,25 +14,28 @@
 
 void GameScene::OnEnter()
 {
-
+    m_pRenderWindow = Engine::GetRenderWindow();
     srand(static_cast<unsigned int>(time(nullptr)));
     
-    Entity* player = ObjectFactory::CreateEntity<Entity>();
-    player->GetTransform()->SetPosition(0.0f, -500.0f);
-    ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
-    player->SetTag(Entity::Tag::PLAYER);
+    m_pPlayer = ObjectFactory::CreateEntity<Entity>();
+    RenderWindow* pWindow = Engine::GetRenderWindow();
+    m_pPlayer->GetTransform()->SetPosition(pWindow->GetWindowWidth() / 2, pWindow->GetWindowHeight() / 2);
+    ObjectFactory::CreateComponent<SpriteRenderer>(m_pPlayer, Resources::instance().DEFAULT_SPRITE);
+    m_pPlayer->SetTag(Entity::Tag::PLAYER);
     
-    ObjectFactory::AttachScript<PlayerMovement>(player);
+    ObjectFactory::AttachScript<PlayerMovement>(m_pPlayer);
     
-    Entity* camera = ObjectFactory::CreateEntity<Entity>(player);
-    ObjectFactory::CreateComponent<Camera>(camera);
+    m_pCamera = ObjectFactory::CreateEntity<Entity>(m_pPlayer);
+    ObjectFactory::CreateComponent<Camera>(m_pCamera);
 
-    Entity* expBar = ObjectFactory::CreateEntity<Entity>();
-    ObjectFactory::CreateComponent<Image>(expBar, Resources::instance().DEFAULT_SPRITE);
+    //Entity* expBar = ObjectFactory::CreateEntity<Entity>();
+    //ObjectFactory::CreateComponent<Image>(expBar, Resources::instance().DEFAULT_SPRITE);
     
 }
 
 void GameScene::OnUpdate()
 {
-
+    float windowWidth = m_pRenderWindow->GetWindowWidth();
+    float windowheight = m_pRenderWindow->GetWindowHeight();
+    m_pCamera->GetTransform()->position = m_pPlayer->GetTransform()->position - sf::Vector2f(windowWidth / 2, windowheight / 2);
 }

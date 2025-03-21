@@ -1,12 +1,18 @@
 #pragma once
 #include "Managers/Scene.h"
 
+class Entity;
 class GameScene : public Scene
 {
+private:
     void OnEnter() override;
     void OnExit() override {}
     void OnFixedUpdate() override {}
     void Render() override {}
     void OnUpdate() override;
-
+    
+private:
+    Entity* m_pCamera;
+    Entity* m_pPlayer;
+    RenderWindow* m_pRenderWindow;
 };

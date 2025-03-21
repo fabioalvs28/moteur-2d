@@ -12,42 +12,49 @@ void PlayerMovement::OnStart()
 {
     m_isAttacking = false;
     m_time = 0;
-    m_attackTime = 0.0;
+    m_attackTime = 0.0f;
     m_attackDelay = 2;
     m_attackDuration = 1;
     m_direction = sf::Vector2f(1.0, 0.0);
-    m_attackDistance = 2.0;
+    m_attackDistance = 100.0f;
+    m_pGameManager = Engine::GetGameManager();
+    m_speed = 500.0f;
 }
 
 void PlayerMovement::OnFixedUpdate()
 {
-    float speed = 2000.0f;
-    owner->GetTransform()->position += movement * speed;
-    movement = sf::Vector2f(0, 0);
+    m_pOwner->GetTransform()->position += m_movement * m_speed;
+    m_movement = sf::Vector2f(0, 0);
 }
 
 void PlayerMovement::OnUpdate()
 {
-    m_time += Engine::GetGameManager()->GetTime()->GetDeltaTime();
+    m_time += m_pGameManager->GetTime()->GetDeltaTime();
     if (m_time >= m_attackDelay)
     {
         m_time -= m_attackDelay;
         Attack();
+    }
+
     if (isKeyPressed(sf::Keyboard::Key::D))
     {
-        movement += owner->GetTransform()->right * Engine::GetDeltaTime();
+        m_movement += m_pOwner->GetTransform()->right * Engine::GetDeltaTime();
+        m_direction = sf::Vector2f(1.0, 0.0);
     }
     if (isKeyPressed(sf::Keyboard::Key::Q))
     {
-        movement -= owner->GetTransform()->right * Engine::GetDeltaTime();
+        m_movement -= m_pOwner->GetTransform()->right * Engine::GetDeltaTime();
+        m_direction = sf::Vector2f(-1.0, 0.0);
     }
     if (isKeyPressed(sf::Keyboard::Key::S))
     {
-        movement += owner->GetTransform()->up * Engine::GetDeltaTime();
+        m_movement += m_pOwner->GetTransform()->up * Engine::GetDeltaTime();
+        m_direction = sf::Vector2f(0.0, 1.0);
     }
     if (isKeyPressed(sf::Keyboard::Key::Z))
     {
-        movement -= owner->GetTransform()->up * Engine::GetDeltaTime();
+        m_movement -= m_pOwner->GetTransform()->up * Engine::GetDeltaTime();
+        m_direction = sf::Vector2f(0.0, -1.0);
     }
 }
 
@@ -58,13 +65,14 @@ void PlayerMovement::OnDisable()
 
 void PlayerMovement::Attack()
 {
-    if (m_isAttacking == true)
-        return;
-
+    //if (m_isAttacking == true)
+    //    return;
+        
     m_isAttacking = true;
     Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
     sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
     attackRect->GetTransform()->SetPosition(ownerPos.x + m_direction.x * m_attackDistance, ownerPos.y + m_direction.y * m_attackDistance);
 
-    ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+    SpriteRenderer* pSp = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+    pSp->Image->setScale({ 10,10 });
 }
