@@ -16,3 +16,10 @@ int PhysicsMaterial::GetBitmask()
 {
     return BITMASK;
 }
+
+void PhysicsMaterial::Serialize(json& json)
+{
+    json["Elasticity"] = this->mElasticity;
+    json["DynamicFriction"] = this->mDynamicFriction;
+    json["StaticFriction"] = this->mStaticFriction;
+}

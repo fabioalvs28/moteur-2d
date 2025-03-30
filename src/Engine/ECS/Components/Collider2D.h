@@ -21,11 +21,14 @@ public:
     
     static constexpr int BITMASK = 1 << 8;
     Collider2D(Entity* entity);
+    
+#pragma region Setters
     void SetCenter(sf::Vector2f newPos) { mCenter = newPos; }
     void SetType(ColliderType nType) { mColliderType = nType; }
     void SetLastGridPosition(const CellCoords& newPosition) { mLastGridPosition = newPosition; }
     void SetTrigger(bool trig) { mIsTrigger = trig;}
     void SetStatic(bool stat) { mIsStatic = stat; }
+#pragma endregion
     
 #pragma region Getters
 
@@ -36,6 +39,7 @@ public:
     ColliderType GetColliderType() const { return mColliderType; }
     CellCoords GetLastGridPosition() const {return mLastGridPosition; }
     sf::Shape* GetShape() const { return mpShape; }
+    std::string ColliderTypeToString(ColliderType type);
 #pragma endregion
     
 #pragma region CollisionManifold Generation

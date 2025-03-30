@@ -13,7 +13,8 @@ public:
     SpriteRenderer(Entity* parent, Sprite* sprite, Shader* shader = nullptr);
     ~SpriteRenderer() override;
     int GetBitmask() override;
-
+    void Serialize(json& json) override;
+    
     Sprite* Image;
     Shader* RendererShader;
     

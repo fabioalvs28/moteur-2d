@@ -14,3 +14,9 @@ int SpriteRenderer::GetBitmask()
 {
     return BITMASK;
 }
+
+void SpriteRenderer::Serialize(json& json)
+{
+    json["Texture"] = "test";
+    json["Shader"] = "shader";
+}

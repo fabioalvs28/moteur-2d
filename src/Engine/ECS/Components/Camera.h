@@ -11,6 +11,7 @@ public:
 
     int DisplayScreen;
     float ZoomFactor = 1.0f;
+    void Serialize(json& json) override;
     
     int GetBitmask() override;
 };

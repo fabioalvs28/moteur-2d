@@ -77,3 +77,29 @@ bool Entity::IsDestroyed() const
 {
     return mDestoyed;
 }
+
+const char* Entity::GetStringFromTag(Tag oTag) const
+{
+    switch (oTag)
+    {
+        case Tag::NONE: return "NONE";
+        case Tag::PLAYER: return "PLAYER";
+        case Tag::GROUND: return "GROUND";
+        case Tag::OBSTACLE: return "OBSTACLE";
+        case Tag::ENNEMY: return "ENNEMY";
+        case Tag::PROJECTILES: return "PROJECTILES";
+        default: return "UNKNOWN";   
+    }
+}
+
+Entity::Tag Entity::GetTagFromString(const std::string& oString) const
+{
+    if (oString == "NONE") return Tag::NONE;
+    if (oString == "PLAYER") return Tag::PLAYER;
+    if (oString == "GROUND") return Tag::GROUND;
+    if (oString == "OBSTACLE") return Tag::OBSTACLE;
+    if (oString == "ENNEMY") return Tag::ENNEMY;
+    if (oString == "PROJECTILES") return Tag::PROJECTILES;
+
+    return Tag::NONE;  // Valeur par défaut
+}

@@ -26,6 +26,7 @@ void TestScene::OnEnter()
     //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
     ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
     player->SetTag(Entity::Tag::PLAYER);
+    ObjectFactory::SavePrefab(player, "player.prefab");
     
     PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
     

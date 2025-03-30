@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Engine.h"
 
+#include "ObjectFactory.h"
 #include "ECS/Systems/CameraSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/ParticleSystem.h"
@@ -10,6 +11,7 @@
 #include "scripts/ScriptManager.h"
 
 #include "ECS/ECS.h"
+#include "ECS/Components/Light.h"
 #include "Render/RenderWindow.h"
 
 Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSystem(nullptr),
@@ -18,6 +20,14 @@ Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSyst
                    mScriptManager(new ScriptManager()),
                    mRenderWindow(nullptr)
 {
+    ObjectFactory::RegisterComponent<RigidBody2D>();
+    ObjectFactory::RegisterComponent<SpriteRenderer>();
+    ObjectFactory::RegisterComponent<PhysicsMaterial>();
+    ObjectFactory::RegisterComponent<Light>();
+    ObjectFactory::RegisterComponent<Collider2D>();
+    ObjectFactory::RegisterComponent<Camera>();
+    ObjectFactory::RegisterComponent<AABBCollider>();
+    ObjectFactory::RegisterComponent<CircleCollider>();
 }
 
 Engine::~Engine()

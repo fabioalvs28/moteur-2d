@@ -26,3 +26,9 @@ bool Component::GetState() const
 {
     return mActive;
 }
+
+const char* Component::GetTypeName() const
+{
+    return typeid(this).name();
+}
+

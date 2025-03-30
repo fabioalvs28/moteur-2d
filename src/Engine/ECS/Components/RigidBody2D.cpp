@@ -68,3 +68,13 @@ void RigidBody2D::ApplyImpulse(sf::Vector2f impulse)
     
     mVelocity += impulse * GetInvMass() ;
 }
+
+void RigidBody2D::Serialize(json& json)
+{
+    json["Mass"] = this->mMass;
+    json["Damping"] = this->mDamping;
+    json["Gravity"] = this->mGravity;
+    json["UseGravity"] = this->UseGravity;
+    json["RBType"] = this->mType;
+}
+

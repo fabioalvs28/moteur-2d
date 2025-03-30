@@ -18,8 +18,6 @@ public:
         OBSTACLE,
         ENNEMY,
         PROJECTILES,
-        ENEMY_PROJECTILES,
-        BUMPER,
 
         TAG_COUNT
     };
@@ -46,6 +44,9 @@ public:
     bool IsTag(Tag oTag) const { return mTag == oTag; }
     [[nodiscard]] Tag GetTag() const { return mTag; }
 
+    const char* GetStringFromTag(Tag oTag) const;
+    Tag GetTagFromString(const std::string& oString) const;
+    
     int GetLayer() const { return mLayer; }
     void SetLayer(int nLayer) { mLayer = nLayer; }
     

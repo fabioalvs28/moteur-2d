@@ -12,6 +12,12 @@ public:
 
     sf::Vector2f GetMin() { return { mXMin, mYMin }; }
     sf::Vector2f GetMax() { return { mXMax, mYMax }; }
+
+    void Serialize(json& json) override;
+    static constexpr int BITMASK = 1 << 10;
+    int GetBitmask() override;
+
+
 protected:
     float mXMin;
     float mYMin;

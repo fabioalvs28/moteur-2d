@@ -4,7 +4,6 @@
 
 class TestScene: public Scene
 {
-
     Entity* player;
     Entity* camera;
 private:

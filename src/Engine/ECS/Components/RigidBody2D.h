@@ -46,6 +46,8 @@ public:
     void ClearVelocity();
     float GetInvMass() const { return 1/mMass; }
     void ApplyImpulse(sf::Vector2f impulse);
+
+    void Serialize(json& json) override;
 #pragma endregion
 
 };

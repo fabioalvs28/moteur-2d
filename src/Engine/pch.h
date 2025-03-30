@@ -14,6 +14,10 @@
 #include <list>
 #include <queue>
 #include <unordered_map>
+#include <json.hpp>
+#include <fstream>
+
+using json = nlohmann::json;
 
 #include <Windows.h>
 #include <timeapi.h>

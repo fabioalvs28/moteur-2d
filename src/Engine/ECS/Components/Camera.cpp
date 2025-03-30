@@ -3,6 +3,12 @@
 
 Camera::Camera(Entity* entity, int display) : Component(entity), DisplayScreen(display) { }
 
+void Camera::Serialize(json& json)
+{
+    json["displayScreen"] = DisplayScreen;
+    json["ZoomFactor"] = ZoomFactor;  
+}
+
 int Camera::GetBitmask()
 {
     return BITMASK;

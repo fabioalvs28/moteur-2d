@@ -2,14 +2,14 @@
 
 #include "Component.h"
 
-struct PhysicsMaterial : Component
+struct PhysicsMaterial : public Component
 {
     static constexpr int BITMASK = 1 << 4;
     
     PhysicsMaterial(Entity* entity);
     void SetNewMaterial(const PhysicsMaterial* material);
     int GetBitmask() override;
-    
+    void Serialize(json& json) override;
     float mElasticity = 0.1f;
     
     //Not Used

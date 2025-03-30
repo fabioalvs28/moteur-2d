@@ -1,6 +1,5 @@
 #pragma once
 #include "Managers/Scene.h"
-#include "scripts/Inventory.h"
 class GameScene : public Scene
 {
     void OnEnter() override;

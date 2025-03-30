@@ -18,9 +18,19 @@ Collider2D::Collider2D(Entity* entity) : Component(entity)
     ObjectFactory::CreateComponent<PhysicsMaterial>(entity);
 }
 
+
 int Collider2D::GetBitmask()
 {
     return BITMASK;
+}
+
+std::string Collider2D::ColliderTypeToString(ColliderType type)
+{
+    switch (type) {
+    case ColliderType::AABB: return "AABB";
+    case ColliderType::CIRCLE: return "Circle";
+    default: return "Unknown";}
+    
 }
 
 CollisionManifold Collider2D::Intersects(Collider2D* Collider)
