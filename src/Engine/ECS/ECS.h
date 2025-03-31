@@ -37,6 +37,7 @@ public:
     template<typename T>
     bool HasComponent(int entityIndex) const;
 
+    EC** GetEntities() { return mEntities; }
     int mEntityCount;
     int mEntityToAddCount;
     int mEntityToRemoveCount;

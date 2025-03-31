@@ -33,6 +33,8 @@ protected:
 
 #pragma region Functions
 public:
+    void Deserialize(json& json) override;
+
     void SetType(RIGIDBODYTYPE nType);
     void SetSize(float w, float h);
     void SetMass(float nMass);
@@ -46,6 +48,8 @@ public:
     void ClearVelocity();
     float GetInvMass() const { return 1/mMass; }
     void ApplyImpulse(sf::Vector2f impulse);
+
+    void Serialize(json& json) override;
 #pragma endregion
 
 };

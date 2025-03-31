@@ -24,6 +24,8 @@ void PlayerMovement::OnStart()
     m_pGameManager = Engine::GetGameManager();
     m_speed = 1000.0f;
     m_rw = Engine::GetRenderWindow();
+    mTransform = owner->GetTransform();
+    HP = 10;
 }
 
 void PlayerMovement::OnFixedUpdate()
@@ -68,6 +70,7 @@ void PlayerMovement::OnUpdate()
         m_direction = sf::Vector2f(0.0, -1.0);
     }
 
+    std::cout << GetHP() << std::endl;
 }
 
 

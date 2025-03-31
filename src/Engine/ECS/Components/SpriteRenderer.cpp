@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "SpriteRenderer.h"
 
+#include "Render/Texture.h"
+
 SpriteRenderer::SpriteRenderer(Entity* parent, Sprite* sprite, Shader* shader)
 : Component(parent), Image(sprite), RendererShader(shader)
 {
@@ -8,9 +10,24 @@ SpriteRenderer::SpriteRenderer(Entity* parent, Sprite* sprite, Shader* shader)
 }
 
 
-SpriteRenderer::~SpriteRenderer(){}
+SpriteRenderer::~SpriteRenderer()
+{
+    if (texture)
+        delete texture;
+}
 
 int SpriteRenderer::GetBitmask()
 {
     return BITMASK;
+}
+
+void SpriteRenderer::Serialize(json& json)
+{
+    if(texture)
+        json["Texture"] = texture->GetPath();
+}
+
+void SpriteRenderer::Deserialize(json& json)
+{
+
 }

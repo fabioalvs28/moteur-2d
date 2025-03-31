@@ -12,8 +12,11 @@ public:
     void Activate();
     void Deactivate();
     bool GetState() const;
+    const char* GetTypeName() const;
     virtual int GetBitmask() = 0;
-    
+    virtual void Serialize(json& json) = 0;
+    virtual void Deserialize(json& json) = 0;
+
 protected:
     Entity* mEntity;
     bool mActive;

@@ -10,6 +10,8 @@
 #include "ECS/Components/RigidBody2D.h"
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "ECS/Components/Colliders/CircleCollider.h"
+#include "scripts/EnnemyAttack.h"
+#include "scripts/EnnemyMovement.h"
 
 #include "scripts/PlayerMovement.h"
 void TestScene::OnEnter()
@@ -25,14 +27,15 @@ void TestScene::OnEnter()
     ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
     player->SetTag(Entity::Tag::PLAYER);
     
-    ObjectFactory::AttachScript<PlayerMovement>(player);
-
+    PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
     
     Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     other->GetTransform()->SetPosition(250.0f,250.0f);
     ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
     //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
     other->GetComponent<AABBCollider>()->SetTrigger(true);
+    ObjectFactory::AttachScript<EnnemyMovement>(other, player);
+    ObjectFactory::AttachScript<EnnemyAttack>(other, mov);
     //other->GetComponent<CircleCollider>()->SetStatic(true);
 
     Entity* other2 = ObjectFactory::CreateEntity<Entity>(0);
@@ -42,15 +45,20 @@ void TestScene::OnEnter()
     //other2->GetComponent<CircleCollider>()->SetStatic(true);
     other2->GetComponent<AABBCollider>()->SetStatic(true);
 
-    Entity* camera = ObjectFactory::CreateEntity<Entity>();
+    camera = ObjectFactory::CreateEntity<Entity>(player);
     ObjectFactory::CreateComponent<Camera>(camera);
     
 }
 
+void TestScene::OnLoad()
+{
+    player = ObjectFactory::LoadPrefab("player.prefab");
+}
 void TestScene::OnUpdate()
 {
-    // std::cout << player->GetTransform()->position.x << std::endl;
-    // std::cout << player->GetTransform()->position.y << std::endl;
+    camera->GetTransform()->SetPosition(player->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, player->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);
 }
+
+
 
 

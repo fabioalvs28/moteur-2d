@@ -9,9 +9,13 @@ class Sprite : public sf::Sprite
 public:
     Sprite(Texture& sprite);
     Sprite(sf::Sprite& sprite);
-    ~Sprite() = default;
+    ~Sprite();
     
     void SetAlpha(uint8_t alpha);
-    
+    Texture* GetTexture() const;
+
     Sprite* Cut(int x, int y, int width, int height);
+
+private:
+    Texture* mpTexture;
 };

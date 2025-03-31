@@ -14,6 +14,8 @@ public:
     void OnCollisionEnter(Entity* other) override;
     void OnUpdate() override;
     void OnDisable() override;
+    void SetHP(float hp) { HP = hp; }
+    float GetHP() { return HP; }
 
 private:
     void Attack();
@@ -32,4 +34,7 @@ private:
     RenderWindow* m_rw;
     sf::Vector2f m_direction;
     sf::Vector2f m_movement;
+    TRANSFORM* mTransform;
+    sf::Vector2f movement;
+    float HP;
 };
