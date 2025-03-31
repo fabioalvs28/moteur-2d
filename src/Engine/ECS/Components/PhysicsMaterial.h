@@ -10,6 +10,7 @@ struct PhysicsMaterial : public Component
     void SetNewMaterial(const PhysicsMaterial* material);
     int GetBitmask() override;
     void Serialize(json& json) override;
+    void Deserialize(json& json) override;
     float mElasticity = 0.1f;
     
     //Not Used

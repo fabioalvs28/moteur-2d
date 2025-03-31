@@ -12,5 +12,6 @@ private:
     void OnFixedUpdate() override {}
     void Render() override {}
     void OnUpdate() override;
+    void OnLoad() override;
 
 };

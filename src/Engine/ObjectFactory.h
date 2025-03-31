@@ -3,10 +3,13 @@
 #include <iostream>
 
 #include "ECS/Components/Camera.h"
+#include "ECS/Components/PhysicsMaterial.h"
 #include "ECS/Components/RigidBody2D.h"
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "ECS/Components/Colliders/CircleCollider.h"
+#include "Game/Resources.h"
+#include "Transform.h"
 #include "scripts/ScriptManager.h"
 
 class ObjectFactory
@@ -34,22 +37,25 @@ public:
 inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filename)
 {
     json prefabJson;
+    prefabJson["TPosition"] = {{"x", entity->GetTransform()->position.x}, {"y", entity->GetTransform()->position.y}};
+    prefabJson["TScale"] = {{"x", entity->GetTransform()->scale.x}, {"y", entity->GetTransform()->scale.y}};
+    prefabJson["Rotation"] = entity->GetTransform()->rotation.asDegrees();
     prefabJson["Tag"] = entity->GetStringFromTag(entity->GetTag());
     prefabJson["Layer"] =  entity->GetLayer();
-
+    
     for(auto& component : Engine::GetECS()->GetEntities()[*entity->GetIndex()]->AttachedComponents)
     {
         json componentJson;
-        componentJson["bitmask"] = component->GetBitmask();
         component->Serialize(componentJson);
+        componentJson["bitmask"] = component->GetBitmask();
         prefabJson["components"].push_back(componentJson);
     }
 
-    std::ofstream file(filename);
-    if (file.is_open())
+    std::ofstream outfile(filename);
+    if (outfile.is_open())
     {
-        file << prefabJson.dump(4);
-        file.close();
+        outfile << prefabJson.dump(4);
+        outfile.close();
     }
     else
     {
@@ -57,7 +63,7 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
     }
 }
 
-Entity* ObjectFactory::LoadPrefab(const std::string& filename)
+inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
 {
     std::ifstream file(filename);
     if (!file.is_open())
@@ -70,26 +76,69 @@ Entity* ObjectFactory::LoadPrefab(const std::string& filename)
     file >> prefabJson;
     file.close();
 
-    Entity* entity = CreateEntity<Entity>();
-
+    Entity* entity = CreateEntity<Entity>(prefabJson["Layer"]);
+    entity->GetTransform()->position.x = prefabJson["TPosition"]["x"];
+    entity->GetTransform()->position.y = prefabJson["TPosition"]["y"];
+    entity->GetTransform()->scale.x = prefabJson["TScale"]["x"];
+    entity->GetTransform()->scale.y = prefabJson["TScale"]["y"];
+    entity->GetTransform()->rotation = sf::degrees(prefabJson["Rotation"]);
+    entity->SetTag(entity->GetTagFromString(prefabJson["Tag"]));
+    
     for(auto& componentInJson : prefabJson["components"])
     {
         int bitmask = componentInJson["bitmask"];
         switch(bitmask)
         {
-        case 2:
-            RigidBody2D* rb = CreateComponent<RigidBody2D>(entity);
-            rb->deserialize(componentInJson);   
+            case 2: // 1 << 1
+                {
+                    RigidBody2D* rb = CreateComponent<RigidBody2D>(entity);
+                    rb->Deserialize(componentInJson);    
+                }
+                break;
+            case 4: // 1 << 2
+                {
+                    SpriteRenderer* sprite = CreateComponent<SpriteRenderer>(entity, Resources::instance().DEFAULT_SPRITE);
+                    sprite->Deserialize(componentInJson);
+                }
+                break;
+            case 8: // 1 << 3
+                {
+                    Camera* cam = CreateComponent<Camera>(entity);
+                    cam->Deserialize(componentInJson);
+                }
+                break;
+            case 16: // 1 << 4
+                {
+                    PhysicsMaterial* mat = CreateComponent<PhysicsMaterial>(entity);
+                    mat->Deserialize(componentInJson);
+                }
+                break;
+            case 32: // 1 << 5
+                break;
+            case 64: // 1 << 6
+                break;
+            case 128: // 1 << 7
+                break;
+            case 256: // 1 << 8
+                break;
+            case 512: // 1 << 9
+                {
+                    CircleCollider* coll = CreateComponent<CircleCollider>(entity);
+                    coll->Deserialize(componentInJson);
+                }
+                break;            
+            case 1024: // 1 << 10
+                {
+                    AABBCollider* coll = CreateComponent<AABBCollider>(entity);
+                    coll->Deserialize(componentInJson);
+                }
+                break;
+        default:
             break;
-        case 4:
-            CreateComponent<SpriteRenderer>(entity);
-        case 6:
-            CreateComponent<Camera>(entity);
-        case 8:
-            CreateComponent<Camera>(entity);
         }
-        
     }
+
+    return entity;
 }
 
 template <typename CType, typename... Args>

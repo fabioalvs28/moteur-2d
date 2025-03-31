@@ -11,5 +11,10 @@ public:
     ~Image() override = default;
     int GetBitmask() override;
 
+    void Serialize(json& json) override;
+    void Deserialize(json& json) override;
     Sprite* UIImage;
+
+private:
+    Texture* mpTexture;
 };

@@ -7,4 +7,5 @@ class GameScene : public Scene
     void OnFixedUpdate() override {}
     void Render() override {}
     void OnUpdate() override;
+    void OnLoad() override {};
 };

@@ -40,6 +40,7 @@ public:
     CellCoords GetLastGridPosition() const {return mLastGridPosition; }
     sf::Shape* GetShape() const { return mpShape; }
     std::string ColliderTypeToString(ColliderType type);
+    ColliderType StringToColliderType(std::string type);
 #pragma endregion
     
 #pragma region CollisionManifold Generation

@@ -33,6 +33,18 @@ std::string Collider2D::ColliderTypeToString(ColliderType type)
     
 }
 
+Collider2D::ColliderType Collider2D::StringToColliderType(std::string type)
+{
+    if(type == "AABB")
+        return ColliderType::AABB;
+
+    if(type == "Circle")
+        return ColliderType::CIRCLE;
+
+    return ColliderType::COLLIDER_COUNT;
+    
+}
+
 CollisionManifold Collider2D::Intersects(Collider2D* Collider)
 {
     CollisionManifold manifold;

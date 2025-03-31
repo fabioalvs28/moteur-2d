@@ -22,4 +22,13 @@ int CircleCollider::GetBitmask()
 {
     return BITMASK;
 }
-    
+
+void CircleCollider::Deserialize(json& json)
+{
+    this->mCenter.x = json["Center"]["x"];
+    this->mCenter.y = json["Center"]["y"];
+    this->mColliderType = StringToColliderType(json["ColliderType"]);
+    this->mIsStatic = json["IsStatic"];
+    this->mIsTrigger = json["IsTrigger"];
+    this->mRadius = json["Radius"];
+}

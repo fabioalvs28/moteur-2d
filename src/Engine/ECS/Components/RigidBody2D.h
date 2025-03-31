@@ -33,6 +33,8 @@ protected:
 
 #pragma region Functions
 public:
+    void Deserialize(json& json) override;
+
     void SetType(RIGIDBODYTYPE nType);
     void SetSize(float w, float h);
     void SetMass(float nMass);

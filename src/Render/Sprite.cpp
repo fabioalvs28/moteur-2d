@@ -2,13 +2,17 @@
 
 #include "Texture.h"
 
-Sprite::Sprite(Texture& texture) : sf::Sprite(texture)
+Sprite::Sprite(Texture& texture) : sf::Sprite(texture), mpTexture(&texture)
 {
 }
 
-Sprite::Sprite(sf::Sprite& sprite) : sf::Sprite(sprite)
+Sprite::Sprite(sf::Sprite& sprite) : sf::Sprite(sprite), mpTexture()
 {
-    return;
+}
+
+Sprite::~Sprite()
+{
+    delete mpTexture;
 }
 
 void Sprite::SetAlpha(uint8_t alpha)
@@ -16,6 +20,11 @@ void Sprite::SetAlpha(uint8_t alpha)
     sf::Color color = getColor();
     color.a = alpha;
     setColor(color);
+}
+
+Texture* Sprite::GetTexture() const
+{
+    return mpTexture;
 }
 
 Sprite* Sprite::Cut(int x, int y, int width, int height)

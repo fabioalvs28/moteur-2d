@@ -26,7 +26,6 @@ void TestScene::OnEnter()
     //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
     ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
     player->SetTag(Entity::Tag::PLAYER);
-    ObjectFactory::SavePrefab(player, "player.prefab");
     
     PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
     
@@ -46,14 +45,20 @@ void TestScene::OnEnter()
     //other2->GetComponent<CircleCollider>()->SetStatic(true);
     other2->GetComponent<AABBCollider>()->SetStatic(true);
 
-    camera = ObjectFactory::CreateEntity<Entity>();
+    camera = ObjectFactory::CreateEntity<Entity>(player);
     ObjectFactory::CreateComponent<Camera>(camera);
     
 }
 
+void TestScene::OnLoad()
+{
+    ObjectFactory::SavePrefab(player, "player.prefab");
+}
 void TestScene::OnUpdate()
 {
     camera->GetTransform()->SetPosition(player->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, player->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);
 }
+
+
 
 

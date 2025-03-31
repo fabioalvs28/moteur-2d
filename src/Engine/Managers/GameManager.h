@@ -53,6 +53,7 @@ void GameManager::LaunchScene()
 
     //INIT DE LA SCENE
     mpActiveScene->OnEnter();
-    
+    Engine::GetECS()->Update();
+    mpActiveScene->OnLoad();
     Run();
 }

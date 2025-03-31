@@ -23,3 +23,11 @@ void PhysicsMaterial::Serialize(json& json)
     json["DynamicFriction"] = this->mDynamicFriction;
     json["StaticFriction"] = this->mStaticFriction;
 }
+
+void PhysicsMaterial::Deserialize(json& json)
+{
+    this->mElasticity = json["Elasticity"];
+    this->mDynamicFriction = json["DynamicFriction"] ;
+    this->mStaticFriction = json["StaticFriction"];
+
+}

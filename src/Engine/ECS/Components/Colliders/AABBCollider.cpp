@@ -23,6 +23,20 @@ void AABBCollider::Serialize(json& json)
     json["Max"] = {{ "x", mXMax}, { "y", mYMax}};
 }
 
+void AABBCollider::Deserialize(json& json)
+{
+    this->mCenter.x = json["Center"]["x"];
+    this->mCenter.y = json["Center"]["y"];
+    this->mColliderType = StringToColliderType(json["ColliderType"]);
+    this->mIsStatic = json["IsStatic"];
+    this->mIsTrigger = json["IsTrigger"];
+    this->mXMin = json["Min"]["x"];
+    this->mYMin = json["Min"]["y"];
+    this->mXMax = json["Max"]["x"];
+    this->mYMax = json["Max"]["y"];
+}
+
+
 int AABBCollider::GetBitmask()
 {
     return BITMASK;

@@ -20,14 +20,6 @@ Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSyst
                    mScriptManager(new ScriptManager()),
                    mRenderWindow(nullptr)
 {
-    ObjectFactory::RegisterComponent<RigidBody2D>();
-    ObjectFactory::RegisterComponent<SpriteRenderer>();
-    ObjectFactory::RegisterComponent<PhysicsMaterial>();
-    ObjectFactory::RegisterComponent<Light>();
-    ObjectFactory::RegisterComponent<Collider2D>();
-    ObjectFactory::RegisterComponent<Camera>();
-    ObjectFactory::RegisterComponent<AABBCollider>();
-    ObjectFactory::RegisterComponent<CircleCollider>();
 }
 
 Engine::~Engine()

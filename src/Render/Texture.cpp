@@ -2,7 +2,7 @@
 
 #include "Engine/Utils/Debug.h"
 
-Texture::Texture(std::string name, bool customPath)
+Texture::Texture(std::string name, bool customPath) : mPath(name)
 {
     if (!loadFromFile(customPath ? "" : "../../res/Textures/" + name))
     {

@@ -78,3 +78,11 @@ void RigidBody2D::Serialize(json& json)
     json["RBType"] = this->mType;
 }
 
+void RigidBody2D::Deserialize(json& json)
+{
+    this->mMass = json["Mass"];
+    this->mDamping = json["Damping"] ;
+    this->mGravity = json["Gravity"];
+    this->UseGravity = json["UseGravity"];
+    this->mType = json["RBType"];
+}

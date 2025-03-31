@@ -9,5 +9,6 @@ public:
 	void virtual OnUpdate() = 0;
 	void virtual OnExit() = 0;
 	void virtual Render() = 0;
+	void virtual OnLoad() = 0;
 };
 

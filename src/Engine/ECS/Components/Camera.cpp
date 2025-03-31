@@ -13,3 +13,10 @@ int Camera::GetBitmask()
 {
     return BITMASK;
 }
+
+void Camera::Deserialize(json& json)
+{
+    this->DisplayScreen = json["displayScreen"];
+    this->ZoomFactor = json["ZoomFactor"] ;
+
+}
