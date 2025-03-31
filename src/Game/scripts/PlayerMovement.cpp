@@ -22,7 +22,7 @@ void PlayerMovement::OnStart()
     m_direction = sf::Vector2f(1.0, 0.0);
     m_attackDistance = 100.0f;
     m_pGameManager = Engine::GetGameManager();
-    m_speed = 500.0f;
+    m_speed = 1000.0f;
     m_rw = Engine::GetRenderWindow();
 }
 
@@ -40,12 +40,12 @@ void PlayerMovement::OnCollisionEnter(Entity* other)
 
 void PlayerMovement::OnUpdate()
 {
-    m_time += m_pGameManager->GetTime()->GetDeltaTime();
-    if (m_time >= m_attackDelay)
-    {
-        m_time -= m_attackDelay;
-        Attack();
-    }
+    //m_time += m_pGameManager->GetTime()->GetDeltaTime();
+    //if (m_time >= m_attackDelay)
+    //{
+    //    m_time -= m_attackDelay;
+    //    Attack();
+    //}
 
     if (isKeyPressed(sf::Keyboard::Key::D))
     {

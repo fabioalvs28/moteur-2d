@@ -1,17 +1,12 @@
 #include "pch.h"
-#include "Weapon.h"
+#include "Sword.h"
 
-void Weapon::OnStart()
+void Sword::OnStart()
 {
 
 }
 
-void Weapon::OnUpdate()
+void Sword::OnUpdate()
 {
 
-}
-
-void Weapon::SetWeaponType(WEAPON_TYPES weaponType)
-{
-	m_weaponType = weaponType;
 }

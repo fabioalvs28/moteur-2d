@@ -1,6 +1,5 @@
 #pragma once
 #include "scripts/Script.h"
-#include "tilemap/TilemapEditor.h"
 
 class RigidBody2D;
 
