@@ -20,22 +20,22 @@ void TestScene::OnEnter()
 
     Resources::instance().Initialize();
     
-    player = ObjectFactory::CreateEntity<Entity>(1);
-    player->GetTransform()->SetPosition(0.0f, 0.0f);
-    ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
-    //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
-    ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
-    player->SetTag(Entity::Tag::PLAYER);
+    // player = ObjectFactory::CreateEntity<Entity>(1);
+    // player->GetTransform()->SetPosition(0.0f, 0.0f);
+    // ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
+    // //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
+    // ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
+    // player->SetTag(Entity::Tag::PLAYER);
     
-    PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
+    // PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
     
     Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     other->GetTransform()->SetPosition(250.0f,250.0f);
     ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
     //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
     other->GetComponent<AABBCollider>()->SetTrigger(true);
-    ObjectFactory::AttachScript<EnnemyMovement>(other, player);
-    ObjectFactory::AttachScript<EnnemyAttack>(other, mov);
+    //ObjectFactory::AttachScript<EnnemyMovement>(other, player);
+    //ObjectFactory::AttachScript<EnnemyAttack>(other);
     //other->GetComponent<CircleCollider>()->SetStatic(true);
 
     Entity* other2 = ObjectFactory::CreateEntity<Entity>(0);
@@ -45,7 +45,7 @@ void TestScene::OnEnter()
     //other2->GetComponent<CircleCollider>()->SetStatic(true);
     other2->GetComponent<AABBCollider>()->SetStatic(true);
 
-    camera = ObjectFactory::CreateEntity<Entity>(player);
+    camera = ObjectFactory::CreateEntity<Entity>();
     ObjectFactory::CreateComponent<Camera>(camera);
     
 }

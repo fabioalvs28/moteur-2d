@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Script.h"
+//int IScript::sNextId = 0;
 
 IScript::IScript(): owner(nullptr)
 {
