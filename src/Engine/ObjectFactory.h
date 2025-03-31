@@ -50,8 +50,16 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
         componentJson["bitmask"] = component->GetBitmask();
         prefabJson["components"].push_back(componentJson);
     }
-
+    
+    if(std::filesystem::exists(filename))
+    {
+        std::cout << "Already exists " << filename << std::endl;
+        return;
+    }
+    
     std::ofstream outfile(filename);
+
+
     if (outfile.is_open())
     {
         outfile << prefabJson.dump(4);

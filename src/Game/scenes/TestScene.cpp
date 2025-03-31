@@ -52,7 +52,7 @@ void TestScene::OnEnter()
 
 void TestScene::OnLoad()
 {
-    ObjectFactory::SavePrefab(player, "player.prefab");
+    player = ObjectFactory::LoadPrefab("player.prefab");
 }
 void TestScene::OnUpdate()
 {
