@@ -16,14 +16,19 @@ void GameScene::OnEnter()
 {
     RenderWindow* pWindow = Engine::GetRenderWindow();
     srand(static_cast<unsigned int>(time(nullptr)));
-    
+
     Entity* player = ObjectFactory::CreateEntity<Entity>();
+    player->GetTransform()->SetPosition(pWindow->GetWindowWidth() / 2, pWindow->GetWindowHeight() / 2);
     ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
     player->SetTag(Entity::Tag::PLAYER);
-        
+
+
     Entity* camera = ObjectFactory::CreateEntity<Entity>();
-    ObjectFactory::CreateComponent<Camera>(camera); 
+    ObjectFactory::CreateComponent<Camera>(camera);
+    ObjectFactory::AttachScript<PlayerMovement>(player, camera);
+
 }
+
 
 void GameScene::OnUpdate()
 {

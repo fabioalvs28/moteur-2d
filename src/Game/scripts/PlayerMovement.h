@@ -7,7 +7,8 @@ class PlayerMovement : public IScript
 {
     
 public:
-    PlayerMovement();
+    PlayerMovement() = default;
+    PlayerMovement(Entity* camera);
     
     void OnStart() override;
     void OnFixedUpdate() override;
@@ -37,4 +38,5 @@ private:
     TRANSFORM* mTransform;
     sf::Vector2f movement;
     float HP;
+    Entity* m_pCamera;
 };

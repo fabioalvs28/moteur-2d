@@ -10,7 +10,7 @@ EnnemyMovement::EnnemyMovement(Entity* player)
 
 void EnnemyMovement::OnStart()
 {
-    mpTransform = owner->GetTransform();
+    mpTransform = m_pOwner->GetTransform();
 }
 
 void EnnemyMovement::OnFixedUpdate()
