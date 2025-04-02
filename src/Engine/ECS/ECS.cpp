@@ -116,7 +116,6 @@ void ECS::Update()
     
     Engine::GetCameraSystem()->Update(this);
     Engine::GetScriptManager()->OnUpdate();
-
     
 }
 

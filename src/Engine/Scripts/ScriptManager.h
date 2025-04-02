@@ -1,8 +1,18 @@
 ﻿#pragma once
 #include <map>
 
+#include "Render/RenderWindow.h"
+
+class ObjectFactory;
 class Entity;
 struct IScript;
+
+#define REGISTER_SCRIPT(ScriptClass) \
+    static struct ScriptClass##_Register { \
+        ScriptClass##_Register() { \
+            Engine::GetScriptManager()->RegisterScript(#ScriptClass, new ScriptClass()); \
+            } \
+    } ScriptClass##_register;
 
 class ScriptManager
 {
@@ -32,7 +42,7 @@ public:
 
     static void RegisterScript(const std::string& name, IScript* script);
 private:
-    static std::unordered_map<std::string, IScript*> mScriptRegistry;
+    std::unordered_map<std::string, IScript*> mScriptRegistry;
     std::map<int*, std::vector<IScript*>> scriptedEntity;
     std::map<int*, std::vector<IScript*>> scriptedEntityToAdd;
     int mEntityToRemoveCount;

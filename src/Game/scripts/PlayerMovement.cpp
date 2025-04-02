@@ -31,6 +31,7 @@ void PlayerMovement::OnCollisionEnter(Entity* other)
 
 void PlayerMovement::OnUpdate()
 {
+    std::cout << "feur" << std::endl;
     if (isKeyPressed(sf::Keyboard::Key::D))
     {
         movement += mTransform->right * Engine::GetDeltaTime();

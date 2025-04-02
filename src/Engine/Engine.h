@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <windows.h>
 
-#include "Scripts/Script.h"
 
 class RenderWindow;
 class ScriptManager;
@@ -53,7 +52,6 @@ private:
     CameraSystem* mCameraSystem;
     ParticleSystem* mParticleSystem;
     ScriptManager* mScriptManager;
-
     RenderWindow* mRenderWindow;
 
     // Make system only accessible from engine

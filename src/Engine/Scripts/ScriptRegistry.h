@@ -11,7 +11,7 @@ std::unordered_map<std::string, std::function<IScript*()>>& GetScriptRegistry();
 #define REGISTER_SCRIPT(ScriptClass) \
     static struct ScriptClass##_Register { \
         ScriptClass##_Register() { \
-            GetScriptRegistry()[#ScriptClass] = []() { return new ScriptClass(); }; \
-            Engine::GetScriptManager()->RegisterScript(#ScriptClass, new ScriptClass()); \
+        GetScriptRegistry()[#ScriptClass] = []() { return new ScriptClass(); }; \
+        Engine::GetScriptManager()->RegisterScript(#ScriptClass, new ScriptClass()); \
         } \
-    } ScriptClass##_register;
+        } ScriptClass##_register;

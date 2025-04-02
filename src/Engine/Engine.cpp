@@ -11,8 +11,57 @@
 #include "scripts/ScriptManager.h"
 
 #include "ECS/ECS.h"
-#include "ECS/Components/Light.h"
 #include "Render/RenderWindow.h"
+
+#include "Engine/Scripts/ScriptRegistry.h"
+#include <regex>
+#include <filesystem>
+
+IScript* CreateScriptInstance(const std::string& scriptName)
+{
+    auto& registry = GetScriptRegistry();
+    auto it = registry.find(scriptName);
+    if (it != registry.end())
+    {
+        return it->second();
+    }
+    return nullptr;
+}
+
+void SearchAndRegisterScripts(const std::string& folderPath)
+{
+    namespace fs = std::filesystem;
+
+    std::regex registerScriptRegex(R"(REGISTER_SCRIPT\(\s*(\w+)\s*\))");
+
+    for (const auto& entry : fs::recursive_directory_iterator(folderPath))
+    {
+        if (entry.is_regular_file() && entry.path().extension() == ".cpp")
+        {
+            std::ifstream file(entry.path());
+            if (file.is_open())
+            {
+                std::string line;
+                while (std::getline(file, line))
+                {
+                    std::smatch match;
+                    if (std::regex_search(line, match, registerScriptRegex))
+                    {
+                        std::string scriptName = match[1].str();
+
+                        IScript* scriptInstance = CreateScriptInstance(scriptName);
+                        if (scriptInstance)
+                        {
+                            Engine::GetScriptManager()->RegisterScript(scriptName, scriptInstance);
+                        }
+                    }
+                }
+                file.close();
+            }
+        }
+    }
+}
+
 
 Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSystem(nullptr),
                    mPhysicsSystem(new PhysicsSystem()), mCollisionSystem(new CollisionSystem()), mCameraSystem(nullptr),
@@ -20,6 +69,8 @@ Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSyst
                    mScriptManager(new ScriptManager()),
                    mRenderWindow(nullptr)
 {
+    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    SearchAndRegisterScripts("..\\..\\src\\Game");
 }
 
 Engine::~Engine()
