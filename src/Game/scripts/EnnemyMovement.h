@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include "scripts/Script.h"
-
-class RigidBody2D;
+#include "Engine/Scripts/ScriptRegistry.h"
 
 class EnnemyMovement : public IScript
 {
     
 public:
+    EnnemyMovement() = default;
     EnnemyMovement(Entity* player);
     
     void OnStart() override;
@@ -18,3 +18,5 @@ private:
     sf::Vector2f movement;
     Entity* mpPlayer;
 };
+
+REGISTER_SCRIPT(EnnemyMovement)

@@ -1,7 +1,6 @@
 #pragma once
 #include "scripts/Script.h"
-
-class RigidBody2D;
+#include "Engine/Scripts/ScriptRegistry.h"
 
 class PlayerMovement : public IScript
 {
@@ -22,3 +21,5 @@ private:
     sf::Vector2f movement;
     float HP;
 };
+
+REGISTER_SCRIPT(PlayerMovement)

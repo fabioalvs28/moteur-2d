@@ -1,11 +1,14 @@
 ﻿#include "pch.h"
 #include "Script.h"
+
+#include "Utils/CoreUtils.h"
+
 //int IScript::sNextId = 0;
 
 IScript::IScript(): owner(nullptr)
 {
 }
-
+    
 void IScript::OnStart()
 {
 }
@@ -45,6 +48,7 @@ void IScript::OnTriggerExit(Entity* other)
 void IScript::OnRender(RenderWindow* window)
 {
 }
+
 
 void IScript::OnRenderDisable()
 {

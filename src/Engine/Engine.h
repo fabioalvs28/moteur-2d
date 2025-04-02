@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <windows.h>
 
+#include "Scripts/Script.h"
+
 class RenderWindow;
 class ScriptManager;
 class ParticleSystem;
@@ -24,7 +26,9 @@ public:
     static GameManager* GetGameManager();
 
     static CameraSystem* GetCameraSystem();
-    
+
+    static ScriptManager* GetScriptManager();
+
     static float GetDeltaTime();
 
 private:
@@ -39,7 +43,6 @@ private:
     static PhysicsSystem* GetPhysicsSystem();
     static CollisionSystem* GetCollisionSystem();
     static ParticleSystem* GetParticleSystem();
-    static ScriptManager* GetScriptManager();
 
     GameManager* mGameManager;
 
@@ -58,7 +61,7 @@ private:
     friend class ECS;
     
     friend class ObjectFactory;
-    
+    friend struct IScript;
     friend class GameManager;
     friend class RenderSystem;
     friend class PhysicsSystem;

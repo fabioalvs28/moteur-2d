@@ -9,6 +9,7 @@
 
 PlayerMovement::PlayerMovement()
 {
+
 }
 
 void PlayerMovement::OnStart()
@@ -26,7 +27,6 @@ void PlayerMovement::OnFixedUpdate()
 
 void PlayerMovement::OnCollisionEnter(Entity* other)
 {
-    std::cout << "Collision Enter" << std::endl;
 }
 
 void PlayerMovement::OnUpdate()
@@ -48,7 +48,6 @@ void PlayerMovement::OnUpdate()
         movement -= mTransform->up * Engine::GetDeltaTime();
     }
 
-    std::cout << GetHP() << std::endl;
 }
 
 

@@ -5,6 +5,7 @@
 
 EnnemyAttack::EnnemyAttack(PlayerMovement* playerHP)
 {
+    
     HPp = playerHP;
 }
 
@@ -25,3 +26,4 @@ void EnnemyAttack::OnTriggerEnter(Entity* other)
         Attack(other);
     }
 }
+

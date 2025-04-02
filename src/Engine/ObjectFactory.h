@@ -10,6 +10,7 @@
 #include "ECS/Components/Colliders/CircleCollider.h"
 #include "Game/Resources.h"
 #include "Transform.h"
+#include "Scripts/Script.h"
 #include "scripts/ScriptManager.h"
 
 class ObjectFactory
@@ -28,11 +29,15 @@ public:
     static void SavePrefab(Entity* entity, const std::string& filename);
     static Entity* LoadPrefab(const std::string& filename);
 
-    
+    static void AddScript(IScript* script, Entity* entity);
     static std::unordered_map<int, std::function<Component*(Entity*)>> componentRegistry;
 };
 
-
+inline void ObjectFactory::AddScript(IScript* script, Entity* entity)
+{
+    script->SetOwner(entity);
+    Engine::GetScriptManager()->scriptedEntityToAdd[entity->GetIndex()].push_back(script);
+}
 
 inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filename)
 {
@@ -42,6 +47,13 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
     prefabJson["Rotation"] = entity->GetTransform()->rotation.asDegrees();
     prefabJson["Tag"] = entity->GetStringFromTag(entity->GetTag());
     prefabJson["Layer"] =  entity->GetLayer();
+
+    for(auto& script : Engine::GetScriptManager()->scriptedEntity[entity->GetIndex()])
+    {
+        json scriptJson;
+        scriptJson["Name"] = CoreUtils::type(*script);
+        prefabJson["Scripts"].push_back(scriptJson);
+    }
     
     for(auto& component : Engine::GetECS()->GetEntities()[*entity->GetIndex()]->AttachedComponents)
     {
@@ -146,8 +158,18 @@ inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
         }
     }
 
+    for(auto& scriptInJson : prefabJson["Scripts"])
+    {
+        std::string name = scriptInJson["Name"];
+        
+        IScript* script = ScriptManager::GetScriptByName(name);
+
+        AddScript(script, entity);
+    }
     return entity;
 }
+
+
 
 template <typename CType, typename... Args>
 CType* ObjectFactory::CreateComponent(Entity* entity, Args&&... args)

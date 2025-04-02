@@ -26,9 +26,9 @@ void TestScene::OnEnter()
     // //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
     // ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
     // player->SetTag(Entity::Tag::PLAYER);
-    
+    //
     // PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
-    
+
     Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     other->GetTransform()->SetPosition(250.0f,250.0f);
     ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
@@ -54,6 +54,7 @@ void TestScene::OnLoad()
 {
     player = ObjectFactory::LoadPrefab("player.prefab");
 }
+
 void TestScene::OnUpdate()
 {
     camera->GetTransform()->SetPosition(player->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, player->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);

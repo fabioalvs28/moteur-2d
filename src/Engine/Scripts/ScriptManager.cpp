@@ -114,3 +114,18 @@ void ScriptManager::OnUpdate()
         }
     }
 }
+
+IScript* ScriptManager::GetScriptByName(const std::string& scriptName)
+{
+    if(mScriptRegistry.find(scriptName) != mScriptRegistry.end)
+    {
+        return mScriptRegistry[scriptName];
+    }
+
+    return nullptr;
+}
+
+void ScriptManager::RegisterScript(const std::string& name, IScript* script)
+{
+    mScriptRegistry[name] = script;
+}
