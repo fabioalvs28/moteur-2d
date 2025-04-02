@@ -25,8 +25,8 @@ void GameScene::OnEnter()
 
     Entity* camera = ObjectFactory::CreateEntity<Entity>();
     ObjectFactory::CreateComponent<Camera>(camera);
-    ObjectFactory::AttachScript<PlayerMovement>(player, camera);
-
+    PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player, camera);
+    ppm->Attack();
 }
 
 

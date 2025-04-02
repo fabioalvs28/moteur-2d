@@ -1,6 +1,7 @@
 #pragma once
 #include "scripts/Script.h"
 
+class GameManager;
 class Weapon : public IScript
 {
 public:
@@ -19,18 +20,22 @@ public:
     };
 
     Weapon() = default;
+    Weapon(sf::Vector2f direction);
 
-    virtual void SetWeaponType(WEAPON_TYPES);
+    void SetWeaponType(WEAPON_TYPES);
     void OnStart() override;
     void OnFixedUpdate() override {}
     void OnUpdate() override;
     void OnDisable() override {}
+    virtual void OnAttack() = 0;
 
 protected:
+    float m_time = 0.0f;
     float m_velocity;
-    float m_range;
-    float m_distanceToPlayer;
     float m_lifeSpan;
+
+    sf::Vector2f m_direction;
     WEAPON_TYPES m_weaponType;
+    GameManager* m_pGameManager;
 
 };
