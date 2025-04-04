@@ -12,6 +12,7 @@
 
 #include "ECS/ECS.h"
 #include "ECS/Components/Light.h"
+#include "ECS/Systems/UserInterfaceSystem.h"
 #include "Render/RenderWindow.h"
 
 Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSystem(nullptr),
@@ -48,6 +49,7 @@ void Engine::CreateRender()
     instance().mCameraSystem = new CameraSystem(window);
     instance().mRenderSystem = new RenderSystem(window);
     instance().mParticleSystem = new ParticleSystem(window);
+    instance().mUserInterfaceSystem = new UserInterfaceSystem(window);
 
     instance().mRenderWindow = window;
 }
@@ -90,6 +92,11 @@ ParticleSystem* Engine::GetParticleSystem()
 ScriptManager* Engine::GetScriptManager()
 {
     return instance().mScriptManager;
+}
+
+UserInterfaceSystem* Engine::GetUserInterfaceSystem()
+{
+    return instance().mUserInterfaceSystem;
 }
 
 float Engine::GetDeltaTime()
