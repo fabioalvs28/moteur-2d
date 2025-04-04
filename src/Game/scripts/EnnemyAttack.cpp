@@ -3,27 +3,22 @@
 
 #include "PlayerMovement.h"
 
-EnnemyAttack::EnnemyAttack(PlayerMovement* playerHP)
-{
-    
-    HPp = playerHP;
-}
 
 void EnnemyAttack::OnStart()
 {
-    mDamage = 1;
+    //l = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
 }
 
-void EnnemyAttack::Attack(Entity* other)
+void EnnemyAttack::Attack()
 {
-    HPp->SetHP(HPp->GetHP() - mDamage);
+    //l->SetHP(l->GetHP() - mDamage);
 }
 
 void EnnemyAttack::OnTriggerEnter(Entity* other)
 {
     if(other->IsTag(Entity::Tag::PLAYER))
     {
-        Attack(other);
+        Attack();
     }
 }
 

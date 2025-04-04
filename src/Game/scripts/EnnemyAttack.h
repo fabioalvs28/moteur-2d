@@ -7,15 +7,14 @@ class EnnemyAttack : public IScript
 {
 public:
     EnnemyAttack() = default;
-    EnnemyAttack(PlayerMovement* playerHP);
 
     void OnStart() override;
-    void Attack(Entity* other);
+    void Attack();
     void OnTriggerEnter(Entity* other) override;
 
 private:
     float mDamage;
-    PlayerMovement* HPp;
+    PlayerMovement* l;
 };
 
 REGISTER_SCRIPT(EnnemyAttack)

@@ -42,6 +42,7 @@ inline void ObjectFactory::AddScript(IScript* script, Entity* entity)
 inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filename)
 {
     json prefabJson;
+    prefabJson["Name"] = entity->GetName();
     prefabJson["TPosition"] = {{"x", entity->GetTransform()->position.x}, {"y", entity->GetTransform()->position.y}};
     prefabJson["TScale"] = {{"x", entity->GetTransform()->scale.x}, {"y", entity->GetTransform()->scale.y}};
     prefabJson["Rotation"] = entity->GetTransform()->rotation.asDegrees();
@@ -85,6 +86,7 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
 
 inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
 {
+    
     std::ifstream file(filename);
     if (!file.is_open())
     {
@@ -97,6 +99,7 @@ inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
     file.close();
 
     Entity* entity = CreateEntity<Entity>(prefabJson["Layer"]);
+    entity->SetName( prefabJson["Name"]);
     entity->GetTransform()->position.x = prefabJson["TPosition"]["x"];
     entity->GetTransform()->position.y = prefabJson["TPosition"]["y"];
     entity->GetTransform()->scale.x = prefabJson["TScale"]["x"];

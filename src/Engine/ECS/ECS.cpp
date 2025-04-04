@@ -125,3 +125,8 @@ void ECS::Draw()
     Engine::GetRenderSystem()->Render(this);
     Engine::GetParticleSystem()->Render(this);
 }
+
+Entity* ECS::GetEntityByName(std::string name)
+{
+    return GetEntity(mEntitiesRegistry[name]);
+}

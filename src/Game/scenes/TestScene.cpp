@@ -21,8 +21,9 @@ void TestScene::OnEnter()
     Resources::instance().Initialize();
     
     // player = ObjectFactory::CreateEntity<Entity>(1);
+    // player->SetName("player");
     // player->GetTransform()->SetPosition(0.0f, 0.0f);
-    // ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
+    // ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().ALEX_SPRITE);
     // //ObjectFactory::CreateComponent<AABBCollider>(player, 0.0f,0.0f,10.0f,10.0f);
     // ObjectFactory::CreateComponent<CircleCollider>(player, 10.0f);
     // player->SetTag(Entity::Tag::PLAYER);
@@ -32,6 +33,9 @@ void TestScene::OnEnter()
     Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     other->GetTransform()->SetPosition(250.0f,250.0f);
     ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
+    ObjectFactory::CreateComponent<SpriteRenderer>(other, Resources::instance().DEFAULT_SPRITE);
+    other->SetName("feur");
+
     //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
     other->GetComponent<AABBCollider>()->SetTrigger(true);
     //ObjectFactory::AttachScript<EnnemyMovement>(other, player);

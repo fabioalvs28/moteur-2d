@@ -12,12 +12,16 @@ class RenderSystem;
 class ECS;
 class GameManager;
 class ObjectFactory;
+struct IScript;
+class Entity;
 
 class Engine
 {
 public:
     Engine();
     ~Engine();
+    
+    static Entity* GetEntityByName(std::string name);
 
     static void CreateRender();
     static RenderWindow* GetRenderWindow();
@@ -67,3 +71,5 @@ private:
     friend class CameraSystem;
     friend class ScriptManager;
 };
+
+

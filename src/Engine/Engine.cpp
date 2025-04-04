@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Engine.h"
 
+
 #include "ObjectFactory.h"
 #include "ECS/Systems/CameraSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
@@ -88,6 +89,10 @@ Engine::~Engine()
     delete mRenderWindow;
 }
 
+Entity* Engine::GetEntityByName(std::string name)
+{
+    return GetECS()->GetEntityByName(name);
+}
 
 void Engine::CreateRender()
 {

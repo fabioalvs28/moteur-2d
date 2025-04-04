@@ -2,7 +2,6 @@
 
 #include <map>
 #include <vector>
-
 class Component;
 class Entity;
 
@@ -27,7 +26,7 @@ public:
     void Draw();
 
     Entity* GetEntity(int index) { return mEntities[index]->Entity; }
-    
+    Entity* GetEntityByName(std::string name);
     template <typename T, typename... Args>
     T* AddComponent(Entity* entity, Args&&... args);
     template<typename T>
@@ -42,7 +41,8 @@ public:
     int mEntityToAddCount;
     int mEntityToRemoveCount;
     std::map<int, std::list<Entity*>*> mEntitiesByLayer;
-
+    std::map<std::string, int> mEntitiesRegistry;
+    
 private:
     EC** mEntities = new EC*[16000];
     EC** mToAddEntities = new EC*[1024];

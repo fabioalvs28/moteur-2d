@@ -8,18 +8,20 @@
 int Entity::sNextId = 0;
 
 Entity::Entity(int layer) : Bitmask(0), mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
-                   mTransform(new TRANSFORM(nullptr)), mLayer(layer)
+                   mTransform(new TRANSFORM(nullptr)), mLayer(layer), mName("Entity")
 {
     mTag = Tag::NONE;
+    mName.push_back(sNextId);
     sNextId++;
 }
 
 Entity::Entity(Entity* parent, int layer) : Bitmask(0),
                    mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
-                   mTransform(new TRANSFORM(parent)), mLayer(layer)
+                   mTransform(new TRANSFORM(parent)), mLayer(layer), mName("Entity")
 {
     parent->GetTransform()->AddChild(this);
     mTag = Tag::NONE;
+    mName.push_back(sNextId);
     sNextId++;
 }
 
@@ -102,4 +104,12 @@ Entity::Tag Entity::GetTagFromString(const std::string& oString) const
     if (oString == "PROJECTILES") return Tag::PROJECTILES;
 
     return Tag::NONE;  // Valeur par défaut
+}
+
+void Entity::SetName(const std::string& nName)
+{
+    auto nodeHandler = Engine::GetECS()->mEntitiesRegistry.extract(mName);
+    nodeHandler.key() = nName;
+    Engine::GetECS()->mEntitiesRegistry.insert(std::move(nodeHandler));
+    mName = nName;
 }

@@ -7,13 +7,6 @@ class ObjectFactory;
 class Entity;
 struct IScript;
 
-#define REGISTER_SCRIPT(ScriptClass) \
-    static struct ScriptClass##_Register { \
-        ScriptClass##_Register() { \
-            Engine::GetScriptManager()->RegisterScript(#ScriptClass, new ScriptClass()); \
-            } \
-    } ScriptClass##_register;
-
 class ScriptManager
 {
 public:
@@ -49,8 +42,8 @@ private:
     int** toRemoveId = new int*[1024];
 
 
+    friend class Entity;
     friend ObjectFactory;
-
 };
 
 #include "ScriptManager.inl"

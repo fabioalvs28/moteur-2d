@@ -32,11 +32,14 @@ void Resources::CreateTextures()
 {
     DEFAULT_TEXTURE = new Texture("perso.png");
     SPRITE_SHEET = new Texture("../../res/Tiles/tileset.png", false);
+    ALEX_TEXTURE = new Texture("AlexLeMechant.png");
+    
 }
 
 void Resources::CreateSprite()
 {
     DEFAULT_SPRITE = new Sprite(*DEFAULT_TEXTURE);
+    ALEX_SPRITE = new Sprite(*ALEX_TEXTURE);
 }
 
 void Resources::CreateFonts()

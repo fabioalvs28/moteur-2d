@@ -23,11 +23,11 @@ int SpriteRenderer::GetBitmask()
 
 void SpriteRenderer::Serialize(json& json)
 {
-    if(texture)
-        json["Texture"] = texture->GetPath();
+    json["Texture"] = Image->GetTexture()->GetPath();
 }
 
 void SpriteRenderer::Deserialize(json& json)
 {
-
+    texture = new Texture(json["Texture"]);
+    Image->setTexture(*texture);
 }

@@ -10,6 +10,7 @@ public:
     Entity(Entity* parent, int layer = 0);
     ~Entity();
 
+    
     enum class Tag : uint8_t
     {
         NONE,
@@ -27,7 +28,8 @@ public:
     T* GetComponent();
     template<typename T>
     bool HasComponent() const;
-
+    template<typename T>
+    T* GetScript();
     void AddBitmask(int mask);
     void RemoveBitmask(int mask);
     void SetIndex(int index);
@@ -52,7 +54,10 @@ public:
     
     TRANSFORM* GetTransform() const {return mTransform; }
     int Bitmask;
-
+    
+    std::string GetName() const { return mName;}
+    void SetName(const std::string& nName);
+    
 protected:
     bool mCreated;
     bool mDestoyed;
@@ -60,6 +65,7 @@ protected:
     int mIndex;
     int mLayer;
     Tag mTag;
+    std::string mName;
     
 private:
     TRANSFORM* mTransform;
