@@ -3,18 +3,18 @@
 
 class RigidBody2D;
 
-class EnnemyMovement : public IScript
+class EnemyMovement : public IScript
 {
     
 public:
-    EnnemyMovement(Entity* player);
+    EnemyMovement(Entity* player);
     
     void OnStart() override;
     void OnFixedUpdate() override;
     void OnUpdate() override;
 
 private:
-    TRANSFORM* mpTransform;
-    sf::Vector2f movement;
-    Entity* mpPlayer;
+    TRANSFORM* m_pTransform;
+    sf::Vector2f m_movement;
+    Entity* m_pPlayer;
 };

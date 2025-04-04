@@ -34,8 +34,8 @@ void TestScene::OnEnter()
     ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
     //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
     other->GetComponent<AABBCollider>()->SetTrigger(true);
-    ObjectFactory::AttachScript<EnnemyMovement>(other, player);
-    ObjectFactory::AttachScript<EnnemyAttack>(other, mov);
+    ObjectFactory::AttachScript<EnemyMovement>(other, player);
+    ObjectFactory::AttachScript<EnemyAttack>(other, mov);
     //other->GetComponent<CircleCollider>()->SetStatic(true);
 
     Entity* other2 = ObjectFactory::CreateEntity<Entity>(0);

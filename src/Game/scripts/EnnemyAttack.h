@@ -2,16 +2,20 @@
 #include "PlayerMovement.h"
 #include "scripts/Script.h"
 
-class EnnemyAttack : public IScript
+class EnemyAttack : public IScript
 {
 public:
-    EnnemyAttack(PlayerMovement* playerHP);
+    EnemyAttack(PlayerMovement* playerHP);
 
     void OnStart() override;
-    void Attack(Entity* other);
     void OnTriggerEnter(Entity* other) override;
-
+    void TakeDamage(float damage);
+    
 private:
-    float mDamage;
+    void Attack() const;
+    void Die() const;
+    
+    float m_damage;
+    float m_hp;
     PlayerMovement* HPp;
 };

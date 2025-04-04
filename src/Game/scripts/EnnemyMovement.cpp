@@ -3,27 +3,27 @@
 
 #include "Transform.h"
 
-EnnemyMovement::EnnemyMovement(Entity* player)
+EnemyMovement::EnemyMovement(Entity* player)
 {
-    mpPlayer = player;
+    m_pPlayer = player;
 }
 
-void EnnemyMovement::OnStart()
+void EnemyMovement::OnStart()
 {
-    mpTransform = m_pOwner->GetTransform();
+    m_pTransform = m_pOwner->GetTransform();
 }
 
-void EnnemyMovement::OnFixedUpdate()
+void EnemyMovement::OnFixedUpdate()
 {
     float speed = 50.0f;
-    mpTransform->position += movement * speed * Engine::GetDeltaTime();
-    movement = sf::Vector2f(0, 0);
+    m_pTransform->position += m_movement * speed * Engine::GetDeltaTime();
+    m_movement = sf::Vector2f(0, 0);
 }
 
-void EnnemyMovement::OnUpdate()
+void EnemyMovement::OnUpdate()
 {
-    sf::Vector2f direction = mpPlayer->GetTransform()->position - mpTransform->position;
+    sf::Vector2f direction = m_pPlayer->GetTransform()->position - m_pTransform->position;
 
-    movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
+    m_movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
 }
 

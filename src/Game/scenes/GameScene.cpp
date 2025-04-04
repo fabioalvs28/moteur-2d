@@ -7,7 +7,7 @@
 #include "ObjectFactory.h"
 #include "ECS/Components/Camera.h"
 #include "ECS/Components/SpriteRenderer.h"
-#include "ECS/Components/ui/Image.h"
+#include "ECS/Components/ui/ProgressBar.h"
 
 #include "scripts/PlayerMovement.h"
 
