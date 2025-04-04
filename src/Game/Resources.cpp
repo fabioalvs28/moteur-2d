@@ -31,12 +31,18 @@ void Resources::CreateParticles()
 void Resources::CreateTextures()
 {
     DEFAULT_TEXTURE = new Texture("perso.png");
+    BAR_CONTAINER_TEXTURE = new Texture("UI/gui_emptybar.png");
+    BAR_HEALTH_TEXTURE = new Texture("UI/gui_HPBar.png");
+    BAR_EXP_TEXTURE = new Texture("UI/gui_MPBar.png");
     SPRITE_SHEET = new Texture("../../res/Tiles/tileset.png", false);
 }
 
 void Resources::CreateSprite()
 {
     DEFAULT_SPRITE = new Sprite(*DEFAULT_TEXTURE);
+    BAR_CONTAINER = new Sprite(*BAR_CONTAINER_TEXTURE);
+    BAR_HEALTH = new Sprite(*BAR_HEALTH_TEXTURE);
+    BAR_EXP = new Sprite(*BAR_EXP_TEXTURE);
 }
 
 void Resources::CreateFonts()
