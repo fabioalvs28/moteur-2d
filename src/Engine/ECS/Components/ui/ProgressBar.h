@@ -11,7 +11,8 @@ public:
     ProgressBar(Entity* entity, Sprite* background, Sprite* barImage, sf::Vector2f position = {0.0f, 0.0f}, sf::Vector2f barOffset = {0.0f, 0.0f});
     ~ProgressBar() override = default;
     int GetBitmask() override;
-
+    void Serialize(json& json) override {}
+    void Deserialize(json& json) override {}
     Sprite* BackgroundImage;
     Sprite* Bar;
 
@@ -20,4 +21,5 @@ public:
     
     float Progress;
     float Maximum;
+    sf::Vector2f Scale;
 };

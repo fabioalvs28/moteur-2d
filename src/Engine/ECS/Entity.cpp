@@ -7,7 +7,7 @@
 
 int Entity::sNextId = 0;
 
-Entity::Entity(int layer) : Bitmask(0), mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
+Entity::Entity(int layer) : Bitmask(0), mCreated(false), m_destroyed(false), mId(sNextId), mIndex(0),
                    mTransform(new TRANSFORM(nullptr)), mLayer(layer)
 {
     mTag = Tag::NONE;
@@ -15,7 +15,7 @@ Entity::Entity(int layer) : Bitmask(0), mCreated(false), mDestoyed(false), mId(s
 }
 
 Entity::Entity(Entity* parent, int layer) : Bitmask(0),
-                   mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
+                   mCreated(false), m_destroyed(false), mId(sNextId), mIndex(0),
                    mTransform(new TRANSFORM(parent)), mLayer(layer)
 {
     parent->GetTransform()->AddChild(this);
@@ -61,7 +61,7 @@ void Entity::Create(int index)
 
 void Entity::Destroy()
 {
-    mDestoyed = true;
+    m_destroyed = true;
     for (auto child : GetTransform()->GetChildList())
     {
         child->Destroy();
@@ -75,7 +75,7 @@ bool Entity::IsCreated() const
 
 bool Entity::IsDestroyed() const
 {
-    return mDestoyed;
+    return m_destroyed;
 }
 
 const char* Entity::GetStringFromTag(Tag oTag) const
@@ -86,7 +86,7 @@ const char* Entity::GetStringFromTag(Tag oTag) const
         case Tag::PLAYER: return "PLAYER";
         case Tag::GROUND: return "GROUND";
         case Tag::OBSTACLE: return "OBSTACLE";
-        case Tag::ENNEMY: return "ENNEMY";
+        case Tag::ENEMY: return "ENEMY";
         case Tag::PROJECTILES: return "PROJECTILES";
         default: return "UNKNOWN";   
     }
@@ -98,8 +98,22 @@ Entity::Tag Entity::GetTagFromString(const std::string& oString) const
     if (oString == "PLAYER") return Tag::PLAYER;
     if (oString == "GROUND") return Tag::GROUND;
     if (oString == "OBSTACLE") return Tag::OBSTACLE;
-    if (oString == "ENNEMY") return Tag::ENNEMY;
+    if (oString == "ENEMY") return Tag::ENEMY;
     if (oString == "PROJECTILES") return Tag::PROJECTILES;
 
     return Tag::NONE;  // Valeur par défaut
+}
+
+bool Entity::IsEnable()
+{
+    return mEnabled;
+}
+
+void Entity::SetEnabled(bool state)
+{
+    mEnabled = state;
+    for (auto child : GetTransform()->GetChildList())
+    {
+        child->SetEnabled(state);
+    }
 }

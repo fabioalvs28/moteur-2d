@@ -42,7 +42,7 @@ public:
     int mEntityToAddCount;
     int mEntityToRemoveCount;
     std::map<int, std::list<Entity*>*> mEntitiesByLayer;
-
+    bool IsEnable(int index);
 private:
     EC** mEntities = new EC*[16000];
     EC** mToAddEntities = new EC*[1024];

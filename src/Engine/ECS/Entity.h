@@ -9,6 +9,8 @@ public:
     Entity(int layer = 0);
     Entity(Entity* parent, int layer = 0);
     ~Entity();
+    bool IsEnable();
+    void SetEnabled(bool enable);
 
     enum class Tag : uint8_t
     {
@@ -16,8 +18,9 @@ public:
         PLAYER,
         GROUND,
         OBSTACLE,
-        ENNEMY,
+        ENEMY,
         PROJECTILES,
+        XP,
 
         TAG_COUNT
     };
@@ -54,8 +57,9 @@ public:
     int Bitmask;
 
 protected:
+    bool mEnabled;
     bool mCreated;
-    bool mDestoyed;
+    bool m_destroyed;
     int mId;
     int mIndex;
     int mLayer;
