@@ -9,7 +9,7 @@ Button::Button(Entity* entity, Sprite* sprite, sf::Vector2f position, int width,
     IsClicked(false), IsReleased(true)
 {
     shape = new sf::RectangleShape({static_cast<float>(width), static_cast<float>(height)});
-    shape->setFillColor(Colors::transparent_gray);
+    shape->setFillColor(Colors::blue);
 }
 
 int Button::GetBitmask()
