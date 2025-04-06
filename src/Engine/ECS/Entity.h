@@ -28,6 +28,10 @@ public:
     
     template<typename T>
     T* GetComponent();
+
+    template<typename S>
+    S* GetScript();
+
     template<typename T>
     bool HasComponent() const;
 
