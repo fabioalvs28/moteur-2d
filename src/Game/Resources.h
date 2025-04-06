@@ -34,6 +34,8 @@ public:
     Texture* BAR_CONTAINER_TEXTURE;
     Texture* BAR_HEALTH_TEXTURE;
     Texture* BAR_EXP_TEXTURE;
+    Texture* PETER_TEXTURE;
+    Texture* EXP_TEXTURE;
     
     ////////////////////////////////
     /////// SPRITES
@@ -42,6 +44,8 @@ public:
     Sprite* BAR_CONTAINER;
     Sprite* BAR_HEALTH;
     Sprite* BAR_EXP;
+    Sprite* PETER;
+    Sprite* EXP;
 
     ////////////////////////////////
     /////// FONTS
