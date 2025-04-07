@@ -49,6 +49,12 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
     prefabJson["Tag"] = entity->GetStringFromTag(entity->GetTag());
     prefabJson["Layer"] =  entity->GetLayer();
 
+    if(std::filesystem::exists("../../res/Prefabs/" + filename))
+    {
+        std::cout << "Already exists " << filename << std::endl;
+        return;
+    }
+    
     for(auto& script : Engine::GetScriptManager()->scriptedEntity[entity->GetIndex()])
     {
         json scriptJson;
@@ -64,13 +70,9 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
         prefabJson["components"].push_back(componentJson);
     }
     
-    if(std::filesystem::exists(filename))
-    {
-        std::cout << "Already exists " << filename << std::endl;
-        return;
-    }
+
     
-    std::ofstream outfile(filename);
+    std::ofstream outfile("../../res/Prefabs/" + filename);
 
 
     if (outfile.is_open())
@@ -87,7 +89,7 @@ inline void ObjectFactory::SavePrefab(Entity* entity, const std::string& filenam
 inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
 {
     
-    std::ifstream file(filename);
+    std::ifstream file("../../res/Prefabs/" + filename);
     if (!file.is_open())
     {
         std::cout << "Failed to open file " << filename << std::endl;
@@ -165,7 +167,7 @@ inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
     {
         std::string name = scriptInJson["Name"];
         
-        IScript* script = ScriptManager::GetScriptByName(name);
+        IScript* script = ScriptManager::CreateScriptByName(name);
 
         AddScript(script, entity);
     }
