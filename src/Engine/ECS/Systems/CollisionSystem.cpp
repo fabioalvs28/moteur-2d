@@ -93,7 +93,7 @@ void CollisionSystem::UpdateColliders(ECS* globalEC)
 {
     for (int i = 0; i < globalEC->mEntityCount; i++)
     {
-        if (!globalEC->HasComponent<Collider2D>(i)) continue;
+        if (!globalEC->GetComponent<Collider2D>(i)) continue;
 
         Collider2D* collider = globalEC->GetComponent<Collider2D>(i);
         Entity* entity = collider->GetEntity();

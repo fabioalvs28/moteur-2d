@@ -6,7 +6,7 @@ class CircleCollider : public Collider2D
 public:
     static constexpr int BITMASK = 1 << 9;
 
-    CircleCollider(Entity* entity, int radius = 0.0f);
+    CircleCollider(Entity* entity, float radius = 1.0f);
     void SetRadius(float radius) { mRadius = radius; }
     float GetRadius() const { return mRadius; }
     void Serialize(json& json) override;
