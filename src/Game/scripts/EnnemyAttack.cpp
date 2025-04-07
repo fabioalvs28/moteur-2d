@@ -25,6 +25,7 @@ void EnemyAttack::Die() const
 {
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
     pXpOrb->SetTag(Entity::Tag::XP);
+    ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
     m_pOwner->Destroy();
 }

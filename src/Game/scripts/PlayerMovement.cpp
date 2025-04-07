@@ -125,10 +125,20 @@ void PlayerMovement::Attack()
 {
     Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
 
-    ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+    SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
     ObjectFactory::AttachScript<Sword>(attackRect, m_direction);
     sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
-    attackRect->GetTransform()->position = sf::Vector2f(ownerPos.x + m_direction.x * m_attackDistance, ownerPos.y + m_direction.y * m_attackDistance);
+    // Get the owner's current position
+    sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
+    // Calculate the future position based on the direction vector and attack distance
+    sf::Vector2f futurePos = ownerPos + m_direction * m_attackDistance;
+
+    // Calculate the rotation angle in radians
+    float rotation = atan2(m_direction.y, m_direction.x);
+
+    // Set the rotation and position of the attack rectangle
+    attackRect->GetTransform()->rotation = sf::degrees(rotation * (180.0f / 3.14159265358979323846f));// Convert radians to degrees
+    attackRect->GetTransform()->position = futurePos;
 }
 
 void PlayerMovement::LevelUp()

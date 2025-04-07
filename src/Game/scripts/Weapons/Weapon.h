@@ -27,12 +27,14 @@ public:
     void OnFixedUpdate() override {}
     void OnUpdate() override;
     void OnDisable() override {}
+    void OnCollisionEnter(Entity* other) override {};
     virtual void OnAttack() = 0;
 
 protected:
-    float m_time = 0.0f;
+    float m_time;
     float m_velocity;
     float m_lifeSpan;
+    float m_damages;
 
     sf::Vector2f m_direction;
     WEAPON_TYPES m_weaponType;

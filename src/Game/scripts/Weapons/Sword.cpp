@@ -2,6 +2,7 @@
 #include "Sword.h"
 #include "Managers/GameManager.h"
 #include "Transform.h"
+#include "../EnnemyAttack.h"
 
 
 Sword::Sword(sf::Vector2f direction)
@@ -14,7 +15,8 @@ void Sword::OnStart()
     m_time = 0.0f;
     m_pGameManager = Engine::GetGameManager();
     m_velocity = 0.0f;
-    m_lifeSpan = 5.0f;
+    m_lifeSpan = 50.0f;
+    m_damages = 5.0f;
     m_weaponType = TYPE_SWORD;
 }
 
@@ -26,10 +28,9 @@ void Sword::OnFixedUpdate()
 
 void Sword::OnUpdate()
 {
-    m_time += m_pGameManager->GetTime()->GetDeltaTime();
+    m_time += m_pGameManager->GetTime()->GetFixedDeltaTime();
     if (m_time >= m_lifeSpan)
     {
-        m_time -= m_lifeSpan;
         m_pOwner->Destroy();
     }
 }
@@ -37,4 +38,12 @@ void Sword::OnUpdate()
 void Sword::OnAttack()
 {
     
+}
+
+void Sword::OnCollisionEnter(Entity* other)
+{
+    if (other->IsTag(Entity::Tag::ENEMY))
+    {
+        other->GetScript<EnemyAttack>()->TakeDamage(m_damages);
+    }
 }
