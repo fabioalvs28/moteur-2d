@@ -9,6 +9,8 @@ public:
     Entity(int layer = 0);
     Entity(Entity* parent, int layer = 0);
     ~Entity();
+    bool IsEnable();
+    void SetEnabled(bool enable);
 
     
     enum class Tag : uint8_t
@@ -17,8 +19,9 @@ public:
         PLAYER,
         GROUND,
         OBSTACLE,
-        ENNEMY,
+        ENEMY,
         PROJECTILES,
+        XP,
 
         TAG_COUNT
     };
@@ -26,10 +29,13 @@ public:
     
     template<typename T>
     T* GetComponent();
+
+    template<typename S>
+    S* GetScript();
+
     template<typename T>
     bool HasComponent() const;
-    template<typename T>
-    T* GetScript();
+
     void AddBitmask(int mask);
     void RemoveBitmask(int mask);
     void SetIndex(int index);
@@ -59,8 +65,9 @@ public:
     void SetName(const std::string& nName);
     
 protected:
+    bool mEnabled;
     bool mCreated;
-    bool mDestoyed;
+    bool m_destroyed;
     int mId;
     int mIndex;
     int mLayer;

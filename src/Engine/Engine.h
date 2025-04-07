@@ -12,6 +12,7 @@ class RenderSystem;
 class ECS;
 class GameManager;
 class ObjectFactory;
+class UserInterfaceSystem;
 struct IScript;
 class Entity;
 
@@ -46,6 +47,7 @@ private:
     static PhysicsSystem* GetPhysicsSystem();
     static CollisionSystem* GetCollisionSystem();
     static ParticleSystem* GetParticleSystem();
+    static UserInterfaceSystem* GetUserInterfaceSystem();
 
     GameManager* mGameManager;
 
@@ -56,6 +58,8 @@ private:
     CameraSystem* mCameraSystem;
     ParticleSystem* mParticleSystem;
     ScriptManager* mScriptManager;
+    UserInterfaceSystem* mUserInterfaceSystem;
+
     RenderWindow* mRenderWindow;
 
     // Make system only accessible from engine

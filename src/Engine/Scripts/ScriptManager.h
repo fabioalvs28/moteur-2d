@@ -14,6 +14,9 @@ public:
     
     template <typename SType, typename ... Args>    
     SType* CreateScript(Entity* entity, Args&&... args);
+
+    template<typename S>
+    S* GetScript(Entity* pEntity);
     
     void RemoveEntity(int* index);
 

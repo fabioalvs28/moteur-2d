@@ -33,11 +33,23 @@ public:
 
     Texture* DEFAULT_TEXTURE;
     Texture* SPRITE_SHEET;
+    Texture* BAR_CONTAINER_TEXTURE;
+    Texture* BAR_HEALTH_TEXTURE;
+    Texture* BAR_EXP_TEXTURE;
+    Texture* PETER_TEXTURE;
+    Texture* EXP_TEXTURE;
+    
     Texture* ALEX_TEXTURE;
     ////////////////////////////////
     /////// SPRITES
 
     Sprite* DEFAULT_SPRITE;
+    Sprite* BAR_CONTAINER;
+    Sprite* BAR_HEALTH;
+    Sprite* BAR_EXP;
+    Sprite* PETER;
+    Sprite* EXP;
+
     Sprite* ALEX_SPRITE;
     ////////////////////////////////
     /////// FONTS

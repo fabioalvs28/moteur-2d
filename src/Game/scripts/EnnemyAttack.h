@@ -3,18 +3,23 @@
 #include "scripts/Script.h"
 #include "Engine/Scripts/ScriptRegistry.h"
 
-class EnnemyAttack : public IScript
+class EnemyAttack : public IScript
 {
 public:
-    EnnemyAttack() = default;
+
+    EnemyAttack() = default;
 
     void OnStart() override;
-    void Attack();
-    void OnTriggerEnter(Entity* other) override;
+    void OnCollisionEnter(Entity* other) override;
+    void TakeDamage(float damages);
 
 private:
-    float mDamage;
+    void Attack() const;
+    void Die() const;
+
     PlayerMovement* PMScript;
+    float m_damage;
+    float m_hp;
 };
 
-REGISTER_SCRIPT(EnnemyAttack)
+REGISTER_SCRIPT(EnemyAttack)

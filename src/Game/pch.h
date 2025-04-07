@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <json.hpp>
+#include <math.h>
 
 using json = nlohmann::json;
 

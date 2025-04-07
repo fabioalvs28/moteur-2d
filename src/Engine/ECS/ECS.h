@@ -41,6 +41,7 @@ public:
     int mEntityToAddCount;
     int mEntityToRemoveCount;
     std::map<int, std::list<Entity*>*> mEntitiesByLayer;
+    bool IsEnable(int index);
     std::map<std::string, int> mEntitiesRegistry;
     
 private:
