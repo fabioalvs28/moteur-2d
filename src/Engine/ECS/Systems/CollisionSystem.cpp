@@ -56,7 +56,6 @@ void CollisionSystem::DetectCollisions(ECS* globalEC)
         
         for (Entity* entity1 : entitiesInCell)
         {
-            if (mRemovedEntities.contains(entity1)) continue;
             if(!entity1 || entity1->IsDestroyed()) continue;
             
             Collider2D* collider1 = globalEC->GetComponent<Collider2D>(*entity1->GetIndex());
@@ -64,7 +63,6 @@ void CollisionSystem::DetectCollisions(ECS* globalEC)
             
             for (Entity* entity2 : mNeighboringEntities)
             {
-                if (mRemovedEntities.contains(entity2)) continue;
                 if (entity2->GetTag() == entity1->GetTag() || entity2->IsDestroyed()) continue;
                 
                 Collider2D* collider2 = globalEC->GetComponent<Collider2D>(*entity2->GetIndex());
@@ -318,24 +316,6 @@ void CollisionSystem::OnFixedUpdate(ECS* globalEC)
     collisionaProfiler.EndTask();
 
     mPreviousCollisions = mCurrentCollisions;
-
-    for(Entity* entityRemoved : mRemovedEntities)
-    {
-        for (auto& [coords, entitiesInCell] : mGrid->GetAllCells())
-        {
-            int toRemove = 0;
-            for (auto entity : entitiesInCell)
-            {
-                if (entity == entityRemoved)
-                {
-                    entitiesInCell.erase(entitiesInCell.begin()+toRemove);
-                    break;
-                }
-                toRemove++;
-            }
-        }
-    }
-    mRemovedEntities.clear();
 
 }
 

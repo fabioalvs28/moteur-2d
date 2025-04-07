@@ -23,9 +23,9 @@ void RenderSystem::Render(ECS* globalEC)
     {
         for(Entity* entities : *entity)
         {
-            if (globalEC->HasComponent<SpriteRenderer>(entities->GetId()))
+            if (globalEC->HasComponent<SpriteRenderer>(*entities->GetIndex()))
             {
-                SpriteRenderer* renderer = globalEC->GetComponent<SpriteRenderer>(entities->GetId());
+                SpriteRenderer* renderer = globalEC->GetComponent<SpriteRenderer>(*entities->GetIndex());
                 sf::Vector2f size = renderer->Image->getGlobalBounds().size * 0.5f;
                 TRANSFORM* transform = renderer->GetEntity()->GetTransform();
                 renderer->Image->setPosition(transform->position - size);
@@ -36,16 +36,16 @@ void RenderSystem::Render(ECS* globalEC)
                     window->Draw(renderer->Image);
                 else
                     window->Draw(renderer->Image, renderer->RendererShader);
-            } else if (globalEC->HasComponent<Image>(entities->GetId()))
+            } else if (globalEC->HasComponent<Image>(*entities->GetIndex()))
             {
-                Image* image = globalEC->GetComponent<Image>(entities->GetId());
+                Image* image = globalEC->GetComponent<Image>(*entities->GetIndex());
                 image->UIImage->setPosition(cameraTransform->position);
                 window->Draw(image->UIImage);
             }
 
-            if(globalEC->HasComponent<CircleCollider>(entities->GetId()) || globalEC->HasComponent<AABBCollider>(entities->GetId()))
+            if(globalEC->HasComponent<CircleCollider>(*entities->GetIndex()) || globalEC->HasComponent<AABBCollider>(*entities->GetIndex()))
             {
-                Collider2D* coll = globalEC->GetComponent<Collider2D>(entities->GetId());
+                Collider2D* coll = globalEC->GetComponent<Collider2D>(*entities->GetIndex());
                 window->Draw(coll->GetShape());
             }
         }

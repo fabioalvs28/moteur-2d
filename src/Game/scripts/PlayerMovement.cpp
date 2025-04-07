@@ -135,7 +135,7 @@ void PlayerMovement::LevelUp()
     m_maxExp += 5;
     m_pExpBar->Maximum = m_maxExp;
     
-    Engine::GetGameManager()->GetTime()->Pause();
+    //Engine::GetGameManager()->GetTime()->Pause();
 }
 
 void PlayerMovement::TakeDamage(float damage)
