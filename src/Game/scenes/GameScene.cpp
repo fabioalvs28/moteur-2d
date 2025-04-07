@@ -18,8 +18,10 @@ void GameScene::OnEnter()
     srand(static_cast<unsigned int>(time(nullptr)));
 
     Entity* player = ObjectFactory::CreateEntity<Entity>();
-    player->GetTransform()->SetPosition(pWindow->GetWindowWidth() / 2, pWindow->GetWindowHeight() / 2);
-    ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
+    SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
+    sf::Vector2f playerSize = (sf::Vector2f)sr->Image->getTexture().getSize();
+    sr->Image->setOrigin({ playerSize.x * 0.5f, playerSize.y *  0.5f });
+    player->GetTransform()->SetPosition(pWindow->GetWindowWidth() / 2 + playerSize.x, pWindow->GetWindowHeight() / 2 + playerSize.y);
     player->SetTag(Entity::Tag::PLAYER);
 
 
