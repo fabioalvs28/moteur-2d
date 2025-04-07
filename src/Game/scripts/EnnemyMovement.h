@@ -7,7 +7,6 @@ class EnnemyMovement : public IScript
     
 public:
     EnnemyMovement() = default;
-    EnnemyMovement(Entity* player);
     
     void OnStart() override;
     void OnFixedUpdate() override;
@@ -16,7 +15,7 @@ public:
 private:
     TRANSFORM* mpTransform;
     sf::Vector2f movement;
-    Entity* mpPlayer;
+    TRANSFORM* mpPlayerTransform;
 };
 
 REGISTER_SCRIPT(EnnemyMovement)

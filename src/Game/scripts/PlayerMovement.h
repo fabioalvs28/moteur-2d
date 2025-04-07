@@ -6,7 +6,7 @@ class PlayerMovement : public IScript
 {
     
 public:
-    PlayerMovement();
+    PlayerMovement() = default;
     
     void OnStart() override;
     void OnFixedUpdate() override;

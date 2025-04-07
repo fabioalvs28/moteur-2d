@@ -14,7 +14,7 @@ public:
 
 private:
     float mDamage;
-    PlayerMovement* l;
+    PlayerMovement* PMScript;
 };
 
 REGISTER_SCRIPT(EnnemyAttack)

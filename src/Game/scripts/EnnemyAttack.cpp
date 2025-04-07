@@ -6,12 +6,12 @@
 
 void EnnemyAttack::OnStart()
 {
-    //l = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
+    PMScript = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
 }
 
 void EnnemyAttack::Attack()
 {
-    //l->SetHP(l->GetHP() - mDamage);
+    PMScript->SetHP(PMScript->GetHP() - mDamage);
 }
 
 void EnnemyAttack::OnTriggerEnter(Entity* other)

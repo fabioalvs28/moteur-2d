@@ -3,14 +3,11 @@
 
 #include "Transform.h"
 
-EnnemyMovement::EnnemyMovement(Entity* player)
-{
-    mpPlayer = player;
-}
 
 void EnnemyMovement::OnStart()
 {
     mpTransform = owner->GetTransform();
+    mpPlayerTransform = Engine::GetEntityByName("player")->GetTransform();;
 }
 
 void EnnemyMovement::OnFixedUpdate()
@@ -22,8 +19,9 @@ void EnnemyMovement::OnFixedUpdate()
 
 void EnnemyMovement::OnUpdate()
 {
-    sf::Vector2f direction = mpPlayer->GetTransform()->position - mpTransform->position;
+    sf::Vector2f direction = mpPlayerTransform->position - mpTransform->position;
 
-    movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
+    if(direction.x != 0 || direction.y != 0)
+        movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
 }
 
