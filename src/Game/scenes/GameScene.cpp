@@ -8,6 +8,7 @@
 #include "ECS/Components/Camera.h"
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/ui/ProgressBar.h"
+#include "scripts/EnnemyAttack.h"
 
 #include "scripts/PlayerMovement.h"
 
@@ -19,15 +20,22 @@ void GameScene::OnEnter()
 
     Entity* player = ObjectFactory::CreateEntity<Entity>();
     SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
+    ObjectFactory::CreateComponent<AABBCollider>(player);
     sf::Vector2f playerSize = (sf::Vector2f)sr->Image->getTexture().getSize();
     sr->Image->setOrigin({ playerSize.x * 0.5f, playerSize.y *  0.5f });
     player->GetTransform()->SetPosition(pWindow->GetWindowWidth() / 2 + playerSize.x, pWindow->GetWindowHeight() / 2 + playerSize.y);
     player->SetTag(Entity::Tag::PLAYER);
+    
+    Entity* enemy = ObjectFactory::CreateEntity<Entity>();
+    ObjectFactory::CreateComponent<SpriteRenderer>(enemy, Resources::instance().DEFAULT_SPRITE);
+    ObjectFactory::CreateComponent<AABBCollider>(enemy);
+    enemy->SetTag(Entity::Tag::ENEMY);
 
 
     Entity* camera = ObjectFactory::CreateEntity<Entity>();
     ObjectFactory::CreateComponent<Camera>(camera);
     PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player, camera);
+    ObjectFactory::AttachScript<EnemyAttack>(enemy, ppm);
     ppm->Attack();
 }
 
