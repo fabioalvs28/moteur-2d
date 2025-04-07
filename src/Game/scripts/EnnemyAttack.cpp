@@ -14,11 +14,13 @@ EnemyAttack::EnemyAttack(PlayerMovement* playerHP): m_hp(1)
 void EnemyAttack::OnStart()
 {
     m_damage = 1;
+    PMScript = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
+
 }
 
-void EnemyAttack::Attack() const
+void EnnemyAttack::Attack()
 {
-    HPp->TakeDamage(m_damage);
+    PMScript->SetHP(PMScript->GetHP() - mDamage);
 }
 
 void EnemyAttack::Die() const

@@ -4,7 +4,7 @@
 IScript::IScript(): m_pOwner(nullptr)
 {
 }
-
+    
 void IScript::OnStart()
 {
 }
@@ -44,6 +44,7 @@ void IScript::OnTriggerExit(Entity* other)
 void IScript::OnRender(RenderWindow* window)
 {
 }
+
 
 void IScript::OnRenderDisable()
 {

@@ -1,14 +1,16 @@
 ﻿#pragma once
 #include "ECS/Entity.h"
+#include "ScriptManager.h"
 
 struct IScript
 {
+#define REGISTER_SCRIPT(scriptInstance) \
+    Engine::GetScriptManager()->RegisterScript((scriptInstance).GetName(), &(scriptInstance))
     
     IScript();
     virtual ~IScript() = default;
     
     virtual void OnStart();
-    
     virtual void OnUpdate();
     virtual void OnFixedUpdate();
 
@@ -21,15 +23,17 @@ struct IScript
     virtual void OnTriggerExit(Entity* other);
 
     virtual void OnRender(RenderWindow* window);
-    
+    std::string& GetName() { return mName; }
     virtual void OnRenderDisable();
     virtual void OnDisable();
 
 protected:
     Entity* m_pOwner;
+    std::string mName;
 
 private:
     void SetOwner(Entity* entity);
-    
     friend ScriptManager;
+    friend ObjectFactory;
 };
+

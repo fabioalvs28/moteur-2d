@@ -1,0 +1,42 @@
+{
+    "Layer": 1,
+    "Name": "player",
+    "Rotation": 0.0,
+    "Scripts": [
+        {
+            "Name": "PlayerMovement"
+        }
+    ],
+    "TPosition": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "TScale": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "Tag": "PLAYER",
+    "components": [
+        {
+            "Texture": "AlexLeMechant.png",
+            "bitmask": 4
+        },
+        {
+            "DynamicFriction": 0.6000000238418579,
+            "Elasticity": 0.10000000149011612,
+            "StaticFriction": 0.6000000238418579,
+            "bitmask": 16
+        },
+        {
+            "Center": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "ColliderType": "Circle",
+            "IsStatic": false,
+            "IsTrigger": false,
+            "Radius": 10.0,
+            "bitmask": 512
+        }
+    ]
+}

@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include <map>
 
+#include "Render/RenderWindow.h"
+
+class ObjectFactory;
 class Entity;
 struct IScript;
 
@@ -9,7 +12,7 @@ class ScriptManager
 public:
     ScriptManager();
     
-    template <typename SType, typename ... Args>
+    template <typename SType, typename ... Args>    
     SType* CreateScript(Entity* entity, Args&&... args);
 
     template<typename S>
@@ -30,12 +33,19 @@ public:
     
     void OnFixedUpdate();
     void OnUpdate();
-
+    static IScript* CreateScriptByName(const std::string& scriptName);
+    
+    static void RegisterScript(const std::string& name, IScript* script);
 private:
+    std::unordered_map<std::string, IScript*> mScriptRegistry;
     std::map<int*, std::vector<IScript*>> scriptedEntity;
     std::map<int*, std::vector<IScript*>> scriptedEntityToAdd;
     int mEntityToRemoveCount;
     int** toRemoveId = new int*[1024];
+
+
+    friend class Entity;
+    friend ObjectFactory;
 };
 
 #include "ScriptManager.inl"

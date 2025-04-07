@@ -7,8 +7,8 @@ class Texture : public sf::Texture
 public:
     Texture(std::string path, bool customPath=false);
 
-    std::string& GetPath() {return mPath;}
+    std::string GetPath() {return mPath;}
     
 private:
-    std::string& mPath;
+    std::string mPath;
 };

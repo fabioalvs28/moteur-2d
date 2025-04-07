@@ -9,3 +9,11 @@ std::wstring CoreUtils::GetResourceFolder()
     return L"../../res/";
 #endif
 }
+
+std::string CoreUtils::Demangle(std::string name)
+{
+    for(int i = 0; i < 6;i++)
+        name.erase(name.begin());
+
+    return name;
+}

@@ -6,7 +6,7 @@ Type* ECS::CreateEntity(Args&&... args)
     static_assert(std::is_base_of<Entity, Type>::value, "Type must be a subclass of Component");
     Type* entity = new Type(std::forward<Args>(args)...);
     entity->SetIndex(mEntityToAddCount);
-
+    mEntitiesRegistry.insert({entity->GetName(), entity->GetId()});
     EC* ec = new EC(entity);
     mToAddEntities[mEntityToAddCount] = ec;
     mEntityToAddCount++;

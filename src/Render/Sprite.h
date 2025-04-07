@@ -13,7 +13,7 @@ public:
     
     void SetAlpha(uint8_t alpha);
     Texture* GetTexture() const;
-
+    void SetTexture(Texture* texture);
     Sprite* Cut(int x, int y, int width, int height);
 
 private:

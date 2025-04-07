@@ -37,6 +37,8 @@ void Resources::CreateTextures()
     BAR_EXP_TEXTURE = new Texture("UI/gui_MPBar.png");
     EXP_TEXTURE = new Texture("UI/gui_lightIcon.png");
     SPRITE_SHEET = new Texture("../../res/Tiles/tileset.png", false);
+    ALEX_TEXTURE = new Texture("AlexLeMechant.png");
+    
 }
 
 void Resources::CreateSprite()
@@ -48,6 +50,7 @@ void Resources::CreateSprite()
     PETER = new Sprite(*PETER_TEXTURE);
     EXP = new Sprite(*EXP_TEXTURE);
 
+    ALEX_SPRITE = new Sprite(*ALEX_TEXTURE);
 }
 
 void Resources::CreateFonts()

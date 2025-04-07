@@ -27,6 +27,11 @@ Texture* Sprite::GetTexture() const
     return mpTexture;
 }
 
+void Sprite::SetTexture(Texture* texture)
+{
+    mpTexture = texture;
+}
+
 Sprite* Sprite::Cut(int x, int y, int width, int height)
 {
     Sprite* part = new Sprite(*this);

@@ -7,19 +7,21 @@
 
 int Entity::sNextId = 0;
 
-Entity::Entity(int layer) : Bitmask(0), mCreated(false), m_destroyed(false), mId(sNextId), mIndex(0),
-                   mTransform(new TRANSFORM(nullptr)), mLayer(layer)
+Entity::Entity(int layer) : Bitmask(0), mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
+                   mTransform(new TRANSFORM(nullptr)), mLayer(layer), mName("Entity")
 {
     mTag = Tag::NONE;
+    mName.push_back(sNextId);
     sNextId++;
 }
 
 Entity::Entity(Entity* parent, int layer) : Bitmask(0),
-                   mCreated(false), m_destroyed(false), mId(sNextId), mIndex(0),
-                   mTransform(new TRANSFORM(parent)), mLayer(layer)
+                   mCreated(false), mDestoyed(false), mId(sNextId), mIndex(0),
+                   mTransform(new TRANSFORM(parent)), mLayer(layer), mName("Entity")
 {
     parent->GetTransform()->AddChild(this);
     mTag = Tag::NONE;
+    mName.push_back(sNextId);
     sNextId++;
 }
 
@@ -116,4 +118,11 @@ void Entity::SetEnabled(bool state)
     {
         child->SetEnabled(state);
     }
+}
+void Entity::SetName(const std::string& nName)
+{
+    auto nodeHandler = Engine::GetECS()->mEntitiesRegistry.extract(mName);
+    nodeHandler.key() = nName;
+    Engine::GetECS()->mEntitiesRegistry.insert(std::move(nodeHandler));
+    mName = nName;
 }

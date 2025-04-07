@@ -21,6 +21,8 @@ public:
         return instance;
     }
 
+    std::vector<Texture*> mTextures;
+    std::vector<Sprite*> mSprites;
     ////////////////////////////////
     /////// SHADERS
 
@@ -37,6 +39,7 @@ public:
     Texture* PETER_TEXTURE;
     Texture* EXP_TEXTURE;
     
+    Texture* ALEX_TEXTURE;
     ////////////////////////////////
     /////// SPRITES
 
@@ -47,6 +50,7 @@ public:
     Sprite* PETER;
     Sprite* EXP;
 
+    Sprite* ALEX_SPRITE;
     ////////////////////////////////
     /////// FONTS
 

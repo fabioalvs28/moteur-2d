@@ -134,3 +134,7 @@ bool ECS::IsEnable(int index)
     Entity* entity = mEntities[index]->Entity;
     return entity->IsEnable();
 }
+Entity* ECS::GetEntityByName(std::string name)
+{
+    return GetEntity(mEntitiesRegistry[name]);
+}

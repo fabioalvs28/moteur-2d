@@ -13,12 +13,16 @@ class ECS;
 class GameManager;
 class ObjectFactory;
 class UserInterfaceSystem;
+struct IScript;
+class Entity;
 
 class Engine
 {
 public:
     Engine();
     ~Engine();
+    
+    static Entity* GetEntityByName(std::string name);
 
     static void CreateRender();
     static RenderWindow* GetRenderWindow();
@@ -26,7 +30,9 @@ public:
     static GameManager* GetGameManager();
 
     static CameraSystem* GetCameraSystem();
-    
+
+    static ScriptManager* GetScriptManager();
+
     static float GetDeltaTime();
 
 private:
@@ -62,7 +68,7 @@ private:
     friend class ECS;
     
     friend class ObjectFactory;
-    
+    friend struct IScript;
     friend class GameManager;
     friend class RenderSystem;
     friend class PhysicsSystem;
@@ -70,3 +76,5 @@ private:
     friend class CameraSystem;
     friend class ScriptManager;
 };
+
+

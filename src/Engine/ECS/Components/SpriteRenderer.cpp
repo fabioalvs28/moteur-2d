@@ -12,8 +12,7 @@ SpriteRenderer::SpriteRenderer(Entity* parent, Sprite* sprite, Shader* shader)
 
 SpriteRenderer::~SpriteRenderer()
 {
-    if (texture)
-        delete texture;
+
 }
 
 int SpriteRenderer::GetBitmask()
@@ -23,11 +22,13 @@ int SpriteRenderer::GetBitmask()
 
 void SpriteRenderer::Serialize(json& json)
 {
-    if(texture)
-        json["Texture"] = texture->GetPath();
+    json["Texture"] = Image->GetTexture()->GetPath();
 }
 
 void SpriteRenderer::Deserialize(json& json)
 {
-
+    Image = nullptr;
+    Texture* texture = new Texture(json["Texture"]);
+    Image = new Sprite(*texture);
+    texture = nullptr;
 }

@@ -2,7 +2,7 @@
 
 #include "Engine.h"
 #include "ECS.h"
-#include "../Scripts/ScriptManager.h"
+#include "Scripts/ScriptManager.h"
 
 template <typename T>
 T* Entity::GetComponent()

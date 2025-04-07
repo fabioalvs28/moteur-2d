@@ -3,12 +3,12 @@
 
 class ProgressBar;
 class RigidBody2D;
+#include "Engine/Scripts/ScriptRegistry.h"
 
 class PlayerMovement : public IScript
 {
 public:
     PlayerMovement() = default;
-    PlayerMovement(Entity* pCamera);
     
     void OnStart() override;
     void OnFixedUpdate() override;
@@ -43,3 +43,5 @@ private:
     ProgressBar* m_pExpBar;
     ProgressBar* m_pHealthBar;
 };
+
+REGISTER_SCRIPT(PlayerMovement)
