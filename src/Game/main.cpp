@@ -16,10 +16,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
     Engine::CreateRender();
 
     Resources::instance().Initialize();
-    
-    sf::Image icon;
-    icon.loadFromFile("../res/PeterIcone.ico");
-    Engine::GetRenderWindow()->setIcon(icon);
 
     Engine::GetGameManager()->LaunchScene<GameScene>();
     
