@@ -18,6 +18,4 @@ public:
 
     Sprite* Image;
     Shader* RendererShader;
-private:
-    Texture* texture;
 };

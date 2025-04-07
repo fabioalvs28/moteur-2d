@@ -15,10 +15,10 @@
         "y": 0.0
     },
     "TScale": {
-        "x": 1.0,
-        "y": 1.0
+        "x": 0.5,
+        "y": 0.5
     },
-    "Tag": "NONE",
+    "Tag": "ENNEMY",
     "components": [
         {
             "DynamicFriction": 0.6000000238418579,
