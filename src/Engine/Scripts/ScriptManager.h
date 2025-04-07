@@ -30,9 +30,8 @@ public:
     
     void OnFixedUpdate();
     void OnUpdate();
-
-    static IScript* GetScriptByName(const std::string& scriptName);
-
+    static IScript* CreateScriptByName(const std::string& scriptName);
+    
     static void RegisterScript(const std::string& name, IScript* script);
 private:
     std::unordered_map<std::string, IScript*> mScriptRegistry;

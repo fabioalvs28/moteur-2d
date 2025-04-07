@@ -2,6 +2,7 @@
 #include "ScriptManager.h"
 
 #include "Script.h"
+#include "ScriptRegistry.h"
 #include "ECS/Entity.h"
 
 ScriptManager::ScriptManager() : mEntityToRemoveCount(0) {}
@@ -115,12 +116,14 @@ void ScriptManager::OnUpdate()
     }
 }
 
-IScript* ScriptManager::GetScriptByName(const std::string& scriptName)
+IScript* ScriptManager::CreateScriptByName(const std::string& scriptName)
 {
     
-    if(Engine::GetScriptManager()->mScriptRegistry.find(scriptName) != Engine::GetScriptManager()->mScriptRegistry.end())
+    auto it = GetScriptRegistry().find(scriptName);
+    if (it != GetScriptRegistry().end())
     {
-        return Engine::GetScriptManager()->mScriptRegistry[scriptName];
+        IScript* script = it->second();
+        return script;
     }
 
     return nullptr;
