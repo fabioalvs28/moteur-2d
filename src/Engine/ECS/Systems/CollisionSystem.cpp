@@ -17,7 +17,7 @@ CollisionSystem& CollisionSystem::Get()
 
 CollisionSystem::CollisionSystem()
 {
-    mGrid = new SpatialGrid(100.0f, -20,-10,20,10);
+    mGrid = new SpatialGrid(100.0f);
 }
 
 

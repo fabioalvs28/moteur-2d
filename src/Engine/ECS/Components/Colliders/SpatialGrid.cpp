@@ -3,10 +3,8 @@
 
 #include "ECS/Components/Collider2D.h"
 
-SpatialGrid::SpatialGrid(float cellSize, int minGridSizeX, int minGridSizeY, int maxGridSizeX, int maxGridSizeY)
-    : mCellSize(cellSize), mMinX(minGridSizeX), mMinY(minGridSizeY),
-      mMaxX(maxGridSizeX), mMaxY(maxGridSizeY), 
-      mGridSizeX(maxGridSizeX - minGridSizeX), mGridSizeY(maxGridSizeY - minGridSizeY)
+SpatialGrid::SpatialGrid(float cellSize)
+    : mCellSize(cellSize)
 {
 }
 
@@ -50,12 +48,6 @@ void SpatialGrid::UpdateEntity(Entity* entity)
     }
 }
 
-bool SpatialGrid::IsValidCell(const CellCoords& coords) const
-{
-    return coords.x >= mMinX && coords.x < mMaxX &&
-           coords.y >= mMinY && coords.y < mMaxY;
-}
-
 CellCoords SpatialGrid::GetCellCoords(float x, float y) const
 {
     return{
@@ -75,25 +67,20 @@ void SpatialGrid::GetNeighboringEntities(int cellX, int cellY, std::vector<Entit
             for (int dz = -1; dz <= 1; dz++)
                 {
                 CellCoords coords = {cellX + dx, cellY + dy};
-                if (IsValidCell(coords))
-                    {
-                    auto it = mCells.find(coords);
-                    if (it != mCells.end())
-                    {
-                        outEntities.insert(outEntities.end(), it->second.begin(), it->second.end());
-                    }
+                auto it = mCells.find(coords);
+                if (it != mCells.end())
+                {
+                    outEntities.insert(outEntities.end(), it->second.begin(), it->second.end());
                 }
             }
         }
     }
 }
 
+
 std::vector<Entity*> SpatialGrid::GetEntitiesInCell(int x, int y)
 {
     CellCoords coords = {x, y};
-    if (IsValidCell(coords))
-    {
-        return mCells[coords];
-    }
-    return {};
+
+    return mCells[coords];
 }
