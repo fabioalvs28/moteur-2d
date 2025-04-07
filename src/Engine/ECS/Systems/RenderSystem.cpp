@@ -41,7 +41,7 @@ void RenderSystem::Render(ECS* globalEC)
                 window->Draw(image->UIImage);
             }
 
-            if(globalEC->HasComponent<Collider2D>(entities->GetId()))
+            if(globalEC->GetComponent<Collider2D>(entities->GetId()))
             {
                 Collider2D* coll = globalEC->GetComponent<Collider2D>(entities->GetId());
                 window->Draw(coll->GetShape());
