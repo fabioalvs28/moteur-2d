@@ -8,7 +8,7 @@ public:
     EnemyAttack(PlayerMovement* playerHP);
 
     void OnStart() override;
-    void OnTriggerEnter(Entity* other) override;
+    void OnCollisionEnter(Entity* other) override;
     void TakeDamage(float damage);
     
 private:

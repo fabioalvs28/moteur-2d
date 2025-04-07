@@ -126,18 +126,14 @@ void PlayerMovement::Attack()
     Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
 
     SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+    ObjectFactory::CreateComponent<AABBCollider>(attackRect);
     ObjectFactory::AttachScript<Sword>(attackRect, m_direction);
+
     sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
-    // Get the owner's current position
     sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
-    // Calculate the future position based on the direction vector and attack distance
     sf::Vector2f futurePos = ownerPos + m_direction * m_attackDistance;
-
-    // Calculate the rotation angle in radians
     float rotation = atan2(m_direction.y, m_direction.x);
-
-    // Set the rotation and position of the attack rectangle
-    attackRect->GetTransform()->rotation = sf::degrees(rotation * (180.0f / 3.14159265358979323846f));// Convert radians to degrees
+    attackRect->GetTransform()->rotation = sf::radians(rotation);
     attackRect->GetTransform()->position = futurePos;
 }
 

@@ -14,7 +14,7 @@ void Sword::OnStart()
 {
     m_time = 0.0f;
     m_pGameManager = Engine::GetGameManager();
-    m_velocity = 0.0f;
+    m_velocity = 10.0f;
     m_lifeSpan = 50.0f;
     m_damages = 5.0f;
     m_weaponType = TYPE_SWORD;

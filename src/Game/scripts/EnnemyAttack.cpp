@@ -26,11 +26,13 @@ void EnemyAttack::Die() const
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
     pXpOrb->SetTag(Entity::Tag::XP);
     ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
+    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb);
+    coll->SetTrigger(true);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
     m_pOwner->Destroy();
 }
 
-void EnemyAttack::OnTriggerEnter(Entity* other)
+void EnemyAttack::OnCollisionEnter(Entity* other)
 {
     if(other->IsTag(Entity::Tag::PLAYER))
     {
