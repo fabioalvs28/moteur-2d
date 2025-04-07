@@ -28,6 +28,7 @@ void SpriteRenderer::Serialize(json& json)
 
 void SpriteRenderer::Deserialize(json& json)
 {
-    texture = new Texture(json["Texture"]);
-    Image->setTexture(*texture);
+    Image = nullptr;
+    Texture* texture = new Texture(json["Texture"]);
+    Image = new Sprite(*texture);
 }
