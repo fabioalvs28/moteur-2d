@@ -18,6 +18,10 @@ Collider2D::Collider2D(Entity* entity) : Component(entity)
     ObjectFactory::CreateComponent<PhysicsMaterial>(entity);
 }
 
+Collider2D::~Collider2D()
+{
+    delete mpShape;
+}
 
 int Collider2D::GetBitmask()
 {

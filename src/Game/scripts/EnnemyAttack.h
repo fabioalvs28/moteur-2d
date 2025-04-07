@@ -16,8 +16,8 @@ public:
     void TakeDamage(float damages);
 
 private:
-    void Attack() const;
-    void Die() const;
+    void Attack();
+    void Die();
 
     PlayerMovement* PMScript;
     WaveManager* m_pWaveManager;

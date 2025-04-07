@@ -20,13 +20,14 @@ public:
     GameTimer* GetTime();
 
 private:
+    Scene* mpNextActiveScene;
     void Run();
 
     void HandleInput();
     void FixedUpdate();
     void Update();
     void Draw();
-
+    
     Profiler* mProfiler;
     GameTimer mTimer;
     bool IsStopped;

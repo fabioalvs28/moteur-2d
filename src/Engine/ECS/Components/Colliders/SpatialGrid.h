@@ -34,7 +34,7 @@ public:
 
     std::vector<Entity*> GetEntitiesInCell(int x, int y);
 
-    std::unordered_map<CellCoords, std::vector<Entity*>, CellHash> GetAllCells() { return mCells; }
+    std::unordered_map<CellCoords, std::vector<Entity*>, CellHash>& GetAllCells() { return mCells; }
 
     // Get All Grid Info
     float GetCellSize() const { return mCellSize; }

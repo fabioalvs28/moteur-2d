@@ -38,7 +38,7 @@ void GameScene::OnEnter()
 
     PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player);
     ObjectFactory::AttachScript<EnemyAttack>(enemy);
-    ppm->Attack();
+
 }
 
 

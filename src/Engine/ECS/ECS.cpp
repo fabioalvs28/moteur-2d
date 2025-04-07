@@ -52,35 +52,89 @@ void ECS::FixedUpdate()
     
 }
 
+
+ 
 void ECS::Update()
+ 
 {
+ 
 
-    for (int i = 0; i < mEntityToAddCount; i++)
+ 
+    mEntityToRemoveCount = 0;
+ 
+    for (int i = 0; i < mEntityCount; i++)
+ 
     {
-        EC* toAddEC = mToAddEntities[i];
-        
-        mEntities[mEntityCount] = toAddEC ;
-        toAddEC->Entity->Create(mEntityCount);
-        mEntityCount++;
+ 
+        Entity* entity = mEntities[i]->Entity;
+ 
 
-        int layer = toAddEC->Entity->GetLayer();
-
-        if(!mEntitiesByLayer.contains(layer))
+ 
+        if (entity->IsDestroyed())
+ 
         {
-            mEntitiesByLayer[layer] = new std::list<Entity*>;
+ 
+            mToRemoveEntityIndex[mEntityToRemoveCount] = entity->GetIndex();
+ 
+            mEntityToRemoveCount++;
+ 
+            Engine::GetScriptManager()->RemoveEntity(entity->GetIndex());
+ 
         }
-        mEntitiesByLayer[layer]->push_back(toAddEC->Entity);
+ 
     }
-    mEntityToAddCount = 0;
+ 
 
+ 
+    for (int i = 0; i < mEntityToAddCount; i++)
+ 
+    {
+ 
+        EC* toAddEC = mToAddEntities[i];
+ 
+
+ 
+        mEntities[mEntityCount] = toAddEC ;
+ 
+        toAddEC->Entity->Create(mEntityCount);
+ 
+        mEntityCount++;
+ 
+
+ 
+        int layer = toAddEC->Entity->GetLayer();
+ 
+
+ 
+        if(!mEntitiesByLayer.contains(layer))
+ 
+        {
+ 
+            mEntitiesByLayer[layer] = new std::list<Entity*>;
+ 
+        }
+ 
+        mEntitiesByLayer[layer]->push_back(toAddEC->Entity);
+ 
+    }
+ 
+    mEntityToAddCount = 0;
+ 
+
+ 
     for (int i = 0; i < mEntityToRemoveCount; i++)
+ 
     {
         int indexRemoved = *mToRemoveEntityIndex[i];
-
-        mEntitiesByLayer[mEntities[indexRemoved]->Entity->GetLayer()]->remove(mEntities[indexRemoved]->Entity);
+        Entity* entity = mEntities[indexRemoved]->Entity;
+        int layer = entity->GetLayer();
+ 
         if (indexRemoved == mEntityCount-1)
         {
             delete mEntities[indexRemoved];
+ 
+            mEntitiesByLayer[layer]->remove(entity);
+ 
             for (Component* component : mEntities[indexRemoved]->AttachedComponents)
             {
                 delete component;
@@ -89,37 +143,38 @@ void ECS::Update()
             continue;
         }
         
-        delete mEntities[indexRemoved]->Entity;
+        delete entity;
+ 
         for (Component* component : mEntities[indexRemoved]->AttachedComponents)
         {
             delete component;
         }
+ 
+        
+        Engine::GetCollisionSystem()->RemoveEntity(entity);
+        
+        std::list<Entity*>* entitiesByLayer = mEntitiesByLayer[layer];
+        
+        entitiesByLayer->remove(entity);
+        
         delete mEntities[indexRemoved];
         mEntities[indexRemoved] = mEntities[mEntityCount-1];
         mEntities[indexRemoved]->Entity->SetIndex(indexRemoved);
         mEntityCount--;
         
     }
-    mEntityToRemoveCount = 0;
+ 
 
-    for (int i = 0; i < mEntityCount; i++)
-    {
-        Entity* entity = mEntities[i]->Entity;
-
-        if (entity->IsDestroyed())
-        {
-            mToRemoveEntityIndex[mEntityToRemoveCount] = entity->GetIndex();
-            mEntityToRemoveCount++;
-            Engine::GetScriptManager()->RemoveEntity(entity->GetIndex());
-            continue;
-        }
-    }
-    
+ 
     Engine::GetCameraSystem()->Update(this);
-    Engine::GetScriptManager()->OnUpdate();
     
-}
+    Engine::GetScriptManager()->OnUpdate();
+ 
 
+ 
+
+ 
+}
 void ECS::Draw()
 {
     Engine::GetScriptManager()->OnRender(Engine::GetRenderWindow());

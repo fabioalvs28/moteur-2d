@@ -4,7 +4,7 @@
 //#define DEEP_PROFILER
 //#define COLLIDER_DEBUG
 #define ENTITY_BASE_MAXIMUM 1024;
-#define FIXED_DT 0.008333f
+#define FIXED_DT 0.0166667f
 
 #include "SFML/Main.hpp"
 #include "SFML/Graphics.hpp"

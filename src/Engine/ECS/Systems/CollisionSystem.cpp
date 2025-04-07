@@ -389,5 +389,15 @@ void CollisionSystem::HandleOnEvents()
 
 void CollisionSystem::RemoveEntity(Entity* entity)
 {
-    mRemovedEntities.emplace(entity);
+    for (auto& [coords, entitiesInCell] : mGrid->GetAllCells())
+    {
+        for (int toRemove = 0; toRemove < entitiesInCell.size(); toRemove++)
+        {
+            if (entitiesInCell.at(toRemove) == entity)
+            {
+                entitiesInCell.at(toRemove) = nullptr;
+                entitiesInCell.erase(entitiesInCell.begin()+toRemove);
+            }
+        }
+    }
 }

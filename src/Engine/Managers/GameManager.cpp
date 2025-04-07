@@ -3,6 +3,7 @@
 
 #include "GameTimer.h"
 #include "ECS/ECS.h"
+#include "ECS/Systems/CollisionSystem.h"
 #include "Render/RenderWindow.h"
 #include "Utils/Debug.h"
 #include "Utils/Profiler.h"
@@ -19,22 +20,79 @@ GameManager::GameManager(): mpActiveScene(nullptr),
 }
 
 void GameManager::Run()
+ 
 {
+ 
     Profiler globalProfiler;
+ 
     while(!IsStopped)
+ 
     {
+ 
+
+ 
         globalProfiler.NewTask("Global Inputs");
+ 
         HandleInput();
+ 
         globalProfiler.EndTask();
+ 
 
+ 
         globalProfiler.NewTask("Update Global");
+ 
         Update();
+ 
         globalProfiler.EndTask();
+ 
 
+ 
         globalProfiler.NewTask("Draw Global");
+ 
         Draw();
+ 
         globalProfiler.EndTask();
+ 
+
+ 
+        if (mpNextActiveScene)
+        {
+ 
+            mpActiveScene->OnExit();
+ 
+            delete mpActiveScene;
+            
+            for (int i = 0; i < Engine::GetECS()->mEntityCount; i++)
+            {
+                Entity* entity = Engine::GetECS()->GetEntity(i);
+ 
+                Engine::GetScriptManager()->RemoveEntity(entity->GetIndex());
+ 
+                entity->Destroy();
+            }
+
+            for (auto& all_cell : Engine::GetCollisionSystem()->mGrid->GetAllCells())
+            {
+                all_cell.second.clear();
+            }
+            
+            Engine::GetCollisionSystem()->mPreviousCollisions.clear();
+            
+            mpActiveScene = mpNextActiveScene;
+ 
+            mpNextActiveScene = nullptr;
+            
+            mpActiveScene->OnEnter();
+            
+            Engine::GetECS()->Update();
+            
+            Update();
+        }
+ 
     }
+    
+    delete mpActiveScene;
+ 
 }
 
 void GameManager::HandleInput()

@@ -72,7 +72,6 @@ Engine::Engine() : mGameManager(new GameManager()), mECS(new ECS()), mRenderSyst
                    mScriptManager(new ScriptManager()),
                    mRenderWindow(nullptr)
 {
-    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
     SearchAndRegisterScripts("..\\..\\src\\Game");
 }
 

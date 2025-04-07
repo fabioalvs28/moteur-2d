@@ -54,9 +54,12 @@ void PlayerMovement::OnCollisionEnter(Entity* other)
 {
     if (other->IsTag(Entity::Tag::XP))
     {
-        m_experience += other->GetComponent<Experience>()->GetValue();
+        m_experience += other->GetScript<Experience>()->GetValue();
         if (m_experience >= m_maxExp)
+        {
             LevelUp();
+        }
+        other->Destroy();
     }
 }
 
@@ -132,6 +135,7 @@ void PlayerMovement::LevelUp()
     m_maxExp += 5;
     m_pExpBar->Maximum = m_maxExp;
     
+    Engine::GetGameManager()->GetTime()->Pause();
 }
 
 void PlayerMovement::TakeDamage(float damage)

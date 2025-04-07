@@ -59,4 +59,7 @@ private:
     std::vector<Entity*> mNeighboringEntities;
     
     std::set<Entity*> mRemovedEntities;
+
+    
+    friend GameManager;
 };

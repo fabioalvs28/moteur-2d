@@ -31,7 +31,6 @@ void TestScene::OnEnter()
     player->SetTag(Entity::Tag::PLAYER);
     
     PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
-    mov->Attack();
     
     // Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     // other->GetTransform()->SetPosition(250.0f,250.0f);

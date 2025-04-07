@@ -29,7 +29,7 @@ void Sword::OnFixedUpdate()
 
 void Sword::OnUpdate()
 {
-    m_time += m_pGameManager->GetTime()->GetFixedDeltaTime();
+    m_time += Engine::GetDeltaTime();
     if (m_time >= m_lifeSpan)
     {
         m_pOwner->Destroy();

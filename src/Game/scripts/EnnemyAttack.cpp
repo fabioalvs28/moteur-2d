@@ -14,23 +14,23 @@ void EnemyAttack::OnStart()
     m_hp = 1.0f;
 }
 
-void EnemyAttack::Attack() const
+void EnemyAttack::Attack()
 {
     if(PMScript)
         PMScript->TakeDamage(m_damage);
 }
 
-void EnemyAttack::Die() const
+void EnemyAttack::Die()
 {
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
-    pXpOrb->SetTag(Entity::Tag::XP);
     ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
-    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb);
-    coll->SetTrigger(true);
+    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb, 100);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
+    coll->SetTrigger(true);
+    pXpOrb->SetTag(Entity::Tag::XP);
+    pXpOrb->GetTransform()->SetPosition(m_pOwner->GetTransform()->position);
     m_pWaveManager->Decrease();
     m_pOwner->Destroy();
-    
 }
 
 void EnemyAttack::OnCollisionEnter(Entity* other)
