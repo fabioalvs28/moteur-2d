@@ -13,5 +13,5 @@ public:
     void OnUpdate() override;
     void OnDisable() override {}
     void OnAttack() override;
-    void OnCollisionEnter(Entity* other) override;
+    void OnTriggerEnter(Entity* other) override;
 };

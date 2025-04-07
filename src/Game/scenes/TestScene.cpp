@@ -31,15 +31,15 @@ void TestScene::OnEnter()
     player->SetTag(Entity::Tag::PLAYER);
     
     PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
+    mov->Attack();
     
-    Entity* other = ObjectFactory::CreateEntity<Entity>(0);
-    other->GetTransform()->SetPosition(250.0f,250.0f);
-    ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
-    //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
-    other->GetComponent<AABBCollider>()->SetTrigger(true);
-    ObjectFactory::AttachScript<EnemyMovement>(other);
-    ObjectFactory::AttachScript<EnemyAttack>(other);
-    //other->GetComponent<CircleCollider>()->SetStatic(true);
+    // Entity* other = ObjectFactory::CreateEntity<Entity>(0);
+    // other->GetTransform()->SetPosition(250.0f,250.0f);
+    // ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
+    // //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
+    // ObjectFactory::AttachScript<EnemyMovement>(other);
+    // ObjectFactory::AttachScript<EnemyAttack>(other);
+    // //other->GetComponent<CircleCollider>()->SetStatic(true);
 
     // Alexandre = ObjectFactory::CreateEntity<Entity>(2);
     // ObjectFactory::CreateComponent<CircleCollider>(Alexandre,50.0f);
@@ -71,12 +71,13 @@ void TestScene::OnEnter()
     ObjectFactory::CreateComponent<Camera>(camera);
     camera->SetName("camera");
 
-    
+    Bat = ObjectFactory::CreateEntity<Entity>();
+    Bat->SetName("WaveManager");
 }
 
 void TestScene::OnLoad()
 {
-    Bat = ObjectFactory::CreateEntity<Entity>();
+
     ObjectFactory::AttachScript<WaveManager>(Bat);
 }
 

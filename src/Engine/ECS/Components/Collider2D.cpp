@@ -72,6 +72,8 @@ CollisionManifold Collider2D::CheckCollisionCircleCircle(Collider2D* Collider)
     CollisionManifold manifold;
     CircleCollider* CCollider1 = static_cast<CircleCollider*>(this);
     CircleCollider* CCollider2 = static_cast<CircleCollider*>(Collider);
+
+    if(CCollider1 == CCollider2) return manifold;
     
     float a = CCollider1->mCenter.x - CCollider2->mCenter.x;
     float b = CCollider1->mCenter.y - CCollider2->mCenter.y;
@@ -81,7 +83,6 @@ CollisionManifold Collider2D::CheckCollisionCircleCircle(Collider2D* Collider)
     if (c <= radiusSum * radiusSum)
     {  
         manifold.hasCollision = true;
-
         manifold.collisionNormal = (CCollider1->mCenter - CCollider2->mCenter).normalized();
         manifold.penetrationDepth = radiusSum - std::sqrt(c);
     }

@@ -99,6 +99,7 @@ void PlayerMovement::OnUpdate()
         m_direction = sf::Vector2f(0.0, -1.0);
     }
 
+    
 }
 
 
@@ -112,8 +113,10 @@ void PlayerMovement::Attack()
     Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
 
     SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
-    ObjectFactory::CreateComponent<AABBCollider>(attackRect);
+    AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,100,100);
+    coll->SetTrigger(true);
     ObjectFactory::AttachScript<Sword>(attackRect, m_direction);
+    /*ObjectFactory::CreateComponent<Animator>(attackRect, Resources:: 0, 0, );*/
 
     sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
     sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });

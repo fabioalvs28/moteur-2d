@@ -11,6 +11,7 @@ public:
     void OnStart() override;
     void OnFixedUpdate() override;
     void OnUpdate() override;
+    sf::Vector2f GenerateSpawnPosition();
 
 private:
     TRANSFORM* m_pTransform;

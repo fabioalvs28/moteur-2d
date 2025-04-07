@@ -3,6 +3,7 @@
 #include "Managers/GameManager.h"
 #include "Transform.h"
 #include "../EnnemyAttack.h"
+#include "ECS/Components/Colliders/AABBCollider.h"
 
 
 Sword::Sword(sf::Vector2f direction)
@@ -14,8 +15,8 @@ void Sword::OnStart()
 {
     m_time = 0.0f;
     m_pGameManager = Engine::GetGameManager();
-    m_velocity = 10.0f;
-    m_lifeSpan = 50.0f;
+    m_velocity = 0.0f;
+    m_lifeSpan = 2.0f;
     m_damages = 5.0f;
     m_weaponType = TYPE_SWORD;
 }
@@ -40,10 +41,11 @@ void Sword::OnAttack()
     
 }
 
-void Sword::OnCollisionEnter(Entity* other)
+void Sword::OnTriggerEnter(Entity* other)
 {
     if (other->IsTag(Entity::Tag::ENEMY))
     {
+        std::cout << m_pOwner->GetComponent<AABBCollider>()->GetCenter().x << " " << m_pOwner->GetComponent<AABBCollider>()->GetCenter().y << "\n";
         other->GetScript<EnemyAttack>()->TakeDamage(m_damages);
     }
 }
