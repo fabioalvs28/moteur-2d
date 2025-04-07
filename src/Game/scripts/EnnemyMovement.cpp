@@ -6,8 +6,8 @@
 
 void EnemyMovement::OnStart()
 {
-    mpTransform = m_pOwner->GetTransform();
-    mpPlayerTransform = Engine::GetEntityByName("player")->GetTransform();;
+    m_pTransform = m_pOwner->GetTransform();
+    m_pPlayerTransform = Engine::GetEntityByName("player")->GetTransform();
 }
 
 void EnemyMovement::OnFixedUpdate()
@@ -19,9 +19,9 @@ void EnemyMovement::OnFixedUpdate()
 
 void EnemyMovement::OnUpdate()
 {
-    sf::Vector2f direction = mpPlayerTransform->position - mpTransform->position;
+    sf::Vector2f direction = m_pPlayerTransform->position - m_pTransform->position;
 
     if(direction.x != 0 || direction.y != 0)
-        movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
+        m_movement += direction.normalized();  // NOLINT(clang-diagnostic-undefined-func-template)
 }
 

@@ -35,8 +35,7 @@ public:
 
     template<typename T>
     bool HasComponent() const;
-    template<typename T>
-    T* GetScript();
+
     void AddBitmask(int mask);
     void RemoveBitmask(int mask);
     void SetIndex(int index);

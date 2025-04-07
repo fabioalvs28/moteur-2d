@@ -34,8 +34,10 @@ void GameScene::OnEnter()
 
     Entity* camera = ObjectFactory::CreateEntity<Entity>();
     ObjectFactory::CreateComponent<Camera>(camera);
-    PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player, camera);
-    ObjectFactory::AttachScript<EnemyAttack>(enemy, ppm);
+    camera->SetName("camera");
+
+    PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player);
+    ObjectFactory::AttachScript<EnemyAttack>(enemy);
     ppm->Attack();
 }
 

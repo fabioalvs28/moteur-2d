@@ -6,16 +6,16 @@ class EnemyMovement : public IScript
 {
     
 public:
-    EnnemyMovement() = default;
+    EnemyMovement() = default;
     
     void OnStart() override;
     void OnFixedUpdate() override;
     void OnUpdate() override;
 
 private:
-    TRANSFORM* mpTransform;
-    sf::Vector2f movement;
-    TRANSFORM* mpPlayerTransform;
+    TRANSFORM* m_pTransform;
+    sf::Vector2f m_movement;
+    TRANSFORM* m_pPlayerTransform;
 };
 
-REGISTER_SCRIPT(EnnemyMovement)
+REGISTER_SCRIPT(EnemyMovement)

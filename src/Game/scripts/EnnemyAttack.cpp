@@ -5,12 +5,6 @@
 #include "PlayerMovement.h"
 #include "Experience.h"
 
-EnemyAttack::EnemyAttack(PlayerMovement* playerHP): m_hp(1)
-{
-    m_damage = 1;
-    HPp = playerHP;
-}
-
 void EnemyAttack::OnStart()
 {
     m_damage = 1;
@@ -18,9 +12,9 @@ void EnemyAttack::OnStart()
 
 }
 
-void EnnemyAttack::Attack()
+void EnemyAttack::Attack() const
 {
-    PMScript->SetHP(PMScript->GetHP() - mDamage);
+    PMScript->TakeDamage(m_damage);
 }
 
 void EnemyAttack::Die() const

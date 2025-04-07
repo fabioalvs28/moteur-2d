@@ -7,11 +7,11 @@ class EnemyAttack : public IScript
 {
 public:
 
-    EnnemyAttack() = default;
+    EnemyAttack() = default;
 
     void OnStart() override;
-    void Attack();
-    void OnTriggerEnter(Entity* other) override;
+    void OnCollisionEnter(Entity* other) override;
+    void TakeDamage(float damages);
 
 private:
     void Attack() const;
@@ -22,4 +22,4 @@ private:
     float m_hp;
 };
 
-REGISTER_SCRIPT(EnnemyAttack)
+REGISTER_SCRIPT(EnemyAttack)

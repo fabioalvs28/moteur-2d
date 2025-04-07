@@ -47,7 +47,6 @@ private:
     static PhysicsSystem* GetPhysicsSystem();
     static CollisionSystem* GetCollisionSystem();
     static ParticleSystem* GetParticleSystem();
-    static ScriptManager* GetScriptManager();
     static UserInterfaceSystem* GetUserInterfaceSystem();
 
     GameManager* mGameManager;
