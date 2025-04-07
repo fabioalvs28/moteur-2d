@@ -3,6 +3,8 @@
 
 #include "ECS/Components/PhysicsMaterial.h"
 #include "ECS/Components/RigidBody2D.h"
+#include "ECS/Components/Colliders/AABBCollider.h"
+#include "ECS/Components/Colliders/CircleCollider.h"
 #include "scripts/ScriptManager.h"
 #include "Utils/Profiler.h"
 
@@ -93,15 +95,16 @@ void CollisionSystem::UpdateColliders(ECS* globalEC)
 {
     for (int i = 0; i < globalEC->mEntityCount; i++)
     {
-        if (!globalEC->GetComponent<Collider2D>(i)) continue;
+        if (globalEC->HasComponent<CircleCollider>(i) || globalEC->HasComponent<AABBCollider>(i))
+        {
+            Collider2D* collider = globalEC->GetComponent<Collider2D>(i); 
+            Entity* entity = collider->GetEntity();
+            collider->SetCenter(entity->GetTransform()->position);
 
-        Collider2D* collider = globalEC->GetComponent<Collider2D>(i);
-        Entity* entity = collider->GetEntity();
-        collider->SetCenter(entity->GetTransform()->position);
+            collider->GetShape()->setPosition(entity->GetTransform()->position - collider->GetShape()->getGlobalBounds().size * 0.5f); 
 
-        collider->GetShape()->setPosition(entity->GetTransform()->position - collider->GetShape()->getGlobalBounds().size * 0.5f); 
-
-        mGrid->UpdateEntity(entity);
+            mGrid->UpdateEntity(entity);
+        }
     }
 }
 

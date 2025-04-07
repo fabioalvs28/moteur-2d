@@ -9,6 +9,8 @@
 #include "../Components/SpriteRenderer.h"
 #include "ECS/Components/Collider2D.h"
 #include "ECS/Components/Camera.h"
+#include "ECS/Components/Colliders/AABBCollider.h"
+#include "ECS/Components/Colliders/CircleCollider.h"
 #include "ECS/Components/ui/Image.h"
 #include "Render/RenderWindow.h"
 
@@ -41,7 +43,7 @@ void RenderSystem::Render(ECS* globalEC)
                 window->Draw(image->UIImage);
             }
 
-            if(globalEC->GetComponent<Collider2D>(entities->GetId()))
+            if(globalEC->HasComponent<CircleCollider>(entities->GetId()) || globalEC->HasComponent<AABBCollider>(entities->GetId()))
             {
                 Collider2D* coll = globalEC->GetComponent<Collider2D>(entities->GetId());
                 window->Draw(coll->GetShape());
