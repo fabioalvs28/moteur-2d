@@ -4,10 +4,10 @@
     "Rotation": 0.0,
     "Scripts": [
         {
-            "Name": "EnnemyMovement"
+            "Name": "EnemyMovement"
         },
         {
-            "Name": "EnnemyAttack"
+            "Name": "EnemyAttack"
         }
     ],
     "TPosition": {
@@ -18,7 +18,7 @@
         "x": 0.5,
         "y": 0.5
     },
-    "Tag": "ENNEMY",
+    "Tag": "ENEMY",
     "components": [
         {
             "DynamicFriction": 0.6000000238418579,
