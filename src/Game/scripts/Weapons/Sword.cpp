@@ -1,51 +1,59 @@
 #include "pch.h"
 #include "Sword.h"
+
+#include "ObjectFactory.h"
 #include "Managers/GameManager.h"
 #include "Transform.h"
+#include "WeaponAttack.h"
 #include "../EnnemyAttack.h"
 #include "ECS/Components/Colliders/AABBCollider.h"
+#include "scripts/PlayerAttack.h"
 
-
-Sword::Sword(sf::Vector2f direction)
-{
-    m_direction = direction;
-}
 
 void Sword::OnStart()
 {
+    mp_PlayerMovement = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
+    m_attackDistance = 100.0f;
+    m_attackDelay = 2.0f;
     m_time = 0.0f;
     m_pGameManager = Engine::GetGameManager();
     m_velocity = 0.0f;
     m_lifeSpan = 2.0f;
     m_damages = 5.0f;
     m_weaponType = TYPE_SWORD;
-}
-
-void Sword::OnFixedUpdate()
-{
-    TRANSFORM* ownerTransform = m_pOwner->GetTransform();
-    m_pOwner->GetTransform()->SetPosition(ownerTransform->position.x + m_direction.x * m_velocity, ownerTransform->position.y + m_direction.y * m_velocity);
+    m_level = 1;
+    Engine::GetEntityByName("player")->GetScript<PlayerAttack>()->AddWeapon(this);
 }
 
 void Sword::OnUpdate()
 {
+    m_direction = mp_PlayerMovement->GetDirection();
     m_time += Engine::GetDeltaTime();
-    if (m_time >= m_lifeSpan)
+    if(m_time >= m_attackDelay)
     {
-        m_pOwner->Destroy();
+        OnAttack();
+        m_time = 0.0f;
     }
 }
 
 void Sword::OnAttack()
 {
-    
-}
-
-void Sword::OnTriggerEnter(Entity* other)
-{
-    if (other->IsTag(Entity::Tag::ENEMY))
+    if(m_level == 1)
     {
-        std::cout << m_pOwner->GetComponent<AABBCollider>()->GetCenter().x << " " << m_pOwner->GetComponent<AABBCollider>()->GetCenter().y << "\n";
-        other->GetScript<EnemyAttack>()->TakeDamage(m_damages);
+        Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
+        sf::Vector2f futurePos = m_pOwner->GetTransform()->position + m_direction * m_attackDistance;
+        attackRect->GetTransform()->position = futurePos;
+        SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+        AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,100,100);
+        coll->SetTrigger(true);
+
+        ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_direction);
+        
+        // sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
+
+
+        // float rotation = atan2(m_direction.y, m_direction.x);
+        // attackRect->GetTransform()->rotation = sf::radians(rotation);
     }
+    
 }

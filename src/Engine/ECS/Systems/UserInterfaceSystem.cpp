@@ -21,6 +21,7 @@ void UserInterfaceSystem::Render(ECS* globalEC)
     TRANSFORM* cameraTransform = activeCamera->GetEntity()->GetTransform();
     for (int i = 0; i < globalEC->mEntityCount; i++)
     {
+        if(!globalEC->GetEntity(i)->IsEnable()) continue;
         if (globalEC->HasComponent<Button>(i))
         {
             Button* button = globalEC->GetComponent<Button>(i);

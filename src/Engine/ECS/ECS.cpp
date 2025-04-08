@@ -163,16 +163,12 @@ void ECS::Update()
         mEntityCount--;
         
     }
- 
-
- 
-    Engine::GetCameraSystem()->Update(this);
+    
     
     Engine::GetScriptManager()->OnUpdate();
  
 
- 
-
+    Engine::GetCameraSystem()->Update(this);
  
 }
 void ECS::Draw()

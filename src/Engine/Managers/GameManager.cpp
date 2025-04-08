@@ -150,14 +150,6 @@ void GameManager::Update()
     // Debug::Log("FPS " + std::to_string(mTimer.GetFPS()));
     // Debug::Log("Entity count " + std::to_string(Engine::GetECS()->mEntityCount));
 
-    mProfiler->NewTask("Update ECS");
-    Engine::GetECS()->Update();
-    mProfiler->EndTask();
-    
-    mProfiler->NewTask("Update scene");
-    mpActiveScene->OnUpdate();
-    mProfiler->EndTask();
-
     mAccumulator += mTimer.GetDeltaTime();
     mProfiler->NewTask("Physics update");
     while(mAccumulator >= FIXED_DT && steps < MAX_PHYSICS_STEPS)
@@ -171,6 +163,15 @@ void GameManager::Update()
         mAccumulator = 0.0;
     }
     mProfiler->EndTask();
+
+    mProfiler->NewTask("Update ECS");
+    Engine::GetECS()->Update();
+    mProfiler->EndTask();
+    
+    mProfiler->NewTask("Update scene");
+    mpActiveScene->OnUpdate();
+    mProfiler->EndTask();
+    
 }
 
 

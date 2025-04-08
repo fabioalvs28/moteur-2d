@@ -31,7 +31,6 @@ void Experience::OnStart()
 
 void Experience::OnUpdate()
 {
-    std::cout << position.x << " " << position.y << std::endl;
 }
 
 int Experience::GetValue()

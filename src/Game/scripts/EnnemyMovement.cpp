@@ -41,22 +41,22 @@ sf::Vector2f EnemyMovement::GenerateSpawnPosition()
 
     switch(side)
     {
-    case 0: // Gauche
-        spawnPos.x = pos.x - camWidth / 2 - buffer;
-        spawnPos.y = pos.y + (rand() % (int)camHeight) - camHeight / 2 + buffer;
-        break;
-    case 1: // Droite
-        spawnPos.x = pos.x + camWidth / 2 + buffer;
-        spawnPos.y = pos.y + (rand() % (int)camHeight) + camHeight / 2 + buffer;
-        break;
-    case 2: // Haut
-        spawnPos.y = pos.y + camHeight / 2 + buffer;
-        spawnPos.x = pos.x + (rand() % (int)camWidth) - camWidth / 2 + buffer;
-        break;
-    case 3: // Bas
-        spawnPos.y = pos.y - camHeight / 2 - buffer;
-        spawnPos.x = pos.x + (rand() % (int)camWidth) - camWidth / 2 + buffer;
-        break;
+        case 0: // Gauche
+            spawnPos.x = pos.x - camWidth / 2 - buffer;
+            spawnPos.y = pos.y + (rand() % (int)camHeight) - camHeight / 2 + buffer;
+            break;
+        case 1: // Droite
+            spawnPos.x = pos.x + camWidth / 2 + buffer;
+            spawnPos.y = pos.y + (rand() % (int)camHeight) + camHeight / 2 + buffer;
+            break;
+        case 2: // Haut
+            spawnPos.y = pos.y + camHeight / 2 + buffer;
+            spawnPos.x = pos.x + (rand() % (int)camWidth) - camWidth / 2 + buffer;
+            break;
+        case 3: // Bas
+            spawnPos.y = pos.y - camHeight / 2 - buffer;
+            spawnPos.x = pos.x + (rand() % (int)camWidth) - camWidth / 2 + buffer;
+            break;
     }
 
     return spawnPos;
