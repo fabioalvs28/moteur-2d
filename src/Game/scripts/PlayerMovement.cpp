@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/ui/ProgressBar.h"
+#include "ECS/Components/Animator.h"
 #include "scripts/Weapons/Sword.h"
 
 void PlayerMovement::OnStart()
@@ -16,7 +17,7 @@ void PlayerMovement::OnStart()
     m_experience = 0;
     m_maxExp = 10;
     m_time = 0;
-    m_attackDelay = 2.0f;
+    m_attackDelay = 1.5f;
     m_attackDistance = 100.0f;
     m_direction = sf::Vector2f(1.0, 0.0);
     m_speed = 200.0f;
@@ -110,13 +111,11 @@ void PlayerMovement::OnDisable()
 void PlayerMovement::Attack()
 {
     Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
-
-    SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
+    //attackRect->GetTransform()->SetScale(sf::Vector2f(2, 5));
     ObjectFactory::CreateComponent<AABBCollider>(attackRect);
     ObjectFactory::AttachScript<Sword>(attackRect, m_direction);
-
+    Animator* pAnim = ObjectFactory::CreateComponent<Animator>(attackRect, Resources::instance().VFX_SLASH, 0.1f);
     sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
-    sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
     sf::Vector2f futurePos = ownerPos + m_direction * m_attackDistance;
     float rotation = atan2(m_direction.y, m_direction.x);
     attackRect->GetTransform()->rotation = sf::radians(rotation);

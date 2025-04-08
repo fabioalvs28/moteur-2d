@@ -6,7 +6,7 @@
 void WaveManager::OnStart()
 {
     Player = Engine::GetEntityByName("player")->GetTransform();
-    mMaxEntityCount = 100;
+    mMaxEntityCount = 8;
 }
 
 void WaveManager::SpawnEnnemy(std::string prefab, float TimeBetweenSpawn)

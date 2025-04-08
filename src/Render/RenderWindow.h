@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Sprite.h"
 
+class SpriteSheet;
 class RenderWindow final : public sf::RenderWindow
 {
 public:
@@ -14,6 +15,7 @@ public:
     void Draw(Sprite* sprite);
     void Draw(Sprite* sprite, Shader* shader);
     void Draw(const sf::Text* text);
+    void Draw(SpriteSheet* pSpriteSheet);
     void Draw(sf::Shape* shape);
     void EndFrame();
     
