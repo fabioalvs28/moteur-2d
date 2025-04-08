@@ -3,6 +3,7 @@
 
 #include "Render/Sprite.h"
 #include "Render/Texture.h"
+#include "Render/SpriteSheet.h"
 
 Resources::~Resources()
 {
@@ -17,6 +18,7 @@ void Resources::Initialize()
     resources->CreateTextures();
     resources->CreateSprite();
     resources->CreateFonts();
+    resources->CreateSpriteSheet();
 }
 
 void Resources::CreateShaders()
@@ -38,6 +40,8 @@ void Resources::CreateTextures()
     EXP_TEXTURE = new Texture("UI/gui_lightIcon.png");
     SPRITE_SHEET = new Texture("../../res/Tiles/tileset.png", false);
     ALEX_TEXTURE = new Texture("AlexLeMechant.png");
+
+    SLASH_VFX_TEXTURE = new Texture("VFX/vfx-slash00.png");
     
 }
 
@@ -51,9 +55,17 @@ void Resources::CreateSprite()
     EXP = new Sprite(*EXP_TEXTURE);
 
     ALEX_SPRITE = new Sprite(*ALEX_TEXTURE);
+
 }
 
 void Resources::CreateFonts()
 {
     DEFAULT_FONT = new sf::Font("../../res/Fonts/arial.ttf");
+}
+
+void Resources::CreateSpriteSheet()
+{
+    VFX_SLASH = new SpriteSheet(*SLASH_VFX_TEXTURE);
+    VFX_SLASH->Extract(0, 0, 128, 128, 512, 128);
+    //VFX_SLASH->setOrigin(sf::Vector2f(SLASH_VFX_TEXTURE->getSize().x / 2, SLASH_VFX_TEXTURE->getSize().y / 2));
 }
