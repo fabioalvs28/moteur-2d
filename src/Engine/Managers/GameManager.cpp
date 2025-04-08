@@ -4,6 +4,8 @@
 #include "GameTimer.h"
 #include "ECS/ECS.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "Inputs/Inputs.h"
+#include "Inputs/Keyboard.h"
 #include "Render/RenderWindow.h"
 #include "Utils/Debug.h"
 #include "Utils/Profiler.h"
@@ -97,20 +99,24 @@ void GameManager::Run()
 
 void GameManager::HandleInput()
 {
-    
-    while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
-    {
-        if (event->is<sf::Event::Closed>())
+    if (Engine::GetRenderWindow()->hasFocus()) {
+        while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                IsStopped = true;
+                Engine::GetRenderWindow()->close();
+            }
+        }
+
+        if (Keyboard::GetKeyDown(Keyboard::Key::Escape))
         {
             IsStopped = true;
             Engine::GetRenderWindow()->close();
         }
-    }
 
-    if (isKeyPressed(sf::Keyboard::Key::Escape))
-    {
-        IsStopped = true;
-        Engine::GetRenderWindow()->close();
+        Inputs::UpdateKeyboard();
+        Inputs::UpdateMouse();
     }
 }
 

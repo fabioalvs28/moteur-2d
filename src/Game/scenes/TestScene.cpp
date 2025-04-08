@@ -12,6 +12,7 @@
 #include "ECS/Components/Colliders/CircleCollider.h"
 #include "scripts/EnnemyAttack.h"
 #include "scripts/EnnemyMovement.h"
+#include "scripts/LevelUpMenu.h"
 #include "scripts/PlayerAttack.h"
 
 #include "scripts/PlayerMovement.h"
@@ -38,7 +39,8 @@ void TestScene::OnEnter()
     PlayerAttack* pat = ObjectFactory::AttachScript<PlayerAttack>(player);
     Sword* sword = ObjectFactory::AttachScript<Sword>(player);
     pat->AddWeapon(sword);
-    
+    ObjectFactory::AttachScript<LevelUpMenu>(player);
+
     
     // Entity* other = ObjectFactory::CreateEntity<Entity>(0);
     // other->GetTransform()->SetPosition(250.0f,250.0f);
@@ -75,16 +77,17 @@ void TestScene::OnEnter()
     // other2->GetComponent<AABBCollider>()->SetStatic(true);
     //
     camera = ObjectFactory::CreateEntity<Entity>();
-    ObjectFactory::CreateComponent<Camera>(camera);
+    Camera* cam = ObjectFactory::CreateComponent<Camera>(camera);
     camera->SetName("camera");
+    
 
     Bat = ObjectFactory::CreateEntity<Entity>();
     Bat->SetName("WaveManager");
+    
 }
 
 void TestScene::OnLoad()
 {
-
     ObjectFactory::AttachScript<WaveManager>(Bat);
 }
 

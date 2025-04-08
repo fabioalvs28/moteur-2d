@@ -29,7 +29,7 @@ public:
     void OnDisable() override {}
     void OnCollisionEnter(Entity* other) override {};
     virtual void OnAttack() = 0;
-    virtual void Upgrade() = 0;
+    virtual void Upgrade() {};
 
 protected:
     float m_time;

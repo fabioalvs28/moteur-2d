@@ -38,6 +38,7 @@ void PlayerMovement::OnStart()
     m_pHealthBar->Scale = sf::Vector2f(scaleHP.x, scaleHP.y);
 
     m_pExpBar->Maximum = m_maxExp;
+
 }
 
 void PlayerMovement::OnFixedUpdate()
@@ -110,6 +111,12 @@ void PlayerMovement::LevelUp()
     m_pExpBar->Maximum = m_maxExp;
     
     Engine::GetGameManager()->GetTime()->Pause();
+
+    if(!mp_LevelUpMenu)
+        mp_LevelUpMenu = m_pOwner->GetScript<LevelUpMenu>();
+
+    mp_LevelUpMenu->OnSpawn();
+    
 }
 
 void PlayerMovement::TakeDamage(float damage)

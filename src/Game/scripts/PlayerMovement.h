@@ -1,4 +1,5 @@
 #pragma once
+#include "LevelUpMenu.h"
 #include "scripts/Script.h"
 
 class ProgressBar;
@@ -34,7 +35,7 @@ private:
     TRANSFORM* m_pTransform;
     GameManager* m_pGameManager;
     RenderWindow* m_rw;
-
+    LevelUpMenu* mp_LevelUpMenu;
     //UI
     ProgressBar* m_pExpBar;
     ProgressBar* m_pHealthBar;
