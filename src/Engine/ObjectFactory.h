@@ -6,6 +6,7 @@
 #include "ECS/Components/PhysicsMaterial.h"
 #include "ECS/Components/RigidBody2D.h"
 #include "ECS/Components/SpriteRenderer.h"
+#include "ECS/Components/Animator.h"
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "ECS/Components/Colliders/CircleCollider.h"
 #include "Game/Resources.h"
@@ -158,6 +159,14 @@ inline Entity* ObjectFactory::LoadPrefab(const std::string& filename)
                     coll->Deserialize(componentInJson);
                 }
                 break;
+
+            case 2048: //1 << 11
+            //{
+            //    Animator* anim = CreateComponent<Animator>(entity, Resources::instance().DEFAULT_SPRITE, 0, 0, 10, 10, 20, 20, 0.1f);
+            //    anim->Deserialize(componentInJson);
+            //}
+            break;
+
         default:
             break;
         }

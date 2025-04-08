@@ -12,6 +12,7 @@
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "ECS/Components/Colliders/CircleCollider.h"
 #include "ECS/Components/ui/Image.h"
+#include "ECS/Components/Animator.h"
 #include "Render/RenderWindow.h"
 
 RenderSystem::RenderSystem(RenderWindow* window): window(window) {}
@@ -23,9 +24,9 @@ void RenderSystem::Render(ECS* globalEC)
     {
         for(Entity* entities : *entity)
         {
-            if (globalEC->HasComponent<SpriteRenderer>(entities->GetId()))
+            if (globalEC->HasComponent<SpriteRenderer>(*entities->GetIndex()))
             {
-                SpriteRenderer* renderer = globalEC->GetComponent<SpriteRenderer>(entities->GetId());
+                SpriteRenderer* renderer = globalEC->GetComponent<SpriteRenderer>(*entities->GetIndex());
                 sf::Vector2f size = renderer->Image->getGlobalBounds().size * 0.5f;
                 TRANSFORM* transform = renderer->GetEntity()->GetTransform();
                 renderer->Image->setPosition(transform->position - size);
@@ -36,17 +37,48 @@ void RenderSystem::Render(ECS* globalEC)
                     window->Draw(renderer->Image);
                 else
                     window->Draw(renderer->Image, renderer->RendererShader);
-            } else if (globalEC->HasComponent<Image>(entities->GetId()))
+            } else if (globalEC->HasComponent<Image>(*entities->GetIndex()))
             {
-                Image* image = globalEC->GetComponent<Image>(entities->GetId());
+                Image* image = globalEC->GetComponent<Image>(*entities->GetIndex());
                 image->UIImage->setPosition(cameraTransform->position);
                 window->Draw(image->UIImage);
             }
 
-            if(globalEC->HasComponent<CircleCollider>(entities->GetId()) || globalEC->HasComponent<AABBCollider>(entities->GetId()))
+            if(globalEC->HasComponent<CircleCollider>(*entities->GetIndex()) || globalEC->HasComponent<AABBCollider>(*entities->GetIndex()))
             {
-                Collider2D* coll = globalEC->GetComponent<Collider2D>(entities->GetId());
+                Collider2D* coll = globalEC->GetComponent<Collider2D>(*entities->GetIndex());
                 window->Draw(coll->GetShape());
+            }
+            if (globalEC->HasComponent<Animator>(*entities->GetIndex()))
+            {
+                Animator* animator = globalEC->GetComponent<Animator>(*entities->GetIndex());
+
+                if (!animator) continue;
+                animator->m_elapsedTime += Engine::GetDeltaTime();
+
+                sf::Vector2f size = animator->mp_SpriteSheet->getGlobalBounds().size * 0.5f;
+                TRANSFORM* transform = animator->GetEntity()->GetTransform();
+
+                animator->mp_SpriteSheet->setOrigin(sf::Vector2f(animator->mp_SpriteSheet->getTexture().getSize().x / (animator->m_width / animator->m_singleWidth), animator->mp_SpriteSheet->getTexture().getSize().y / (animator->m_height / animator->m_singleHeight)));
+                animator->mp_SpriteSheet->setRotation(transform->rotation);
+                animator->mp_SpriteSheet->setScale(transform->scale);
+                animator->mp_SpriteSheet->setPosition(transform->position - size);
+
+
+                if (animator->m_elapsedTime >= animator->m_timeBetween)
+                {
+                    animator->m_elapsedTime = 0;
+
+                    animator->m_actualIndex++;
+                    if (animator->m_actualIndex >= animator->mp_SpriteSheet->SpriteCount)
+                    {
+                        animator->m_actualIndex = 0;
+                    }
+
+                    animator->mp_SpriteSheet->SetSprite(animator->m_actualIndex);
+                }
+
+                window->Draw(animator->mp_SpriteSheet);
             }
         }
     }
