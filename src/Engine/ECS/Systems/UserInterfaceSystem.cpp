@@ -69,9 +69,9 @@ void UserInterfaceSystem::Render(ECS* globalEC)
                 {
                     ProgressBar* progressBar = entity->GetComponent<ProgressBar>();
                     progressBar->BackgroundImage->setPosition(cameraTransform->position + progressBar->ScreenPosition*activeCamera->ZoomFactor);
-                    progressBar->BackgroundImage->setScale({activeCamera->ZoomFactor, activeCamera->ZoomFactor});
+                    progressBar->BackgroundImage->setScale({ activeCamera->ZoomFactor * progressBar->Scale.x, activeCamera->ZoomFactor * progressBar->Scale.y });
                     progressBar->Bar->setPosition(cameraTransform->position + (progressBar->ScreenPosition + progressBar->BarOffset)*activeCamera->ZoomFactor);
-                    progressBar->Bar->setScale({progressBar->Progress/progressBar->Maximum*activeCamera->ZoomFactor, 1.0f*activeCamera->ZoomFactor});
+                    progressBar->Bar->setScale({ progressBar->Progress / progressBar->Maximum * activeCamera->ZoomFactor * progressBar->Scale.x, 1.0f * activeCamera->ZoomFactor * progressBar->Scale.y });                    
                     window->Draw(progressBar->BackgroundImage);
                     window->Draw(progressBar->Bar);
                 }

@@ -15,10 +15,11 @@
 void PlayerMovement::OnStart()
 {
     m_experience = 0;
-    m_maxExp = 10;
+    m_maxExp = 100;
     m_direction = sf::Vector2f(1.0, 0.0);
     m_speed = 200.0f;
     m_hp = 10.0f;
+    m_maxHp = 10.0f;
     m_rw = Engine::GetRenderWindow();
     m_pTransform = m_pOwner->GetTransform();
     m_pGameManager = Engine::GetGameManager();
@@ -39,6 +40,8 @@ void PlayerMovement::OnStart()
     m_pHealthBar->Scale = sf::Vector2f(scaleHP.x, scaleHP.y);
 
     m_pExpBar->Maximum = m_maxExp;
+    m_pHealthBar->Progress = m_hp;
+    m_pHealthBar->Maximum = m_maxHp;
 
 }
 

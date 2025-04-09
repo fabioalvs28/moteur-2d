@@ -26,7 +26,7 @@ void Experience::OnTriggerEnter(Entity* other)
 void Experience::OnStart()
 {
     position = m_pOwner->GetTransform()->position;
-    m_value = 100;
+    m_value = 10;
 }
 
 void Experience::OnUpdate()
