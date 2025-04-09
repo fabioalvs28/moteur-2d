@@ -33,7 +33,6 @@ void GameScene::OnEnter()
     camera->SetName("camera");
 
     PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player);
-    ObjectFactory::AttachScript<EnemyAttack>(enemy);
 
 }
 

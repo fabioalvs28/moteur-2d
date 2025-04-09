@@ -59,10 +59,10 @@ void RenderSystem::Render(ECS* globalEC)
                 sf::Vector2f size = animator->mp_SpriteSheet->getGlobalBounds().size * 0.5f;
                 TRANSFORM* transform = animator->GetEntity()->GetTransform();
 
-                animator->mp_SpriteSheet->setOrigin(sf::Vector2f(animator->mp_SpriteSheet->getTexture().getSize().x / (animator->m_width / animator->m_singleWidth), animator->mp_SpriteSheet->getTexture().getSize().y / (animator->m_height / animator->m_singleHeight)));
+                animator->mp_SpriteSheet->setOrigin(sf::Vector2f(animator->mp_SpriteSheet->getTextureRect().size.x / 2, animator->mp_SpriteSheet->getTextureRect().size.y / 2));
                 animator->mp_SpriteSheet->setRotation(transform->rotation);
                 animator->mp_SpriteSheet->setScale(transform->scale);
-                animator->mp_SpriteSheet->setPosition(transform->position - size);
+                animator->mp_SpriteSheet->setPosition(transform->position);
 
 
                 if (animator->m_elapsedTime >= animator->m_timeBetween)
