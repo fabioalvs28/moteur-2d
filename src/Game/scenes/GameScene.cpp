@@ -18,7 +18,7 @@ void GameScene::OnEnter()
 {
     RenderWindow* pWindow = Engine::GetRenderWindow();
     srand(static_cast<unsigned int>(time(nullptr)));
-
+    
     Entity* player = ObjectFactory::CreateEntity<Entity>();
     SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(player, Resources::instance().DEFAULT_SPRITE);
     ObjectFactory::CreateComponent<AABBCollider>(player);
@@ -33,8 +33,7 @@ void GameScene::OnEnter()
     camera->SetName("camera");
 
     PlayerMovement* ppm = ObjectFactory::AttachScript<PlayerMovement>(player);
-    ppm->Attack();
-
+    ObjectFactory::AttachScript<EnemyAttack>(enemy);
 
 }
 

@@ -26,4 +26,7 @@ public:
 
    std::function<void()> CallBack;
    std::function<void()> ReleaseCallback;
+
+    void Serialize(json& json) override {};
+    void Deserialize(json& json) override {};
 };

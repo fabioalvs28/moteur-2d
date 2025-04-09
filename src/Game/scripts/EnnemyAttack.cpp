@@ -4,27 +4,32 @@
 #include "ObjectFactory.h"
 #include "PlayerMovement.h"
 #include "Experience.h"
+#include "WaveManager.h"
 
 void EnemyAttack::OnStart()
 {
     m_damage = 1;
     PMScript = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
-
+    m_pWaveManager = Engine::GetEntityByName("WaveManager")->GetScript<WaveManager>();
+    m_hp = 1.0f;
 }
 
-void EnemyAttack::Attack() const
+void EnemyAttack::Attack()
 {
-    PMScript->TakeDamage(m_damage);
+    if(PMScript)
+        PMScript->TakeDamage(m_damage);
 }
 
-void EnemyAttack::Die() const
+void EnemyAttack::Die()
 {
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
-    pXpOrb->SetTag(Entity::Tag::XP);
     ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
-    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb);
-    coll->SetTrigger(true);
+    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb, 100);
+    pXpOrb->GetTransform()->SetPosition(m_pOwner->GetTransform()->position);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
+    coll->SetTrigger(true);
+    pXpOrb->SetTag(Entity::Tag::XP);
+    m_pWaveManager->Decrease();
     m_pOwner->Destroy();
 }
 

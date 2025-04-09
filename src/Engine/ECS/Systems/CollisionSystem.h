@@ -58,5 +58,5 @@ private:
     SpatialGrid* mGrid;
     std::vector<Entity*> mNeighboringEntities;
     
-    std::set<Entity*> mRemovedEntities;
+    friend GameManager;
 };

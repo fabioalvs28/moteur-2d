@@ -3,6 +3,9 @@
 
 #include "GameTimer.h"
 #include "ECS/ECS.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "Inputs/Inputs.h"
+#include "Inputs/Keyboard.h"
 #include "Render/RenderWindow.h"
 #include "Utils/Debug.h"
 #include "Utils/Profiler.h"
@@ -19,40 +22,101 @@ GameManager::GameManager(): mpActiveScene(nullptr),
 }
 
 void GameManager::Run()
+ 
 {
+ 
     Profiler globalProfiler;
+ 
     while(!IsStopped)
+ 
     {
+ 
+
+ 
         globalProfiler.NewTask("Global Inputs");
+ 
         HandleInput();
+ 
         globalProfiler.EndTask();
+ 
 
+ 
         globalProfiler.NewTask("Update Global");
+ 
         Update();
+ 
         globalProfiler.EndTask();
+ 
 
+ 
         globalProfiler.NewTask("Draw Global");
+ 
         Draw();
+ 
         globalProfiler.EndTask();
+ 
+
+ 
+        if (mpNextActiveScene)
+        {
+ 
+            mpActiveScene->OnExit();
+ 
+            delete mpActiveScene;
+            
+            for (int i = 0; i < Engine::GetECS()->mEntityCount; i++)
+            {
+                Entity* entity = Engine::GetECS()->GetEntity(i);
+ 
+                Engine::GetScriptManager()->RemoveEntity(entity->GetIndex());
+ 
+                entity->Destroy();
+            }
+
+            for (auto& all_cell : Engine::GetCollisionSystem()->mGrid->GetAllCells())
+            {
+                all_cell.second.clear();
+            }
+            
+            Engine::GetCollisionSystem()->mPreviousCollisions.clear();
+            
+            mpActiveScene = mpNextActiveScene;
+ 
+            mpNextActiveScene = nullptr;
+            
+            mpActiveScene->OnEnter();
+            
+            Engine::GetECS()->Update();
+            
+            Update();
+        }
+ 
     }
+    
+    delete mpActiveScene;
+ 
 }
 
 void GameManager::HandleInput()
 {
-    
-    while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
-    {
-        if (event->is<sf::Event::Closed>())
+    if (Engine::GetRenderWindow()->hasFocus()) {
+        while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                IsStopped = true;
+                Engine::GetRenderWindow()->close();
+            }
+        }
+
+        if (Keyboard::GetKeyDown(Keyboard::Key::Escape))
         {
             IsStopped = true;
             Engine::GetRenderWindow()->close();
         }
-    }
 
-    if (isKeyPressed(sf::Keyboard::Key::Escape))
-    {
-        IsStopped = true;
-        Engine::GetRenderWindow()->close();
+        Inputs::UpdateKeyboard();
+        Inputs::UpdateMouse();
     }
 }
 
@@ -92,7 +156,6 @@ void GameManager::Update()
     // Debug::Log("FPS " + std::to_string(mTimer.GetFPS()));
     // Debug::Log("Entity count " + std::to_string(Engine::GetECS()->mEntityCount));
 
-
     mAccumulator += mTimer.GetDeltaTime();
     mProfiler->NewTask("Physics update");
     while(mAccumulator >= FIXED_DT && steps < MAX_PHYSICS_STEPS)
@@ -114,7 +177,7 @@ void GameManager::Update()
     mProfiler->NewTask("Update scene");
     mpActiveScene->OnUpdate();
     mProfiler->EndTask();
-
+    
 }
 
 

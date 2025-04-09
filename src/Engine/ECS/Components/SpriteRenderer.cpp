@@ -30,5 +30,4 @@ void SpriteRenderer::Deserialize(json& json)
     Image = nullptr;
     Texture* texture = new Texture(json["Texture"]);
     Image = new Sprite(*texture);
-    texture = nullptr;
 }

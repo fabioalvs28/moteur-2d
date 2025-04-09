@@ -3,6 +3,8 @@
 #include "scripts/Script.h"
 #include "Engine/Scripts/ScriptRegistry.h"
 
+class WaveManager;
+
 class EnemyAttack : public IScript
 {
 public:
@@ -14,10 +16,11 @@ public:
     void TakeDamage(float damages);
 
 private:
-    void Attack() const;
-    void Die() const;
+    void Attack();
+    void Die();
 
     PlayerMovement* PMScript;
+    WaveManager* m_pWaveManager;
     float m_damage;
     float m_hp;
 };

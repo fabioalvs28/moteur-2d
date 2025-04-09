@@ -29,13 +29,16 @@ public:
     void OnDisable() override {}
     void OnCollisionEnter(Entity* other) override {};
     virtual void OnAttack() = 0;
+    virtual void Upgrade() {};
 
 protected:
     float m_time;
     float m_velocity;
     float m_lifeSpan;
     float m_damages;
-
+    float m_attackDistance;
+    float m_attackDelay;
+    int m_level;
     sf::Vector2f m_direction;
     WEAPON_TYPES m_weaponType;
     GameManager* m_pGameManager;

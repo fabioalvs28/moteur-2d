@@ -21,7 +21,8 @@ public:
     
     static constexpr int BITMASK = 1 << 8;
     Collider2D(Entity* entity);
-    
+    ~Collider2D();
+
 #pragma region Setters
     void SetCenter(sf::Vector2f newPos) { mCenter = newPos; }
     void SetType(ColliderType nType) { mColliderType = nType; }

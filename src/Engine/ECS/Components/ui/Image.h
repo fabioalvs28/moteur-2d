@@ -16,4 +16,7 @@ public:
     sf::Vector2f ScreenPosition;
     sf::Vector2f Scale;
     Sprite* UIImage;
+
+    void Serialize(json& json) override {}
+    void Deserialize(json& json) override {}
 };

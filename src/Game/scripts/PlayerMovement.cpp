@@ -16,9 +16,6 @@ void PlayerMovement::OnStart()
 {
     m_experience = 0;
     m_maxExp = 10;
-    m_time = 0;
-    m_attackDelay = 1.5f;
-    m_attackDistance = 100.0f;
     m_direction = sf::Vector2f(1.0, 0.0);
     m_speed = 200.0f;
     m_hp = 10.0f;
@@ -42,6 +39,7 @@ void PlayerMovement::OnStart()
     m_pHealthBar->Scale = sf::Vector2f(scaleHP.x, scaleHP.y);
 
     m_pExpBar->Maximum = m_maxExp;
+
 }
 
 void PlayerMovement::OnFixedUpdate()
@@ -55,9 +53,12 @@ void PlayerMovement::OnCollisionEnter(Entity* other)
 {
     if (other->IsTag(Entity::Tag::XP))
     {
-        m_experience += other->GetComponent<Experience>()->GetValue();
+        m_experience += other->GetScript<Experience>()->GetValue();
         if (m_experience >= m_maxExp)
+        {
             LevelUp();
+        }
+        other->Destroy();
     }
 }
 
@@ -67,16 +68,10 @@ void PlayerMovement::OnUpdate()
     m_pHealthBar->Maximum = m_maxHp;
 
     m_pExpBar->Progress = m_experience;
-    m_time += m_pGameManager->GetTime()->GetDeltaTime();
 
     if (m_experience >= m_maxExp)
     {
         LevelUp();
-    }
-    if (m_time >= m_attackDelay)
-    {
-        m_time -= m_attackDelay;
-        Attack();
     }
 
     if (isKeyPressed(sf::Keyboard::Key::D))
@@ -100,6 +95,7 @@ void PlayerMovement::OnUpdate()
         m_direction = sf::Vector2f(0.0, -1.0);
     }
 
+    
 }
 
 
@@ -108,25 +104,19 @@ void PlayerMovement::OnDisable()
     
 }
 
-void PlayerMovement::Attack()
-{
-    Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
-    //attackRect->GetTransform()->SetScale(sf::Vector2f(2, 5));
-    ObjectFactory::CreateComponent<AABBCollider>(attackRect);
-    ObjectFactory::AttachScript<Sword>(attackRect, m_direction);
-    Animator* pAnim = ObjectFactory::CreateComponent<Animator>(attackRect, Resources::instance().VFX_SLASH, 0.1f);
-    sf::Vector2f ownerPos = m_pOwner->GetTransform()->position;
-    sf::Vector2f futurePos = ownerPos + m_direction * m_attackDistance;
-    float rotation = atan2(m_direction.y, m_direction.x);
-    attackRect->GetTransform()->rotation = sf::radians(rotation);
-    attackRect->GetTransform()->position = futurePos;
-}
 
 void PlayerMovement::LevelUp()
 {
     m_experience -= m_maxExp;
     m_maxExp += 5;
     m_pExpBar->Maximum = m_maxExp;
+    
+    Engine::GetGameManager()->GetTime()->Pause();
+
+    if(!mp_LevelUpMenu)
+        mp_LevelUpMenu = m_pOwner->GetScript<LevelUpMenu>();
+
+    mp_LevelUpMenu->OnSpawn();
     
 }
 

@@ -10,22 +10,27 @@ sf::Vector2f Normalize(sf::Vector2f vec) {
     return sf::Vector2f(x, y);
 }
 
-void Experience::OnTriggerStay(Entity* other)
+void Experience::OnTriggerEnter(Entity* other)
 {
     if (other->IsTag(Entity::Tag::PLAYER))
     {
-        sf::Vector2f position = m_pOwner->GetTransform()->position;
-        while (position != other->GetTransform()->position)
+        if(position != other->GetTransform()->position)
         {
             sf::Vector2f direction = position - other->GetTransform()->position;
-            position = position + Normalize(direction);
+            if(direction.normalized() != sf::Vector2f(0.0f,0.0f))
+                position = direction.normalized() + position;
         }
     }
 }
 
 void Experience::OnStart()
 {
-    m_value = 1;
+    position = m_pOwner->GetTransform()->position;
+    m_value = 100;
+}
+
+void Experience::OnUpdate()
+{
 }
 
 int Experience::GetValue()

@@ -13,4 +13,7 @@ public:
     sf::Vector2f ScreenPosition;
     
     sf::Text* WriteText;
+
+    void Serialize(json& json) override {};
+    void Deserialize(json& json) override {};
 };

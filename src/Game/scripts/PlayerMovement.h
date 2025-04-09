@@ -1,4 +1,5 @@
 #pragma once
+#include "LevelUpMenu.h"
 #include "scripts/Script.h"
 
 class ProgressBar;
@@ -15,16 +16,12 @@ public:
     void OnCollisionEnter(Entity* other) override;
     void OnUpdate() override;
     void OnDisable() override;
-    void Attack();
     void LevelUp();
-
+    sf::Vector2f GetDirection() const { return m_direction; }
     void TakeDamage(float damage); 
 
 private:
 
-    float m_time;
-    float m_attackDelay;
-    float m_attackDistance;
     float m_speed;
     float m_hp;
     float m_maxHp;
@@ -38,7 +35,7 @@ private:
     TRANSFORM* m_pTransform;
     GameManager* m_pGameManager;
     RenderWindow* m_rw;
-
+    LevelUpMenu* mp_LevelUpMenu;
     //UI
     ProgressBar* m_pExpBar;
     ProgressBar* m_pHealthBar;
