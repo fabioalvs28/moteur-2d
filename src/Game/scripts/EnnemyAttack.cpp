@@ -16,15 +16,14 @@ void EnemyAttack::OnStart()
 
 void EnemyAttack::Attack()
 {
-    if(PMScript)
-        PMScript->TakeDamage(m_damage);
+    Engine::GetEntityByName("player")->GetScript<PlayerMovement>()->TakeDamage(m_damage);
 }
 
 void EnemyAttack::Die()
 {
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
-    ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
-    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb, 100);
+    SpriteRenderer* sp = ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
+    AABBCollider* coll = ObjectFactory::CreateComponent<AABBCollider>(pXpOrb, 0,0,sp->Image->getTextureRect().size.x, sp->Image->getTextureRect().size.y);
     pXpOrb->GetTransform()->SetPosition(m_pOwner->GetTransform()->position);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
     coll->SetTrigger(true);
@@ -33,7 +32,7 @@ void EnemyAttack::Die()
     m_pOwner->Destroy();
 }
 
-void EnemyAttack::OnCollisionEnter(Entity* other)
+void EnemyAttack::OnTriggerStay(Entity* other)
 {
     if(other->IsTag(Entity::Tag::PLAYER))
     {
