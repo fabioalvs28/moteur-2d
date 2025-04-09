@@ -46,6 +46,17 @@ LevelUpMenu::LevelUpMenu()
             "Spear",
             1,
             nullptr
+        }},
+        {WEAPONS::FABIOJR, new WeaponInformations {
+            WEAPON,
+            (unsigned int)WEAPONS::FABIOJR,
+            "Fabio Jr",
+            "Moche",
+            "Rien du tout il est guez",
+            Resources::instance().DEFAULT_SPRITE,
+            "FabioJr",
+            1,
+            nullptr
         }}
     };
 
