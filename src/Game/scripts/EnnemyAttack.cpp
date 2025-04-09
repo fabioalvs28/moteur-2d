@@ -24,7 +24,7 @@ void EnemyAttack::Die()
 {
     Entity* pXpOrb = ObjectFactory::CreateEntity<Entity>();
     ObjectFactory::CreateComponent<SpriteRenderer>(pXpOrb, Resources::instance().EXP);
-    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb, 100);
+    CircleCollider* coll = ObjectFactory::CreateComponent<CircleCollider>(pXpOrb, 10);
     pXpOrb->GetTransform()->SetPosition(m_pOwner->GetTransform()->position);
     ObjectFactory::AttachScript<Experience>(pXpOrb);
     coll->SetTrigger(true);

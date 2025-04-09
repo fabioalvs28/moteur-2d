@@ -13,8 +13,10 @@ public:
     void OnUpdate() override;
     void OnDisable() override {}
     void OnAttack() override;
+    void Upgrade() override;
 private:
     TRANSFORM* mp_CamPos;
+    float m_radius;
 };
 
 REGISTER_SCRIPT(Bomb)

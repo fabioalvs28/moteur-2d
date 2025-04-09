@@ -20,7 +20,10 @@ void FabioJr::OnStart()
     
     Entity* Fabio = ObjectFactory::CreateEntity<Entity>(2);
     Fabio->GetTransform()->SetPosition(Engine::GetEntityByName("player")->GetTransform()->position);
-    Fabio->GetTransform()->SetDirection(m_direction);
+    srand(time(NULL));
+    float angle = static_cast<float>(rand() % 360) * 3.14159f / 180.0f;
+    sf::Vector2f direction(std::cos(angle), std::sin(angle));
+    Fabio->GetTransform()->SetDirection(direction);
     ObjectFactory::CreateComponent<SpriteRenderer>(Fabio, Resources::instance().DEFAULT_SPRITE);
     CircleCollider* col = ObjectFactory::CreateComponent<CircleCollider>(Fabio, 50);
     col->SetTrigger(true);
@@ -79,8 +82,11 @@ void FabioJr::Upgrade()
 {
     m_level++;
     Entity* Fabio = ObjectFactory::CreateEntity<Entity>(2);
+    srand(time(NULL));
+    float angle = static_cast<float>(rand() % 360) * 3.14159f / 180.0f;
+    sf::Vector2f direction(std::cos(angle), std::sin(angle));
+    Fabio->GetTransform()->SetDirection(direction);
     Fabio->GetTransform()->SetPosition(Engine::GetEntityByName("player")->GetTransform()->position);
-    Fabio->GetTransform()->SetDirection(m_direction);
     ObjectFactory::CreateComponent<SpriteRenderer>(Fabio, Resources::instance().DEFAULT_SPRITE);
     CircleCollider* col = ObjectFactory::CreateComponent<CircleCollider>(Fabio, 50);
     col->SetTrigger(true);

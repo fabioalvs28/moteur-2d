@@ -7,17 +7,6 @@
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "scripts/PlayerAttack.h"
 
-void Laser::OnUpdate()
-{
-    m_direction = mp_PlayerMovement->GetDirection();
-    m_time += Engine::GetDeltaTime();
-    if(m_time >= m_attackDelay)
-    {
-        OnAttack();
-        m_time = 0.0f;
-    }
-}
-
 void Laser::OnStart()
 {
     mp_PlayerMovement = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
@@ -31,6 +20,17 @@ void Laser::OnStart()
     m_weaponType = TYPE_LASER;
     m_level = 1;
     Engine::GetEntityByName("player")->GetScript<PlayerAttack>()->AddWeapon(this);
+}
+
+void Laser::OnUpdate()
+{
+    m_direction = mp_PlayerMovement->GetDirection();
+    m_time += Engine::GetDeltaTime();
+    if(m_time >= m_attackDelay)
+    {
+        OnAttack();
+        m_time = 0.0f;
+    }
 }
 
 void Laser::OnAttack()

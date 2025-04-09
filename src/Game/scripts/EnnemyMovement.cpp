@@ -13,7 +13,7 @@ void EnemyMovement::OnStart()
 void EnemyMovement::OnFixedUpdate()
 {
     float speed = 2500.0f;
-    m_pTransform->SetPosition(m_pTransform->position + (m_movement * speed * Engine::GetDeltaTime()));
+     m_pTransform->SetPosition(m_pTransform->position + (m_movement * speed * Engine::GetDeltaTime()));
     m_movement = sf::Vector2f(0, 0);
 }
 

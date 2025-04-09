@@ -11,6 +11,7 @@ void Bomb::OnStart()
     m_attackDelay = 10.0f;
     m_pGameManager = Engine::GetGameManager();
     m_velocity = 0.0f;
+    m_radius = 50.0f;
     m_damages = 5.0f;
     m_lifeSpan = 2.0f;
     m_time = 0.0f;
@@ -38,7 +39,15 @@ void Bomb::OnAttack()
     sf::Vector2f randPos = sf::Vector2f(rand() % Engine::GetRenderWindow()->getSize().x, rand() % Engine::GetRenderWindow()->getSize().y);
     attackCircle->GetTransform()->position = mp_CamPos->position + randPos;
     SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackCircle, Resources::instance().DEFAULT_SPRITE);
-    CircleCollider* coll =  ObjectFactory::CreateComponent<CircleCollider>(attackCircle, 5000.0f);
+    CircleCollider* coll =  ObjectFactory::CreateComponent<CircleCollider>(attackCircle, m_radius);
     coll->SetTrigger(true);
     ObjectFactory::AttachScript<WeaponAttack>(attackCircle, m_damages, m_attackDistance, m_velocity, m_lifeSpan, m_direction);
 }
+
+void Bomb::Upgrade()
+{
+    m_level++;
+    m_radius *= 1.1f;
+    m_attackDelay *= 0.9f;
+}
+

@@ -9,7 +9,7 @@ public:
     void OnStart() override;
     void OnUpdate() override;
     void OnFixedUpdate() override;
-    void OnTriggerEnter(Entity* other) override;
+    void OnTriggerStay(Entity* other) override;
     
 
 private:

@@ -76,7 +76,7 @@ LevelUpMenu::LevelUpMenu()
             "ça s'en va et ça revient",
             "PLUS DE BOOMERANG",
             Resources::instance().DEFAULT_SPRITE,
-            "Bomb",
+            "Boomerang",
             1,
             nullptr
         }}

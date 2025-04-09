@@ -30,7 +30,7 @@ void WeaponAttack::OnFixedUpdate()
 
 }
 
-void WeaponAttack::OnTriggerEnter(Entity* other)
+void WeaponAttack::OnTriggerStay(Entity* other)
 {
     if(other->IsTag(Entity::Tag::ENEMY))
     {
