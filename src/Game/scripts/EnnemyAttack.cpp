@@ -16,8 +16,7 @@ void EnemyAttack::OnStart()
 
 void EnemyAttack::Attack()
 {
-    if(PMScript)
-        PMScript->TakeDamage(m_damage);
+    Engine::GetEntityByName("player")->GetScript<PlayerMovement>()->TakeDamage(m_damage);
 }
 
 void EnemyAttack::Die()
@@ -33,7 +32,7 @@ void EnemyAttack::Die()
     m_pOwner->Destroy();
 }
 
-void EnemyAttack::OnCollisionEnter(Entity* other)
+void EnemyAttack::OnTriggerStay(Entity* other)
 {
     if(other->IsTag(Entity::Tag::PLAYER))
     {

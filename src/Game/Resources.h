@@ -1,7 +1,7 @@
 #pragma once
 
 class Sprite;
-
+class SpriteSheet;
 class Resources
 {
 public:
@@ -14,6 +14,7 @@ public:
     void CreateTextures();
     void CreateSprite();
     void CreateFonts();
+    void CreateSpriteSheet();
     
     static Resources& instance()
     {
@@ -38,6 +39,9 @@ public:
     Texture* BAR_EXP_TEXTURE;
     Texture* PETER_TEXTURE;
     Texture* EXP_TEXTURE;
+
+    //VFX
+    Texture* SLASH_VFX_TEXTURE;
     
     Texture* ALEX_TEXTURE;
     ////////////////////////////////
@@ -50,9 +54,16 @@ public:
     Sprite* PETER;
     Sprite* EXP;
 
+    //VFX
+    Sprite* SLASH_VFX;
+
     Sprite* ALEX_SPRITE;
     ////////////////////////////////
     /////// FONTS
 
     sf::Font* DEFAULT_FONT;
+
+    ////////////////////////////////
+    /////// SPRITESHEETS
+    SpriteSheet* VFX_SLASH;
 };

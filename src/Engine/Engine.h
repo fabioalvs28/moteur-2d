@@ -13,6 +13,7 @@ class ECS;
 class GameManager;
 class ObjectFactory;
 class UserInterfaceSystem;
+class AnimatorSystem;
 struct IScript;
 class Entity;
 
@@ -48,6 +49,7 @@ private:
     static CollisionSystem* GetCollisionSystem();
     static ParticleSystem* GetParticleSystem();
     static UserInterfaceSystem* GetUserInterfaceSystem();
+    static AnimatorSystem* GetAnimatorSystem();
 
     GameManager* mGameManager;
 
@@ -59,6 +61,7 @@ private:
     ParticleSystem* mParticleSystem;
     ScriptManager* mScriptManager;
     UserInterfaceSystem* mUserInterfaceSystem;
+    AnimatorSystem* mAnimatorSystem;
 
     RenderWindow* mRenderWindow;
 
@@ -74,6 +77,8 @@ private:
     friend class CollisionSystem;
     friend class CameraSystem;
     friend class ScriptManager;
+    friend class UserInterfaceSystem;
+    friend class AnimatorSystem;
 };
 
 

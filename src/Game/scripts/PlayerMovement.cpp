@@ -9,15 +9,17 @@
 #include "Transform.h"
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/ui/ProgressBar.h"
+#include "ECS/Components/Animator.h"
 #include "scripts/Weapons/Sword.h"
 
 void PlayerMovement::OnStart()
 {
     m_experience = 0;
-    m_maxExp = 10;
+    m_maxExp = 100;
     m_direction = sf::Vector2f(1.0, 0.0);
     m_speed = 200.0f;
-    m_hp = 10.0f;
+    m_hp = 100.0f;
+    m_maxHp = 100.0f;
     m_rw = Engine::GetRenderWindow();
     m_pTransform = m_pOwner->GetTransform();
     m_pGameManager = Engine::GetGameManager();
@@ -30,14 +32,16 @@ void PlayerMovement::OnStart()
     
     m_pExpBar->Scale = sf::Vector2f(scaleExp.x, scaleExp.y);
 
-    sf::Vector2f scaleHP = sf::Vector2f(3.5f, 2.0f);
+    sf::Vector2f scaleHP = sf::Vector2f(4.5f, 2.0f);
     Entity* UI_HealthBar = ObjectFactory::CreateEntity<Entity>();
     m_pHealthBar = ObjectFactory::CreateComponent<ProgressBar>(UI_HealthBar, Resources::instance().BAR_CONTAINER, Resources::instance().BAR_HEALTH,
-        sf::Vector2f(10.0f, 30.0f), sf::Vector2f(4.5f * scaleHP.x, 4.0f * scaleHP.y));
+        sf::Vector2f(m_rw->GetWindowWidth() / 2 - Resources::instance().BAR_CONTAINER->getTexture().getSize().x * scaleHP.x / 2, 60.0f), sf::Vector2f(4.5f * scaleHP.x, 4.0f * scaleHP.y));
 
     m_pHealthBar->Scale = sf::Vector2f(scaleHP.x, scaleHP.y);
 
     m_pExpBar->Maximum = m_maxExp;
+    m_pHealthBar->Progress = m_hp;
+    m_pHealthBar->Maximum = m_maxHp;
 
 }
 
@@ -123,4 +127,11 @@ void PlayerMovement::LevelUp()
 void PlayerMovement::TakeDamage(float damage)
 {
     m_hp -= damage;
+    if (m_hp <= 0)
+        Die();
+}
+
+void PlayerMovement::Die()
+{
+    m_hp = 0;
 }

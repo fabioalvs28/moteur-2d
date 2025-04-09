@@ -12,6 +12,7 @@
 #include "ECS/Components/Colliders/AABBCollider.h"
 #include "ECS/Components/Colliders/CircleCollider.h"
 #include "ECS/Components/ui/Image.h"
+#include "ECS/Components/Animator.h"
 #include "Render/RenderWindow.h"
 
 RenderSystem::RenderSystem(RenderWindow* window): window(window) {}
@@ -47,6 +48,37 @@ void RenderSystem::Render(ECS* globalEC)
             {
                 Collider2D* coll = globalEC->GetComponent<Collider2D>(*entities->GetIndex());
                 window->Draw(coll->GetShape());
+            }
+            if (globalEC->HasComponent<Animator>(*entities->GetIndex()))
+            {
+                Animator* animator = globalEC->GetComponent<Animator>(*entities->GetIndex());
+
+                if (!animator) continue;
+                animator->m_elapsedTime += Engine::GetDeltaTime();
+
+                sf::Vector2f size = animator->mp_SpriteSheet->getGlobalBounds().size * 0.5f;
+                TRANSFORM* transform = animator->GetEntity()->GetTransform();
+
+                animator->mp_SpriteSheet->setOrigin(sf::Vector2f(animator->mp_SpriteSheet->getTextureRect().size.x / 2, animator->mp_SpriteSheet->getTextureRect().size.y / 2));
+                animator->mp_SpriteSheet->setRotation(transform->rotation);
+                animator->mp_SpriteSheet->setScale(transform->scale);
+                animator->mp_SpriteSheet->setPosition(transform->position);
+
+
+                if (animator->m_elapsedTime >= animator->m_timeBetween)
+                {
+                    animator->m_elapsedTime = 0;
+
+                    animator->m_actualIndex++;
+                    if (animator->m_actualIndex >= animator->mp_SpriteSheet->SpriteCount)
+                    {
+                        animator->m_actualIndex = 0;
+                    }
+
+                    animator->mp_SpriteSheet->SetSprite(animator->m_actualIndex);
+                }
+
+                window->Draw(animator->mp_SpriteSheet);
             }
         }
     }

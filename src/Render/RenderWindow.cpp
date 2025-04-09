@@ -2,6 +2,7 @@
 
 #include "Colors.h"
 #include "Sprite.h"
+#include "SpriteSheet.h"
 
 RenderWindow::RenderWindow(const std::string title, const int width, const int height, uint32_t style)
 : sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), title, style)
@@ -28,6 +29,11 @@ void RenderWindow::Draw(Sprite* sprite, Shader* shader)
 void RenderWindow::Draw(const sf::Text* text)
 {
     draw(*text);
+}
+
+void RenderWindow::Draw(SpriteSheet* pSpriteSheet)
+{
+    draw(*pSpriteSheet);
 }
 
 void RenderWindow::Draw(sf::Shape* shape)

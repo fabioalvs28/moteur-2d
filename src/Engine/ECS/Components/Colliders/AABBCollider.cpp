@@ -9,7 +9,7 @@ AABBCollider::AABBCollider(Entity* entity, float xMin, float yMin, float xMax, f
     mXMin = xMin;
     mYMin = yMin;
     mpShape = new sf::RectangleShape(sf::Vector2f(mXMax, mYMax));
-    mpShape->setFillColor(sf::Color::Green);
+    mpShape->setFillColor(sf::Color::Transparent);
     
 }
 

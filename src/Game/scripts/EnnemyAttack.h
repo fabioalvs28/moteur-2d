@@ -12,7 +12,7 @@ public:
     EnemyAttack() = default;
 
     void OnStart() override;
-    void OnCollisionEnter(Entity* other) override;
+    void OnTriggerStay(Entity* other) override;
     void TakeDamage(float damages);
 
 private:
