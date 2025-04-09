@@ -33,6 +33,9 @@ void TRANSFORM::Identity()
 
     right.x = 1.0f;
     right.y = 0.0f;
+
+    direction.x = 0.0f;
+    direction.y = 0.0f;
 }
 
 void TRANSFORM::SetPosition(float x, float y)
@@ -43,6 +46,17 @@ void TRANSFORM::SetPosition(float x, float y)
         child->GetTransform()->SetPosition(position);
     }
     mDirty = true;
+}
+
+void TRANSFORM::SetDirection(float x, float y)
+{
+    direction.x = x;
+    direction.y = y;
+}
+
+void TRANSFORM::SetDirection(sf::Vector2f nDir)
+{
+    direction = nDir;
 }
 
 void TRANSFORM::SetPosition(sf::Vector2f pVec)

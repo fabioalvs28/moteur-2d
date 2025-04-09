@@ -15,6 +15,7 @@ public:
     void OnUpdate() override;
     void OnDisable() override {}
     void OnAttack() override;
+    void Upgrade() override;
 
 private:
     PlayerMovement* mp_PlayerMovement;

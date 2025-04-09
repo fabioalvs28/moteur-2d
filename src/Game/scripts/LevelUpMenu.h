@@ -12,7 +12,7 @@ enum class WEAPONS : uint32_t
     BOMB,
     BOOMERANG,
     BOW,
-    SPEAR,
+    LASER,
 
     WEAPONS_COUNT
 };

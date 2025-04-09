@@ -9,7 +9,7 @@ public:
     {
         TYPE_SWORD, //Base Weapons
         TYPE_BOW,
-        TYPE_SPEAR,
+        TYPE_LASER,
 
         TYPE_BOOMERANG, //In-Game Weapons
         TYPE_BOMB,

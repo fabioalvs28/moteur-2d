@@ -36,14 +36,14 @@ LevelUpMenu::LevelUpMenu()
             1,
             nullptr
         }},
-        {WEAPONS::SPEAR, new WeaponInformations {
+        {WEAPONS::LASER, new WeaponInformations {
             WEAPON,
-            (unsigned int)WEAPONS::SPEAR,
-            "Spear",
-            "SPEAR-ULINE",
-            "Even more Range !",
+            (unsigned int)WEAPONS::LASER,
+            "Laser",
+            "Succeseur de la Spear-Uline",
+            "PLUS GROS",
             Resources::instance().DEFAULT_SPRITE,
-            "Spear",
+            "Laser",
             1,
             nullptr
         }},
@@ -55,6 +55,28 @@ LevelUpMenu::LevelUpMenu()
             "Rien du tout il est guez",
             Resources::instance().DEFAULT_SPRITE,
             "FabioJr",
+            1,
+            nullptr
+        }},
+        {WEAPONS::BOMB, new WeaponInformations {
+            WEAPON,
+            (unsigned int)WEAPONS::BOMB,
+            "Bombe",
+            "Bomba",
+            "PLUS GROSSE BOMBE",
+            Resources::instance().DEFAULT_SPRITE,
+            "Bomb",
+            1,
+            nullptr
+        }},
+        {WEAPONS::BOOMERANG, new WeaponInformations {
+            WEAPON,
+            (unsigned int)WEAPONS::BOOMERANG,
+            "Boomerang",
+            "ça s'en va et ça revient",
+            "PLUS DE BOOMERANG",
+            Resources::instance().DEFAULT_SPRITE,
+            "Bomb",
             1,
             nullptr
         }}
@@ -129,7 +151,7 @@ void LevelUpMenu::GenerateSelectionPool()
         int randomNum = rand() % GetWeaponPool().size();
         WeaponInformations* weapon = m_WeaponList[randomNum];
 
-        if (weapon->level <= 7 && std::find(m_WeaponChoice.begin(), m_WeaponChoice.end(), weapon) == m_WeaponChoice.end())
+        if (std::find(m_WeaponChoice.begin(), m_WeaponChoice.end(), weapon) == m_WeaponChoice.end())
         {
             m_WeaponChoice.push_back(weapon);
         }
@@ -194,6 +216,7 @@ bool LevelUpMenu::HandleWeaponChoice(int index)
     {
         if(selected->name == "Sword")
         {
+            selected->weaponScript = Engine::GetEntityByName("player")->GetScript<Sword>();
         }
         else
         {

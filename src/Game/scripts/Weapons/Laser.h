@@ -2,15 +2,21 @@
 #include "Weapon.h"
 #include "scripts/Script.h"
 #include "Engine/Scripts/ScriptRegistry.h"
-class Boomerang : public Weapon
+#include "scripts/PlayerMovement.h"
+
+class Laser : public Weapon
 {
 public:
-    Boomerang() = default;
+
+    Laser() = default;
     void OnStart() override;
     void OnFixedUpdate() override {}
     void OnUpdate() override;
     void OnDisable() override {}
-    void OnAttack() override {};
+    void OnAttack() override;
+    
+private:
+    PlayerMovement* mp_PlayerMovement;
 };
 
-REGISTER_SCRIPT(Boomerang)
+REGISTER_SCRIPT(Laser)

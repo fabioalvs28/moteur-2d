@@ -5,7 +5,7 @@ class WeaponAttack : public IScript
 {
 public:
     WeaponAttack() = default;
-    WeaponAttack(float damage, float attackDistance, float velocity, sf::Vector2f direction);
+    WeaponAttack(float damage, float attackDistance, float velocity, float lifespan, sf::Vector2f direction);
     void OnStart() override;
     void OnUpdate() override;
     void OnFixedUpdate() override;
