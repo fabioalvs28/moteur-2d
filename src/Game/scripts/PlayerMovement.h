@@ -21,6 +21,7 @@ public:
     void TakeDamage(float damage); 
 
 private:
+    void Die();
 
     float m_speed;
     float m_hp;
