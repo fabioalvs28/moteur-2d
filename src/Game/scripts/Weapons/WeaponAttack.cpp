@@ -4,7 +4,7 @@
 #include "Transform.h"
 #include "scripts/EnnemyAttack.h"
 
-WeaponAttack::WeaponAttack(float damage, float attackDistance, float velocity, sf::Vector2f direction) : m_damage(damage), m_attackDistance(attackDistance), m_velocity(velocity), m_direction(direction)
+WeaponAttack::WeaponAttack(float damage, float attackDistance, float velocity, float lifespan ,sf::Vector2f direction) : m_damage(damage), m_attackDistance(attackDistance), m_velocity(velocity), m_direction(direction), m_lifeSpan(lifespan)
 {
 }
 
@@ -12,7 +12,6 @@ void WeaponAttack::OnStart()
 {
     mp_OwnerTransform = m_pOwner->GetTransform();
     //mp_OwnerTransform->SetPosition(mp_OwnerTransform->position.x + m_direction.x * m_attackDistance * m_velocity , mp_OwnerTransform->position.y + m_direction.y * m_attackDistance * m_velocity);
-    m_lifeSpan = 0.5f;
 }
 
 void WeaponAttack::OnUpdate()
@@ -31,7 +30,7 @@ void WeaponAttack::OnFixedUpdate()
 
 }
 
-void WeaponAttack::OnTriggerEnter(Entity* other)
+void WeaponAttack::OnTriggerStay(Entity* other)
 {
     if(other->IsTag(Entity::Tag::ENEMY))
     {

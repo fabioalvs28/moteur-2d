@@ -98,7 +98,8 @@ void PlayerMovement::OnUpdate()
         m_direction = sf::Vector2f(0.0, -1.0);
     }
 
-    
+    m_pCamera->GetTransform()->SetPosition(m_pOwner->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, m_pOwner->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);
+
 }
 
 

@@ -55,11 +55,19 @@ void Sword::OnAttack()
         AABBCollider* coll = ObjectFactory::CreateComponent<AABBCollider>(attackRect, 0, 0, 100, 100);
         ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_direction);
         coll->SetTrigger(true);
+        // ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0f, 0.5f, m_direction);
+        
+        // sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
 
-        break;
-    }
-    default:
-        break;
+
+        // float rotation = atan2(m_direction.y, m_direction.x);
+        // attackRect->GetTransform()->rotation = sf::radians(rotation);
     }
     
+}
+
+void Sword::Upgrade()
+{
+    m_level++;
+    m_damages *= 1.10f;
 }

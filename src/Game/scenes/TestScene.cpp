@@ -93,7 +93,6 @@ void TestScene::OnLoad()
 
 void TestScene::OnUpdate()
 {
-    camera->GetTransform()->SetPosition(player->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, player->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);
 }
 
 

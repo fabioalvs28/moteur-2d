@@ -20,7 +20,7 @@ public:
     sf::Angle rotation;
     sf::Vector2f scale;
     sf::Vector2f position;
-
+    sf::Vector2f direction;
     Entity* GetParent() const;
     void AddChild(Entity* nEntity);
     std::vector<Entity*> GetChildList() const {return mChildEntities; }
@@ -28,7 +28,8 @@ public:
     void Identity();
     
     void SetPosition(float x, float y);
-    
+    void SetDirection(float x, float y);
+    void SetDirection(sf::Vector2f nDir);
     void SetPosition(sf::Vector2f pVec);
     void SetScale(sf::Vector2f pScale);
     void SetRotation(sf::Angle pRotation);
