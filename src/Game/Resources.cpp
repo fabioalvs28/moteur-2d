@@ -40,9 +40,20 @@ void Resources::CreateTextures()
     EXP_TEXTURE = new Texture("UI/gui_lightIcon.png");
     SPRITE_SHEET = new Texture("../../res/Tiles/tileset.png", false);
     ALEX_TEXTURE = new Texture("AlexLeMechant.png");
-
+    WEAPON_BOOMERANG_TEXTURE = new Texture("Icones/Boomerang.png");
+    WEAPON_SWORD_TEXTURE = new Texture("Icones/Sword.png");;
+    WEAPON_DEO_TEXTURE = new Texture("Icones/Deo.png");;
+    WEAPON_LASER_TEXTURE = new Texture("Icones/Laser.png");;
+    WEAPON_BOMB_TEXTURE = new Texture("Icones/Bomb.png");;
+    WEAPON_FABIOJR_TEXTURE = new Texture("Icones/Fabio JR.png");;
     SLASH_VFX_TEXTURE = new Texture("VFX/vfx-slash00.png");
-    
+    BUTTON_KONG_TEXTURE = new Texture("ButtonKong.png");
+    BUFF_DEV = new Texture("Icones/Dev++.png");
+    BUFF_KONG = new Texture("Icones/Kong.png");
+    BUFF_KINDER = new Texture("Icones/Kinder.png");
+    BUFF_CARAMEL_BISCUIT = new Texture("Icones/CaramelBiscuit.png");
+    BUFF_GC_ENGINE = new Texture("Icones/GC.png");
+    BUFF_BODYCOUNT = new Texture("Icones/Bodycount.png");
 }
 
 void Resources::CreateSprite()
@@ -53,14 +64,25 @@ void Resources::CreateSprite()
     BAR_EXP = new Sprite(*BAR_EXP_TEXTURE);
     PETER = new Sprite(*PETER_TEXTURE);
     EXP = new Sprite(*EXP_TEXTURE);
-
+    SWORD = new Sprite(*WEAPON_SWORD_TEXTURE);
+    BOMB = new Sprite(*WEAPON_BOMB_TEXTURE);
+    FABIOJR = new Sprite(*WEAPON_FABIOJR_TEXTURE);
+    DEO = new Sprite(*WEAPON_DEO_TEXTURE);
+    LASER = new Sprite(*WEAPON_LASER_TEXTURE);
+    BOOMERANG = new Sprite(*WEAPON_BOOMERANG_TEXTURE);
     ALEX_SPRITE = new Sprite(*ALEX_TEXTURE);
-
+    KONG_BUTTON = new Sprite(*BUTTON_KONG_TEXTURE);
+    KONG = new Sprite(*BUFF_KONG);
+    DEV = new Sprite(*BUFF_DEV);
+    CARAMEL_BISCUIT = new Sprite(*BUFF_CARAMEL_BISCUIT);
+    BODYCOUNT = new Sprite(*BUFF_BODYCOUNT);
+    GC_ENGINE = new Sprite(*BUFF_GC_ENGINE);
+    KINDER = new Sprite(*BUFF_KINDER);
 }
 
 void Resources::CreateFonts()
 {
-    DEFAULT_FONT = new sf::Font("../../res/Fonts/arial.ttf");
+    DEFAULT_FONT = new sf::Font("../../res/Fonts/PixelGame-R9AZe.otf");
 }
 
 void Resources::CreateSpriteSheet()

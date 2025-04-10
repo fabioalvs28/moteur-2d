@@ -39,6 +39,21 @@ public:
     Texture* BAR_EXP_TEXTURE;
     Texture* PETER_TEXTURE;
     Texture* EXP_TEXTURE;
+    Texture* BUTTON_KONG_TEXTURE;
+    
+    Texture* WEAPON_BOOMERANG_TEXTURE;
+    Texture* WEAPON_SWORD_TEXTURE;
+    Texture* WEAPON_DEO_TEXTURE;
+    Texture* WEAPON_LASER_TEXTURE;
+    Texture* WEAPON_BOMB_TEXTURE;
+    Texture* WEAPON_FABIOJR_TEXTURE;
+    
+    Texture* BUFF_KONG;
+    Texture* BUFF_GC_ENGINE;
+    Texture* BUFF_BODYCOUNT;
+    Texture* BUFF_CARAMEL_BISCUIT;
+    Texture* BUFF_KINDER;
+    Texture* BUFF_DEV;
 
     //VFX
     Texture* SLASH_VFX_TEXTURE;
@@ -47,13 +62,26 @@ public:
     ////////////////////////////////
     /////// SPRITES
 
+    Sprite* KONG;
+    Sprite* GC_ENGINE;
+    Sprite* BODYCOUNT;
+    Sprite* CARAMEL_BISCUIT;
+    Sprite* KINDER;
+    Sprite* DEV;
+
     Sprite* DEFAULT_SPRITE;
     Sprite* BAR_CONTAINER;
     Sprite* BAR_HEALTH;
     Sprite* BAR_EXP;
     Sprite* PETER;
     Sprite* EXP;
-
+    Sprite* KONG_BUTTON;
+    Sprite* SWORD;
+    Sprite* BOMB;
+    Sprite* FABIOJR;
+    Sprite* DEO;
+    Sprite* LASER;
+    Sprite* BOOMERANG;
     //VFX
     Sprite* SLASH_VFX;
 
