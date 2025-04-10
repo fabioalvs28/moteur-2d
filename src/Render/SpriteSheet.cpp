@@ -5,6 +5,7 @@
 
 SpriteSheet::SpriteSheet(Texture& spriteSheet) : Sprite(spriteSheet), SpriteCount(0)
 {
+    setTexture(spriteSheet);
 }
 
 void SpriteSheet::Extract(int startX, int startY, int singleWidth, int singleHeight, int width, int height)
@@ -31,9 +32,9 @@ sf::Vector2i SpriteSheet::GetSpriteSheetPart(int index)
     return sprites[index];
 }
 
-void SpriteSheet::SetSpriteAt(sf::Vector2i offset)
+void SpriteSheet::SetSpriteAt(sf::Vector2i offset, sf::Vector2i size)
 {
-    setTextureRect({ offset, m_size });
+    setTextureRect({ offset, size });
 }
 
 void SpriteSheet::SetSprite(int index)
@@ -49,4 +50,15 @@ sf::Vector2i SpriteSheet::GetSize()
 sf::Vector2i SpriteSheet::GetTotalSize()
 {
     return m_totalSize;
+}
+
+Texture* SpriteSheet::GetTexture()
+{
+    return m_pTexture;
+}
+
+sf::Sprite SpriteSheet::CreateSpriteAt(sf::Vector2i offset, sf::Vector2i size)
+{
+    sf::Sprite pSprite(getTexture(), {offset, size});
+    return pSprite;
 }
