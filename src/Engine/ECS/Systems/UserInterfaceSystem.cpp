@@ -35,7 +35,7 @@ void UserInterfaceSystem::Render(ECS* globalEC)
                     Button* button = entity->GetComponent<Button>();
                     sf::Vector2f currentPosition = cameraTransform->position + button->ScreenPosition*activeCamera->ZoomFactor;
                     button->UIImage->setPosition(currentPosition);
-                    button->UIImage->setScale({activeCamera->ZoomFactor, activeCamera->ZoomFactor});
+                    button->UIImage->setScale(button->Scale * activeCamera->ZoomFactor);
                     window->Draw(button->UIImage);
                     sf::Vector2f mClickPosition = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
                     

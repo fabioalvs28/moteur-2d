@@ -8,6 +8,7 @@ Text::Text(Entity* entity, sf::Font* font, int size, std::string text, sf::Vecto
     ScreenPosition = position;
     WriteText->setString(text);
     WriteText->setCharacterSize(size);
+    WriteText->setFillColor(sf::Color::Black);
 }
 
 int Text::GetBitmask()
