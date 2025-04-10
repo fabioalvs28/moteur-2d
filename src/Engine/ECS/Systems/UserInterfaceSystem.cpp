@@ -61,7 +61,7 @@ void UserInterfaceSystem::Render(ECS* globalEC)
                 {
                     Image* image = entity->GetComponent<Image>();
                     if (!image->UIImage) continue;
-                    image->UIImage->setPosition(cameraTransform->position + image->ScreenPosition*activeCamera->ZoomFactor);
+                    image->UIImage->setPosition(cameraTransform->position + image->ScreenPosition *activeCamera->ZoomFactor);
                     image->UIImage->setScale(image->Scale*activeCamera->ZoomFactor);
                     window->Draw(image->UIImage);
                 }

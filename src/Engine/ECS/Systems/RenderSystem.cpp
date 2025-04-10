@@ -37,11 +37,6 @@ void RenderSystem::Render(ECS* globalEC)
                     window->Draw(renderer->Image);
                 else
                     window->Draw(renderer->Image, renderer->RendererShader);
-            } else if (globalEC->HasComponent<Image>(*entities->GetIndex()))
-            {
-                Image* image = globalEC->GetComponent<Image>(*entities->GetIndex());
-                image->UIImage->setPosition(cameraTransform->position);
-                window->Draw(image->UIImage);
             }
 
             if(globalEC->HasComponent<CircleCollider>(*entities->GetIndex()) || globalEC->HasComponent<AABBCollider>(*entities->GetIndex()))
