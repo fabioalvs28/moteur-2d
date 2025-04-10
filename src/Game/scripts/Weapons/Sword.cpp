@@ -12,7 +12,6 @@
 
 void Sword::OnStart()
 {
-    mp_PlayerMovement = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
     m_attackDistance = 100.0f;
     m_attackDelay = 2.0f;
     m_time = 0.0f;
@@ -23,6 +22,7 @@ void Sword::OnStart()
     m_weaponType = TYPE_SWORD;
     m_level = 1;
     Engine::GetEntityByName("player")->GetScript<PlayerAttack>()->AddWeapon(this);
+    mp_PlayerMovement = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
 }
 
 void Sword::OnUpdate()
@@ -53,15 +53,16 @@ void Sword::OnAttack()
         attackRect->GetTransform()->position = m_pOwner->GetTransform()->position + m_direction * m_attackDistance;;
 
         AABBCollider* coll = ObjectFactory::CreateComponent<AABBCollider>(attackRect, 0, 0, 100, 100);
-        ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_direction);
+        //ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_direction);
         coll->SetTrigger(true);
-        // ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0f, 0.5f, m_direction);
-        
+        ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0f, 0.5f, m_direction);
+
         // sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
 
 
         // float rotation = atan2(m_direction.y, m_direction.x);
         // attackRect->GetTransform()->rotation = sf::radians(rotation);
+    }
     }
     
 }

@@ -59,36 +59,43 @@ void GameManager::Run()
  
         if (mpNextActiveScene)
         {
- 
             mpActiveScene->OnExit();
- 
             delete mpActiveScene;
-            
-            for (int i = 0; i < Engine::GetECS()->mEntityCount; i++)
+
+            mpActiveScene = mpNextActiveScene;
+            mpNextActiveScene = nullptr;
+
+            for (auto& scripted_entity : Engine::GetScriptManager()->scriptedEntity)
             {
-                Entity* entity = Engine::GetECS()->GetEntity(i);
- 
-                Engine::GetScriptManager()->RemoveEntity(entity->GetIndex());
- 
-                entity->Destroy();
+                for (IScript* script : scripted_entity.second)
+                {
+                    if (script)
+                        delete script;
+                }
             }
 
-            for (auto& all_cell : Engine::GetCollisionSystem()->mGrid->GetAllCells())
+            for (int i = 0; i < Engine::GetECS()->mEntityCount; i++)
             {
-                all_cell.second.clear();
+                EC* entity = Engine::GetECS()->mEntities[i];
+                for (Component* component : entity->AttachedComponents)
+                {
+                    delete component;
+                }
+
             }
-            
+
             Engine::GetCollisionSystem()->mPreviousCollisions.clear();
-            
-            mpActiveScene = mpNextActiveScene;
- 
-            mpNextActiveScene = nullptr;
-            
+            Engine::GetCollisionSystem()->mGrid->GetAllCells().clear();
+            Engine::GetScriptManager()->scriptedEntity.clear();
+            Engine::GetScriptManager()->mEntityToRemoveCount = 0;
+            Engine::GetECS()->mEntityCount = 0;
+            Engine::GetECS()->mEntitiesByLayer.clear();
+            Engine::GetRenderWindow()->clear();
+
             mpActiveScene->OnEnter();
-            
             Engine::GetECS()->Update();
-            
-            Update();
+            mpActiveScene->OnLoad();
+
         }
  
     }

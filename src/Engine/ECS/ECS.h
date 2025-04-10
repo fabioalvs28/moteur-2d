@@ -44,8 +44,8 @@ public:
     bool IsEnable(int index);
     std::map<std::string, int> mEntitiesRegistry;
     
-private:
     EC** mEntities = new EC*[16000];
+private:
     EC** mToAddEntities = new EC*[1024];
 
     

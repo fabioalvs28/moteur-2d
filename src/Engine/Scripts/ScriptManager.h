@@ -36,11 +36,11 @@ public:
     static IScript* CreateScriptByName(const std::string& scriptName);
     
     static void RegisterScript(const std::string& name, IScript* script);
+    std::map<int*, std::vector<IScript*>> scriptedEntity;
+    int mEntityToRemoveCount;
 private:
     std::unordered_map<std::string, IScript*> mScriptRegistry;
-    std::map<int*, std::vector<IScript*>> scriptedEntity;
     std::map<int*, std::vector<IScript*>> scriptedEntityToAdd;
-    int mEntityToRemoveCount;
     int** toRemoveId = new int*[1024];
 
 

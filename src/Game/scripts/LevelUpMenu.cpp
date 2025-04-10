@@ -101,7 +101,7 @@ void LevelUpMenu::OnStart()
     m_button3 = ObjectFactory::CreateEntity<Entity>(2);
 
     
-    ObjectFactory::CreateComponent<Button>(m_button1,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 300 }, 50, 50,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button1,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 300 },sf::Vector2f(1,1), 50, 50,[this]()
     {
         HandleWeaponChoice(0);
     }, [this](){});
@@ -112,7 +112,7 @@ void LevelUpMenu::OnStart()
        "",
        sf::Vector2f(300.f, 10.f + (300))
     );
-    ObjectFactory::CreateComponent<Button>(m_button2,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 500 }, 50,50,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button2,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 500 }, sf::Vector2f(1, 1), 50,50,[this]()
     {
         HandleWeaponChoice(1);
     }, [this](){});
@@ -123,7 +123,7 @@ void LevelUpMenu::OnStart()
        "",
        sf::Vector2f(300.f, 10.f + (500))
     );
-    ObjectFactory::CreateComponent<Button>(m_button3,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 700 }, 50,50,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button3,Resources::instance().BAR_EXP, sf::Vector2f{ 500, 700 }, sf::Vector2f(1, 1), 50,50,[this]()
     {
         HandleWeaponChoice(2);
     }, [this](){});

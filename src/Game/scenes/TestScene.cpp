@@ -24,6 +24,9 @@ void TestScene::OnEnter()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
 
+    camera = ObjectFactory::CreateEntity<Entity>();
+    Camera* cam = ObjectFactory::CreateComponent<Camera>(camera);
+    camera->SetName("camera");
     Resources::instance().Initialize();
     
     player = ObjectFactory::CreateEntity<Entity>(1);
@@ -35,51 +38,11 @@ void TestScene::OnEnter()
     PlayerMovement* mov = ObjectFactory::AttachScript<PlayerMovement>(player);
 
     player->SetTag(Entity::Tag::PLAYER);
-
+    
     PlayerAttack* pat = ObjectFactory::AttachScript<PlayerAttack>(player);
     Sword* sword = ObjectFactory::AttachScript<Sword>(player);
     pat->AddWeapon(sword);
     ObjectFactory::AttachScript<LevelUpMenu>(player);
-
-    
-    // Entity* other = ObjectFactory::CreateEntity<Entity>(0);
-    // other->GetTransform()->SetPosition(250.0f,250.0f);
-    // ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
-    // //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
-    // ObjectFactory::AttachScript<EnemyMovement>(other);
-    // ObjectFactory::AttachScript<EnemyAttack>(other);
-    // //other->GetComponent<CircleCollider>()->SetStatic(true);
-
-    // Alexandre = ObjectFactory::CreateEntity<Entity>(2);
-    // ObjectFactory::CreateComponent<CircleCollider>(Alexandre,50.0f);
-    // ObjectFactory::CreateComponent<SpriteRenderer>(Alexandre, Resources::instance().ALEX_SPRITE);
-    // Alexandre->SetName("Alexandre");
-    // ObjectFactory::AttachScript<EnnemyMovement>(Alexandre);
-    // ObjectFactory::AttachScript<EnnemyAttack>(Alexandre);
-
-    // Entity* other = ObjectFactory::CreateEntity<Entity>(0);
-    // other->GetTransform()->SetPosition(250.0f,250.0f);
-    // ObjectFactory::CreateComponent<AABBCollider>(other, 0.0f,0.0f,100.0f,100.0f);
-    // ObjectFactory::CreateComponent<SpriteRenderer>(other, Resources::instance().DEFAULT_SPRITE);
-    // other->SetName("feur");
-    //
-    // //ObjectFactory::CreateComponent<CircleCollider>(other, 100.0f);
-    // other->GetComponent<AABBCollider>()->SetTrigger(true);
-    // //ObjectFactory::AttachScript<EnnemyMovement>(other, player);
-    // //ObjectFactory::AttachScript<EnnemyAttack>(other);
-    // //other->GetComponent<CircleCollider>()->SetStatic(true);
-    //
-    // Entity* other2 = ObjectFactory::CreateEntity<Entity>(0);
-    // other2->GetTransform()->SetPosition(350.0f,350.0f);
-    // ObjectFactory::CreateComponent<AABBCollider>(other2, 0.0f,0.0f,100.0f,100.0f);
-    // //ObjectFactory::CreateComponent<CircleCollider>(other2, 100.0f);
-    // //other2->GetComponent<CircleCollider>()->SetStatic(true);
-    // other2->GetComponent<AABBCollider>()->SetStatic(true);
-    //
-    camera = ObjectFactory::CreateEntity<Entity>();
-    Camera* cam = ObjectFactory::CreateComponent<Camera>(camera);
-    camera->SetName("camera");
-    
 
     Bat = ObjectFactory::CreateEntity<Entity>();
     Bat->SetName("WaveManager");

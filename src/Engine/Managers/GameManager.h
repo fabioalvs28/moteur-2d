@@ -45,9 +45,13 @@ public:
 template <typename T>
 void GameManager::LaunchScene()
 {
-	static_assert(std::is_base_of<Scene, T>::value, "T must be derived from Scene");
+    static_assert(std::is_base_of<Scene, T>::value, "T must be derived from Scene");
 
-    _ASSERT(mpActiveScene == nullptr);
+    if (mpActiveScene)
+    {
+        mpNextActiveScene = new T();
+        return;
+    }
 
     T* newScene = new T();
     mpActiveScene = newScene;
@@ -56,5 +60,6 @@ void GameManager::LaunchScene()
     mpActiveScene->OnEnter();
     Engine::GetECS()->Update();
     mpActiveScene->OnLoad();
+
     Run();
 }
