@@ -46,7 +46,6 @@ void Sword::OnAttack()
         SpriteRenderer* playerSprite = Engine::GetEntityByName("player")->GetComponent<SpriteRenderer>();
         sf::Vector2f playerTextRect = sf::Vector2f(playerSprite->Image->getTextureRect().size.x / 2, playerSprite->Image->getTextureRect().size.y / 2);
         Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
-        //SpriteRenderer* sr = ObjectFactory::CreateComponent<SpriteRenderer>(attackRect, Resources::instance().DEFAULT_SPRITE);
         Animator* pAnim = ObjectFactory::CreateComponent<Animator>(attackRect, Resources::instance().VFX_SLASH, 0.1f);
         sf::Vector2f textRect = sf::Vector2f(pAnim->mp_SpriteSheet->getTextureRect().size.x / 2, pAnim->mp_SpriteSheet->getTextureRect().size.y / 2);
         float rotation = atan2(m_direction.y, m_direction.x);
@@ -54,7 +53,7 @@ void Sword::OnAttack()
         attackRect->GetTransform()->position = m_pOwner->GetTransform()->position + m_direction * m_attackDistance;;
 
         AABBCollider* coll = ObjectFactory::CreateComponent<AABBCollider>(attackRect, 0, 0, 100, 100);
-        ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_direction);
+        ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, 0.0, m_lifeSpan, m_direction);
         coll->SetTrigger(true);
 
         break;

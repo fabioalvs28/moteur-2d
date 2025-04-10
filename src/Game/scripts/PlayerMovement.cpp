@@ -23,6 +23,7 @@ void PlayerMovement::OnStart()
     m_rw = Engine::GetRenderWindow();
     m_pTransform = m_pOwner->GetTransform();
     m_pGameManager = Engine::GetGameManager();
+    mp_MusicScript = m_pOwner->GetScript<MusicScript>();
     m_pCamera = Engine::GetEntityByName("camera");
 
     sf::Vector2f scaleExp = sf::Vector2f(8.0f, 3.0f);
@@ -126,6 +127,18 @@ void PlayerMovement::LevelUp()
 
 void PlayerMovement::TakeDamage(float damage)
 {
+    srand(time(NULL));
+
+    int random = rand() % 2;
+    switch (random)
+    {
+        case 0:
+            mp_MusicScript->PlaySoundScript("HurtSound1");
+            break;
+        case 1:
+            mp_MusicScript->PlaySoundScript("HurtSound2");
+            break;
+    }
     m_hp -= damage;
     if (m_hp <= 0)
         Die();

@@ -1,5 +1,6 @@
 #pragma once
 #include "LevelUpMenu.h"
+#include "MusicScript.h"
 #include "scripts/Script.h"
 
 class ProgressBar;
@@ -40,6 +41,9 @@ private:
     //UI
     ProgressBar* m_pExpBar;
     ProgressBar* m_pHealthBar;
+
+    MusicScript* mp_MusicScript;
+    friend LevelUpMenu;
 };
 
 REGISTER_SCRIPT(PlayerMovement)

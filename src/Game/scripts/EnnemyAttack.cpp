@@ -11,7 +11,7 @@ void EnemyAttack::OnStart()
     m_damage = 1;
     PMScript = Engine::GetEntityByName("player")->GetScript<PlayerMovement>();
     m_pWaveManager = Engine::GetEntityByName("WaveManager")->GetScript<WaveManager>();
-    m_hp = 1.0f;
+    m_hp = 500.0f;
 }
 
 void EnemyAttack::Attack()

@@ -1,6 +1,7 @@
 #pragma once
 #include "scripts/Script.h"
 
+class LevelUpMenu;
 class GameManager;
 class Weapon : public IScript
 {
@@ -14,7 +15,7 @@ public:
         TYPE_BOOMERANG, //In-Game Weapons
         TYPE_BOMB,
         TYPE_FABIOJR,
-        TYPE_LEO,
+        TYPE_DEO,
 
         TYPECOUNT
     };
@@ -42,5 +43,7 @@ protected:
     sf::Vector2f m_direction;
     WEAPON_TYPES m_weaponType;
     GameManager* m_pGameManager;
+
+    friend LevelUpMenu;
 
 };
