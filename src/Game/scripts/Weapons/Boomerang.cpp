@@ -17,7 +17,7 @@ void Boomerang::OnStart()
     m_damages = 5.0f;
     m_lifeSpan = 10.0f;
     m_time = 0.0f;
-    m_weaponType = TYPE_BOMB;
+    m_weaponType = TYPE_BOOMERANG;
     m_level = 1;
     m_direction = { 1.0f,1.0f};
     Engine::GetEntityByName("player")->GetScript<PlayerAttack>()->AddWeapon(this);

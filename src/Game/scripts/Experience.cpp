@@ -19,20 +19,21 @@ void Experience::OnTriggerEnter(Entity* other)
 
 void Experience::OnStart()
 {
+    srand(time(NULL));
     position = m_pOwner->GetTransform()->position;
-    m_value = rand() % 6 + 10;
+    m_value = rand() % 6 + 100;
     m_speed = 500.0f;
-    m_distance = 10.0f;
+    m_distance = 100.0f;
+    Player = Engine::GetEntityByName("player");
 }
 
 void Experience::OnUpdate()
 {
-    sf::Vector2f pPlayerPos = Engine::GetEntityByName("player")->GetTransform()->position;
+    sf::Vector2f pPlayerPos = Player->GetTransform()->position;
     sf::Vector2f pos = m_pOwner->GetTransform()->position;
     sf::Vector2f direction = pPlayerPos - pos;
-    float distance = (pPlayerPos.x - pos.x) + (pPlayerPos.y - pPlayerPos.y);
-    if (distance <= m_distance)
-        m_pOwner->GetTransform()->position = m_pOwner->GetTransform()->position + direction.normalized() * Engine::GetDeltaTime() * m_speed;
+    if (direction.length() <= m_distance)
+        m_pOwner->GetTransform()->position = m_pOwner->GetTransform()->position + (direction.normalized() * Engine::GetDeltaTime() * m_speed);
 }
 
 int Experience::GetValue()

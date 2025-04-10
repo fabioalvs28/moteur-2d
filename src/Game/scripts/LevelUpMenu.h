@@ -11,12 +11,24 @@ enum class WEAPONS : uint32_t
     FABIOJR,
     BOMB,
     BOOMERANG,
-    BOW,
     LASER,
+    DEO,
 
     WEAPONS_COUNT
 };
 
+enum class BUFFS : uint32_t
+{
+    KONG,
+    CARAMEL_BISCUIT,
+    GC_ENGINE,
+    BODYCOUNT,
+    KINDER,
+    DEV,
+
+    BUFFS_COUNT
+    
+};
 enum ItemType : uint8_t
 {
     WEAPON,
@@ -25,7 +37,7 @@ enum ItemType : uint8_t
     COUNT_TYPE
 };
 
-struct WeaponInformations
+struct ItemsInformations
 {
     ItemType type;
     unsigned int id;
@@ -41,7 +53,7 @@ struct WeaponInformations
 class LevelUpMenu : public IScript
 {
 public:
-    LevelUpMenu();
+    LevelUpMenu() = default;
     ~LevelUpMenu();
 
     void OnStart() override;
@@ -50,21 +62,19 @@ public:
     void GenerateSelectionPool();
     void OnSpawn();
     void OnClose();
-    bool HandleWeaponChoice(int index);
+    bool HandleChoice(int index);
 
-    std::vector<WeaponInformations*>& GetWeaponPool() { return m_WeaponList; }
+    std::vector<ItemsInformations*>& GetWeaponPool() { return m_ItemsList; }
 
 private:
-    Entity* m_background;
     Entity* m_button1 ;
     Entity* m_button2;
     Entity* m_button3;
     Entity* Player;
 
     std::vector<Entity*> TextContainer;
-    std::map<WEAPONS, WeaponInformations*> Weapons;
-    std::vector<WeaponInformations*> m_WeaponList;
-    std::vector<WeaponInformations*> m_WeaponChoice;
+    std::vector<ItemsInformations*> m_ItemsList;
+    std::vector<ItemsInformations*> m_ItemsChoice;
 };
 
 REGISTER_SCRIPT(LevelUpMenu)

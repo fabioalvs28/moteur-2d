@@ -18,4 +18,5 @@ private:
     int m_value;
     float m_speed;
     float m_distance;
+    Entity* Player;
 };
