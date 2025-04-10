@@ -43,6 +43,7 @@ void Resources::CreateTextures()
 
     SLASH_VFX_TEXTURE = new Texture("VFX/vfx-slash00.png");
     
+    UI_SHEET_TEXTURE = new Texture("UI/SpriteSheet.png");
 }
 
 void Resources::CreateSprite()
@@ -60,7 +61,7 @@ void Resources::CreateSprite()
 
 void Resources::CreateFonts()
 {
-    DEFAULT_FONT = new sf::Font("../../res/Fonts/arial.ttf");
+    DEFAULT_FONT = new sf::Font("../../res/Fonts/alagard.ttf");
 }
 
 void Resources::CreateSpriteSheet()
@@ -68,4 +69,5 @@ void Resources::CreateSpriteSheet()
     VFX_SLASH = new SpriteSheet(*SLASH_VFX_TEXTURE);
     VFX_SLASH->Extract(0, 0, 128, 128, 512, 128);
     //VFX_SLASH->setOrigin(sf::Vector2f(SLASH_VFX_TEXTURE->getSize().x / 2, SLASH_VFX_TEXTURE->getSize().y / 2));
+    UI_SHEET = new SpriteSheet(*UI_SHEET_TEXTURE);
 }

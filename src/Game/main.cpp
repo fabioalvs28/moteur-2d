@@ -5,8 +5,8 @@
 #include "Resources.h"
 #include "Managers/GameManager.h"
 
-#include "scenes/GameScene.h"
 #include "scenes/TestScene.h"
+#include "scenes/MainMenu.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 
     Resources::instance().Initialize();
 
-    Engine::GetGameManager()->LaunchScene<TestScene>();
+    Engine::GetGameManager()->LaunchScene<MainScene>();
     
     return 0;
 }

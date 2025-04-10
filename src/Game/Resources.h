@@ -44,6 +44,7 @@ public:
     Texture* SLASH_VFX_TEXTURE;
     
     Texture* ALEX_TEXTURE;
+    Texture* UI_SHEET_TEXTURE;
     ////////////////////////////////
     /////// SPRITES
 
@@ -66,4 +67,5 @@ public:
     ////////////////////////////////
     /////// SPRITESHEETS
     SpriteSheet* VFX_SLASH;
+    SpriteSheet* UI_SHEET;
 };
