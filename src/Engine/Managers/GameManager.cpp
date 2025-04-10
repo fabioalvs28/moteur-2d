@@ -7,6 +7,7 @@
 #include "Inputs/Inputs.h"
 #include "Inputs/Keyboard.h"
 #include "Render/RenderWindow.h"
+#include "Scripts/Script.h"
 #include "Utils/Debug.h"
 #include "Utils/Profiler.h"
 
@@ -31,8 +32,7 @@ void GameManager::Run()
  
     {
  
-
- 
+        
         globalProfiler.NewTask("Global Inputs");
  
         HandleInput();
@@ -90,6 +90,7 @@ void GameManager::Run()
             Engine::GetScriptManager()->mEntityToRemoveCount = 0;
             Engine::GetECS()->mEntityCount = 0;
             Engine::GetECS()->mEntitiesByLayer.clear();
+            Engine::GetECS()->mEntitiesRegistry.clear();
             Engine::GetRenderWindow()->clear();
 
             mpActiveScene->OnEnter();
@@ -106,22 +107,23 @@ void GameManager::Run()
 
 void GameManager::HandleInput()
 {
-    if (Engine::GetRenderWindow()->hasFocus()) {
-        while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                IsStopped = true;
-                Engine::GetRenderWindow()->close();
-            }
-        }
-
-        if (Keyboard::GetKeyDown(Keyboard::Key::Escape))
+    
+    while (const std::optional<sf::Event> event = Engine::GetRenderWindow()->pollEvent())
+    {
+        if (event->is<sf::Event::Closed>())
         {
             IsStopped = true;
             Engine::GetRenderWindow()->close();
         }
+    }
 
+    if (Keyboard::GetKeyDown(Keyboard::Key::Escape))
+    {
+        IsStopped = true;
+        Engine::GetRenderWindow()->close();
+    }
+    
+    if (Engine::GetRenderWindow()->hasFocus()) {
         Inputs::UpdateKeyboard();
         Inputs::UpdateMouse();
     }

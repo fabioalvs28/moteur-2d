@@ -19,9 +19,10 @@ public:
 
     GameTimer* GetTime();
 
+    void Run();
+
 private:
     Scene* mpNextActiveScene;
-    void Run();
 
     void HandleInput();
     void FixedUpdate();
@@ -60,6 +61,4 @@ void GameManager::LaunchScene()
     mpActiveScene->OnEnter();
     Engine::GetECS()->Update();
     mpActiveScene->OnLoad();
-
-    Run();
 }

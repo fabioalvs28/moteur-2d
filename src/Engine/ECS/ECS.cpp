@@ -164,9 +164,9 @@ void ECS::Update()
         mEntityCount--;
         
     }
-    
-    Engine::GetAnimatorSystem()->Update(this);
+
     Engine::GetScriptManager()->OnUpdate();
+    Engine::GetAnimatorSystem()->Update(this);
     Engine::GetCameraSystem()->Update(this);
     
 }
@@ -187,7 +187,7 @@ bool ECS::IsEnable(int index)
 Entity* ECS::GetEntityByName(std::string name)
 {
     if (mEntitiesRegistry[name])
-        return GetEntity(mEntitiesRegistry[name]);
+        return GetEntity(*mEntitiesRegistry[name]);
     else
         return nullptr;
 }
