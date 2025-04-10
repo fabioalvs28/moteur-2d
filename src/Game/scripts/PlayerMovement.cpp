@@ -10,6 +10,8 @@
 #include "ECS/Components/SpriteRenderer.h"
 #include "ECS/Components/ui/ProgressBar.h"
 #include "ECS/Components/Animator.h"
+#include "ECS/Components/ui/Button.h"
+#include "scenes/TestScene.h"
 #include "scripts/Weapons/Sword.h"
 
 void PlayerMovement::OnStart()
@@ -18,7 +20,7 @@ void PlayerMovement::OnStart()
     m_maxExp = 100;
     m_direction = sf::Vector2f(1.0, 0.0);
     m_speed = 200.0f;
-    m_hp = 100.0f;
+    m_hp = 1.0f;
     m_maxHp = 100.0f;
     m_rw = Engine::GetRenderWindow();
     m_pTransform = m_pOwner->GetTransform();
@@ -50,7 +52,7 @@ void PlayerMovement::OnFixedUpdate()
 {
     m_pTransform->SetPosition(m_pTransform->position.x + m_movement.x * m_speed, m_pTransform->position.y + m_movement.y * m_speed);
     m_movement = sf::Vector2f(0, 0);
-    m_pCamera->GetTransform()->position = m_pTransform->position - sf::Vector2f(m_rw->GetWindowWidth() / 2, m_rw->GetWindowHeight() / 2);
+    m_pCamera->GetTransform()->position = m_pTransform->position - sf::Vector2f(m_rw->GetWindowWidth() *0.5f, m_rw->GetWindowHeight() *0.5f);
 }
 
 void PlayerMovement::OnCollisionEnter(Entity* other)
@@ -99,7 +101,7 @@ void PlayerMovement::OnUpdate()
         m_direction = sf::Vector2f(0.0, -1.0);
     }
 
-    m_pCamera->GetTransform()->SetPosition(m_pOwner->GetTransform()->position.x - Engine::GetRenderWindow()->getSize().x * 0.5f, m_pOwner->GetTransform()->position.y - Engine::GetRenderWindow()->getSize().y * 0.5f);
+    //m_pCamera->GetTransform()->SetPosition(m_pOwner->GetTransform()->position.x - Engine::GetRenderWindow()->GetWindowWidth() * 0.5f, m_pOwner->GetTransform()->position.y - Engine::GetRenderWindow()->GetWindowHeight() * 0.5f);
 
 }
 
@@ -147,4 +149,14 @@ void PlayerMovement::TakeDamage(float damage)
 void PlayerMovement::Die()
 {
     m_hp = 0;
+    Engine::GetGameManager()->GetTime()->Pause();
+    Entity* text = ObjectFactory::CreateEntity<Entity>();
+    ObjectFactory::CreateComponent<Text>(text, Resources::instance().DEFAULT_FONT, 125, "Peter est MORT",sf::Vector2f(Engine::GetRenderWindow()->GetWindowWidth()* 0.5f - 350.0f, Engine::GetRenderWindow()->GetWindowHeight() * 0.5f - 150.0f));
+
+    ObjectFactory::CreateComponent<Button>(text, Resources::instance().KONG_BUTTON, sf::Vector2f(Engine::GetRenderWindow()->GetWindowWidth() * 0.5f - 150.0f, Engine::GetRenderWindow()->GetWindowHeight() * 0.5f + 150.0f), Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,
+        [this]()
+        {
+            Engine::GetGameManager()->GetTime()->Resume();
+            Engine::GetGameManager()->LaunchScene<TestScene>();
+        },[this](){});
 }

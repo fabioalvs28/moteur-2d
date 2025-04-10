@@ -5,12 +5,12 @@
 #include "SpriteSheet.h"
 
 RenderWindow::RenderWindow(const std::string title, const int width, const int height, uint32_t style)
-: sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), title, style)
+: sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), title, style, sf::State::Fullscreen)
 {}
 
 void RenderWindow::BeginFrame()
 {
-    clear(Colors::blue);
+    clear(Colors::green);
 }
 
 void RenderWindow::Draw(Sprite* sprite)

@@ -86,5 +86,6 @@ void Boomerang::OnAttack()
 
 void Boomerang::Upgrade()
 {
+    m_attackDelay *= 0.9f;
     
 }

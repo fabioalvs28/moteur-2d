@@ -7,7 +7,6 @@ class TestScene: public Scene
     Entity* player;
     Entity* camera;
     Entity* Bat;
-    Entity* LevelUpMenuContainer;
 
 private:
     void OnEnter() override;

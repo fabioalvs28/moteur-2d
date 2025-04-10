@@ -161,7 +161,7 @@ void LevelUpMenu::OnStart()
     m_button3 = ObjectFactory::CreateEntity<Entity>(2);
 
     
-    ObjectFactory::CreateComponent<Button>(m_button1,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->getSize().x * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 200 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button1,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 200 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
     {
         HandleChoice(0);
     }, [this](){});
@@ -170,9 +170,9 @@ void LevelUpMenu::OnStart()
        Resources::instance().DEFAULT_FONT,
        20,
        "",
-       sf::Vector2f(710.f, (225))
+       sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 75.0f, (225))
     );
-    ObjectFactory::CreateComponent<Button>(m_button2,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->getSize().x * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 400 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button2,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 400 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
     {
         HandleChoice(1);
     }, [this](){});
@@ -181,9 +181,9 @@ void LevelUpMenu::OnStart()
        Resources::instance().DEFAULT_FONT,
        20,
        "",
-       sf::Vector2f(710.f, (425))
+       sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 75.0f, (425))
     );
-    ObjectFactory::CreateComponent<Button>(m_button3,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->getSize().x * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 600 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
+    ObjectFactory::CreateComponent<Button>(m_button3,Resources::instance().KONG_BUTTON, sf::Vector2f{ (Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) , 600 }, Resources::instance().BUTTON_KONG_TEXTURE->getSize().x, Resources::instance().BUTTON_KONG_TEXTURE->getSize().y,[this]()
     {
         HandleChoice(2);
     }, [this](){});
@@ -192,11 +192,11 @@ void LevelUpMenu::OnStart()
        Resources::instance().DEFAULT_FONT,
        20,
        "",
-       sf::Vector2f(710.f, (625))
+       sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 75.0f, (625))
     );
-    ObjectFactory::CreateComponent<Image>(m_button1, nullptr, sf::Vector2f(880.0f, 260.0f));
-    ObjectFactory::CreateComponent<Image>(m_button2, nullptr, sf::Vector2f(880.0f, 460.0f));
-    ObjectFactory::CreateComponent<Image>(m_button3, nullptr, sf::Vector2f(880.0f, 660.0f));
+    ObjectFactory::CreateComponent<Image>(m_button1, nullptr, sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 240.0f, 260.0f));
+    ObjectFactory::CreateComponent<Image>(m_button2, nullptr, sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 240.0f, 460.0f));
+    ObjectFactory::CreateComponent<Image>(m_button3, nullptr, sf::Vector2f((Engine::GetRenderWindow()->GetWindowWidth() * 0.5f) - (Resources::instance().BUTTON_KONG_TEXTURE->getSize().x * 0.5f) + 240.0f, 660.0f));
     m_button1->SetEnabled(false);
     m_button2->SetEnabled(false);
     m_button3->SetEnabled(false);

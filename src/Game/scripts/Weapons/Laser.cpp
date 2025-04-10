@@ -13,6 +13,8 @@ void Laser::OnStart()
     m_attackDistance = 10.0f;
     m_attackDelay = 5.0f;
     m_time = 0.0f;
+    m_width = 1000.0f;
+    m_height = 100.0f;
     m_pGameManager = Engine::GetGameManager();
     m_velocity = 0.0f;
     m_lifeSpan = 1.0f;
@@ -35,8 +37,6 @@ void Laser::OnUpdate()
 
 void Laser::OnAttack()
 {
-    if(m_level == 1)
-    {
         Entity* attackRect = ObjectFactory::CreateEntity<Entity>();
         sf::Vector2f futurePos = m_pOwner->GetTransform()->position + m_direction * m_attackDistance;
         attackRect->GetTransform()->position = futurePos + sf::Vector2f(550.0f * m_direction.x,350.0f * m_direction.y);
@@ -44,21 +44,23 @@ void Laser::OnAttack()
 
         if(m_direction.x == -1 || m_direction.x  == 1)
         {
-            AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,1000,100);
+            AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,m_width,m_height);
             coll->SetTrigger(true);
         }
         else
         {
-            AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,100,1000);
+            AABBCollider* coll =  ObjectFactory::CreateComponent<AABBCollider>(attackRect,0,0,m_height,m_width);
             coll->SetTrigger(true);
         }
 
         ObjectFactory::AttachScript<WeaponAttack>(attackRect, m_damages, m_attackDistance, m_velocity, m_lifeSpan, m_direction);
-        
-        // sr->Image->setOrigin({ sr->Image->getTexture().getSize().x * 0.5f, sr->Image->getTexture().getSize().y * 0.5f });
-        // float rotation = atan2(m_direction.y, m_direction.x);
-        // attackRect->GetTransform()->rotation = sf::radians(rotation);
-    }
+    
+}
+
+void Laser::Upgrade()
+{
+    m_width *= 1.1f;
+    m_level++;
 }
 
 

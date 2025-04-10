@@ -33,7 +33,7 @@ void CameraSystem::Update(ECS* globalEC)
         
         if (camera->DisplayScreen != mCurrentDisplayedCamera) continue;
         TRANSFORM* transform = camera->GetEntity()->GetTransform();
-        sf::View view = sf::View(sf::FloatRect(transform->position, sf::Vector2f(1600, 900)));
+        sf::View view = sf::View(sf::FloatRect(transform->position, sf::Vector2f(Engine::GetRenderWindow()->GetWindowWidth(), Engine::GetRenderWindow()->GetWindowHeight())));
         view.zoom(camera->ZoomFactor);
         mWindow->setView(view);
         mCurrentCamera = camera;

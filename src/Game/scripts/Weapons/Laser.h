@@ -14,9 +14,12 @@ public:
     void OnUpdate() override;
     void OnDisable() override {}
     void OnAttack() override;
+    void Upgrade() override;
     
 private:
     PlayerMovement* mp_PlayerMovement;
+    float m_width;
+    float m_height;
 };
 
 REGISTER_SCRIPT(Laser)
